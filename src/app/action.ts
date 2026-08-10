@@ -5,7 +5,24 @@ import { fetchService } from "@/shared/fetch-api";
 import { updateTokensInAction } from "@/shared/helpers/updateCookieAction";
 import type { SearchModel } from "./catalog/action";
 import type { QuestionModel } from "./catalog/detail/[id]/action";
-import type { ProductSpecificationModel } from "./specifications/action";
+
+export type SpecificationModel = {
+  id: number;
+  name: string;
+  type: "text" | "color" | "number";
+  created_at: string;
+  updated_at: string | null;
+};
+
+export type ProductSpecificationModel = {
+  id: number;
+  product_id: number;
+  specification_id: number;
+  value: string;
+  created_at: Date;
+  updated_at: Date | null;
+  specification: SpecificationModel;
+};
 
 export type PhotoModel = {
   created_at: string;
