@@ -1,4 +1,4 @@
-import type { ProductModel } from "@/app/product/action";
+import type { ProductModel } from "@/app/action";
 import { EMPTY_IMG_SVG } from "@/shared/helpers/listenerImgError";
 import { Button } from "@/shared/ui/button-main/Button";
 import { BasketOpenQuickModalWrapper } from "../BasketOpenQuickModalWrapper/BasketOpenQuickModalWrapper";

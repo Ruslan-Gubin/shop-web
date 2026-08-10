@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import type { ProductModel } from "@/app/product/action";
+import type { ProductModel } from "@/app/action";
 import { useHorizontalScroll } from "@/shared/hooks/useHorizontalScroll";
 import { ArrowRightSvg } from "@/shared/svg/ArrowRightSvg";
 import { Button } from "@/shared/ui/button-main/Button";

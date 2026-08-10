@@ -4,8 +4,8 @@ import { ErrorAlert } from "@/shared/ui/error-alert/ErrorAlert";
 import { NotContent } from "@/shared/ui/not-content/NotContent";
 import { PageHeader } from "@/shared/ui/page-header/PageHeader";
 import { UpdateToken } from "@/views/UpdateToken/UpdateToken";
-import { ProductList } from "@/widgets/product/ProductList/ProductList";
 import { CarouselProducts } from "@/widgets/carousel-products/CarouselProducts";
+import { ProductList } from "@/widgets/product/ProductList/ProductList";
 import { fetchRecentData } from "./action";
 
 export default async function RecentPage() {

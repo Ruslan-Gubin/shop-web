@@ -1,6 +1,6 @@
+import type { ProductModel } from "@/app/action";
 import { fetchService } from "@/shared/fetch-api";
 import type { ReviewModel } from "../../catalog/detail/[id]/action";
-import type { ProductModel } from "../../product/action";
 
 export type CanReviewData = boolean;
 export type MyReviewData = ReviewModel | null;

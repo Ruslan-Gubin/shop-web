@@ -1,5 +1,5 @@
+import type { ProductModel } from "@/app/action";
 import type { CategoryModel } from "@/app/category/action";
-import type { ProductModel } from "@/app/product/action";
 import type { ProductSpecificationModel } from "@/app/specifications/action";
 import { getProductDimensions } from "@/shared/helpers/getProductDimensions";
 import { getSpecificationsProductInfo } from "@/shared/helpers/getSpecificationsProductInfo";

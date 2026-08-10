@@ -1,4 +1,4 @@
-import type { ProductModel } from "@/app/product/action";
+import type { ProductModel } from "@/app/action";
 import { fetchService } from "@/shared/fetch-api";
 
 export const fetchRecentData = async (
@@ -14,7 +14,12 @@ export const fetchRecentData = async (
     },
     {
       url: "product/recommended",
-      params: { favorite_ids: favoriteIds, cart_ids: basketIds, viewed_ids: recentIds, limit: "30" },
+      params: {
+        favorite_ids: favoriteIds,
+        cart_ids: basketIds,
+        viewed_ids: recentIds,
+        limit: "30",
+      },
       tags: [`RecentRecommended_${recentIds}`],
     },
   ]);

@@ -1,6 +1,6 @@
+import type { ProductModel } from "@/app/action";
 import { fetchService } from "@/shared/fetch-api";
 import type { QuestionModel } from "../../catalog/detail/[id]/action";
-import type { ProductModel } from "../../product/action";
 
 export const fetchQuestionsData = async (product_id: string, limit: number, page?: string) => {
   return await fetchService.fetchChain<

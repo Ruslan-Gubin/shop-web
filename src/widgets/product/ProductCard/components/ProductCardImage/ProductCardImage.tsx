@@ -1,6 +1,6 @@
 "use client";
 import type { CSSProperties } from "react";
-import type { PhotoModel } from "@/app/product/action";
+import type { PhotoModel } from "@/app/action";
 import { EMPTY_IMG_SVG, listenerImgError } from "@/shared/helpers/listenerImgError";
 import styles from "./ProductCardImage.module.css";
 

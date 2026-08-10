@@ -1,4 +1,4 @@
-import type { ProductModel } from "@/app/product/action";
+import type { ProductModel } from "@/app/action";
 import { fetchService } from "@/shared/fetch-api";
 import type { CartDiscountModel } from "../cart-discounts/action";
 import type { PromotionModel } from "../promotions/action";
@@ -43,7 +43,12 @@ export const fetchBasketData = async (
     },
     {
       url: "product/recommended",
-      params: { favorite_ids: favoriteIds, cart_ids: basketIds, viewed_ids: recentIds, limit: "30" },
+      params: {
+        favorite_ids: favoriteIds,
+        cart_ids: basketIds,
+        viewed_ids: recentIds,
+        limit: "30",
+      },
       tags: [`BasketRecommended_${basketIds}`],
     },
   ]);

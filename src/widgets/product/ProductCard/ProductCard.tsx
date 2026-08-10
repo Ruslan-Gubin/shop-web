@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { PhotoModel } from "@/app/product/action";
+import type { PhotoModel } from "@/app/action";
 import { Button } from "@/shared/ui/button-main/Button";
 import { RatingBadge } from "@/shared/ui/rating-badge/RatingBadge";
 import { ProductPrice } from "../product-price/ProductPrice";

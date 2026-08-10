@@ -1,4 +1,4 @@
-import type { ProductModel } from "@/app/product/action";
+import type { ProductModel } from "@/app/action";
 import { BasketDeleteModal } from "../BasketDeleteModal/BasketDeleteModal";
 import { BasketListCheckboxAll } from "../BasketListCheckboxAll/BasketListCheckboxAll";
 import { BasketListDelete } from "../BasketListDelete/BasketListDelete";

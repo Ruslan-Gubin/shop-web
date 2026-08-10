@@ -1,4 +1,4 @@
-import type { ProductModel } from "@/app/product/action";
+import type { ProductModel } from "@/app/action";
 
 export const getProductDimensions = (product: ProductModel | null) => {
   const result = [];

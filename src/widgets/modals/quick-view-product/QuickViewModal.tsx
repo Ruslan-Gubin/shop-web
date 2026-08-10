@@ -2,12 +2,13 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import {
+  fetchProduct,
   fetchProductPrices,
   fetchProductQuestions,
   fetchProductSpecifications,
   fetchProductStocks,
+  type ProductModel,
 } from "@/app/action";
-import { fetchProduct, type ProductModel } from "@/app/product/action";
 import { getProductDimensions } from "@/shared/helpers/getProductDimensions";
 import { getSpecificationsProductInfo } from "@/shared/helpers/getSpecificationsProductInfo";
 import { EMPTY_IMG_SVG, listenerImgError } from "@/shared/helpers/listenerImgError";

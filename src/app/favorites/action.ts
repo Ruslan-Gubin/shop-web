@@ -1,4 +1,4 @@
-import type { ProductModel } from "@/app/product/action";
+import type { ProductModel } from "@/app/action";
 import { fetchService } from "@/shared/fetch-api";
 
 export const fetchFavoritesData = async (
@@ -19,7 +19,12 @@ export const fetchFavoritesData = async (
     },
     {
       url: "product/recommended",
-      params: { favorite_ids: favoritesIds, viewed_ids: recentIds, cart_ids: basketIds, limit: "30" },
+      params: {
+        favorite_ids: favoritesIds,
+        viewed_ids: recentIds,
+        cart_ids: basketIds,
+        limit: "30",
+      },
       tags: [`FavoritesRecommended_${favoritesIds}`],
     },
   ]);

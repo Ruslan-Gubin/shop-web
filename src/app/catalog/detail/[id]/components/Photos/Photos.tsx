@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useEffectEvent, useRef, useState } from "react";
-import type { PhotoModel } from "@/app/product/action";
+import type { PhotoModel } from "@/app/action";
 import { debounce } from "@/shared/helpers/debounce";
 import { EMPTY_IMG_SVG, listenerImgError } from "@/shared/helpers/listenerImgError";
 import { ArrowRightSvg } from "@/shared/svg/ArrowRightSvg";

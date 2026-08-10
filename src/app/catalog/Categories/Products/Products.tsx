@@ -1,7 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useEffectEvent, useLayoutEffect, useState } from "react";
-import type { ProductModel } from "@/app/product/action";
+import type { ProductModel } from "@/app/action";
 import { getUpdateQueryPageString } from "@/shared/helpers/getUpdateQueryPageString";
 import { LoadMoreObserver } from "@/shared/ui/load-more-observer/LoadMoreObserver";
 import { filterStore } from "@/stores/filter/store";

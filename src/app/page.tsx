@@ -1,8 +1,8 @@
 import { getIsLoadMoreDisabled } from "@/shared/helpers/getIsLoadMoreDisabled";
 import { ErrorAlert } from "@/shared/ui/error-alert/ErrorAlert";
 import { UpdateToken } from "@/views/UpdateToken/UpdateToken";
+import { fetchProductsMainPage } from "./action";
 import { CatalogProducts } from "./catalog/Categories/Products/Products";
-import { fetchProductsMainPage } from "./product/action";
 
 export default async function HomePage(req: {
   searchParams: Promise<{ page: string; name?: string }>;

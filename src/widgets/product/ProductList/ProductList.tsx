@@ -1,4 +1,4 @@
-import type { ProductModel } from "@/app/product/action";
+import type { ProductModel } from "@/app/action";
 import { ProductCard } from "../ProductCard/ProductCard";
 import styles from "./ProductList.module.css";
 

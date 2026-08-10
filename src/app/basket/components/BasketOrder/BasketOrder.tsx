@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
+import type { ProductModel } from "@/app/action";
 import type { CartDiscountModel } from "@/app/cart-discounts/action";
 import type {
   CheckingBalancePayload,
@@ -9,7 +10,6 @@ import type {
   CreateOrderPayload,
   CreateOrderResponse,
 } from "@/app/checkout/action";
-import type { ProductModel } from "@/app/product/action";
 import type { PromotionModel } from "@/app/promotions/action";
 import { calcBasketInfo } from "@/shared/helpers/calcBasketInfo";
 import { declOfNum } from "@/shared/helpers/declOfNum";

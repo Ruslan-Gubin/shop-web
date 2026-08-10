@@ -1,8 +1,8 @@
 "use server";
 import { revalidatePath } from "next/cache";
 import { cookies, headers } from "next/headers";
+import type { ProductModel } from "@/app/action";
 import type { CategoryModel } from "@/app/category/action";
-import type { ProductModel } from "@/app/product/action";
 import type { ProductSpecificationModel } from "@/app/specifications/action";
 import { fetchService } from "@/shared/fetch-api";
 import { updateTokensInAction } from "@/shared/helpers/updateCookieAction";

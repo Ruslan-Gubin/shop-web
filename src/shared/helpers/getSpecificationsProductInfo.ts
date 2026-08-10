@@ -1,4 +1,4 @@
-import type { ProductModel } from "@/app/product/action";
+import type { ProductModel } from "@/app/action";
 import type { ProductSpecificationModel } from "@/app/specifications/action";
 
 export const getSpecificationsProductInfo = (

@@ -1,6 +1,6 @@
 import { fetchService } from "@/shared/fetch-api";
+import type { ProductModel } from "../action";
 import type { CategoryModel } from "../category/action";
-import type { ProductModel } from "../product/action";
 
 export type SearchModel = {
   id: number;
