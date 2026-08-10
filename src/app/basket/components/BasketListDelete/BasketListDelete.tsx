@@ -1,5 +1,5 @@
 "use client";
-import { DeleteBasketSvg } from "@/app/category/components/category-item/svg/DeleteBasketSvg";
+import { DeleteBasketSvg } from "@/shared/svg/DeleteBasketSvg";
 import { basketStore } from "@/stores/basket/store";
 import { modalsAdapter } from "@/stores/modals/adapter";
 import styles from "./BasketListDelete.module.css";

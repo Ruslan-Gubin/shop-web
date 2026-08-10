@@ -1,5 +1,9 @@
-import type { PhotoModel, ProductModel, ProductSpecificationModel } from "@/app/action";
-import type { CategoryModel } from "@/app/category/action";
+import type {
+  CategoryModel,
+  PhotoModel,
+  ProductModel,
+  ProductSpecificationModel,
+} from "@/app/action";
 import { ActionBasket } from "./ActionBasket/ActionBasket";
 import { AddRecent } from "./AddRecent/AddRecent";
 import { DetailHeader } from "./DetailHeader/DetailHeader";

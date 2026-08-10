@@ -1,4 +1,4 @@
-import { fetchCategories } from "@/app/category/action";
+import { fetchCategories } from "@/app/action";
 import { Menu } from "./Menu";
 
 export const MenuWrapper = async () => {

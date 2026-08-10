@@ -1,8 +1,8 @@
 "use client";
-import { DeleteSvg } from "@/app/category/components/category-item/svg/DeleteSvg";
-import { EditSvg } from "@/app/category/components/category-item/svg/EditSvg";
 import { Badge } from "@/shared/ui/badge/Badge";
 import styles from "./MainTable.module.css";
+import { DeleteSvg } from "@/shared/svg/DeleteSvg";
+import { EditSvg } from "@/shared/svg/EditSvg";
 
 type CellType = "date" | "shortDate" | "boolean" | "badge" | "avatar" | "translate";
 

@@ -1,5 +1,4 @@
-import type { ProductModel, PromotionModel } from "@/app/action";
-import type { CartDiscountModel } from "@/app/cart-discounts/action";
+import type { CartDiscountModel, ProductModel, PromotionModel } from "@/app/action";
 import { checkingBalanceAction } from "@/app/checkout/action";
 import { NotContent } from "@/shared/ui/not-content/NotContent";
 import { BasketList } from "./BasketList/BasketList";

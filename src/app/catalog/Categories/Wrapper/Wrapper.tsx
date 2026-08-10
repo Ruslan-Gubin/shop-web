@@ -1,6 +1,5 @@
 import Link from "next/link";
-import type { ProductModel } from "@/app/action";
-import type { CategoryModel } from "@/app/category/action";
+import type { CategoryModel, ProductModel } from "@/app/action";
 import { CatalogProducts } from "../Products/Products";
 import styles from "./Wrapper.module.css";
 

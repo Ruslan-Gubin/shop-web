@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { CategoryModel } from "@/app/category/action";
+import type { CategoryModel } from "@/app/action";
 import { SelectCategoryItem } from "./SelectCategoryItem/SelectCategoryItem";
 import styles from "./SelectCategoryList.module.css";
 

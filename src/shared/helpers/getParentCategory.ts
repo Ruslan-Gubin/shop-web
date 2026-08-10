@@ -1,4 +1,4 @@
-import type { CategoryModel } from "@/app/category/action";
+import type { CategoryModel } from "@/app/action";
 
 export const getParentCategory = (
   categories: CategoryModel[],

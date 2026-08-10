@@ -1,6 +1,6 @@
-import { DeleteSvg } from "@/app/category/components/category-item/svg/DeleteSvg";
-import { EditSvg } from "@/app/category/components/category-item/svg/EditSvg";
+import { DeleteSvg } from "@/shared/svg/DeleteSvg";
 import styles from "./EditableTable.module.css";
+import { EditSvg } from "@/shared/svg/EditSvg";
 
 export type EditableTableDataItem = {
   value: string;

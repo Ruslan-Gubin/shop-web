@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { DeleteSvg } from "@/app/category/components/category-item/svg/DeleteSvg";
 import { getFullAddressItem } from "@/shared/helpers/getFullAddressItem";
+import { DeleteSvg } from "@/shared/svg/DeleteSvg";
 import { Checkbox } from "@/shared/ui/checkbox/Checkbox";
 import { Modal } from "@/shared/ui/modal/Modal";
 import { ModalBody } from "@/shared/ui/modal/modal-body/ModalBody";

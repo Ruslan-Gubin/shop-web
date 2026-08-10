@@ -1,4 +1,4 @@
-import { AddSvg } from "@/app/category/components/category-item/svg/AddSvg";
+import { AddSvg } from "@/shared/svg/AddSvg";
 import { Button } from "../../button-main/Button";
 import styles from "./ModalFooter.module.css";
 

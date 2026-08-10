@@ -1,6 +1,6 @@
 "use client";
-import { AddSvg } from "@/app/category/components/category-item/svg/AddSvg";
-import { MinusSvg } from "@/app/category/components/category-item/svg/MinusSvg";
+import { AddSvg } from "@/shared/svg/AddSvg";
+import { MinusSvg } from "@/shared/svg/MinusSvg";
 import { Button } from "@/shared/ui/button-main/Button";
 import { basketAdapter } from "@/stores/basket/adapter";
 import { basketStore } from "@/stores/basket/store";

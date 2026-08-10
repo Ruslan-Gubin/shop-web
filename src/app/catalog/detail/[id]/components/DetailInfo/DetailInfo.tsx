@@ -1,5 +1,4 @@
-import type { ProductModel, ProductSpecificationModel } from "@/app/action";
-import type { CategoryModel } from "@/app/category/action";
+import type { CategoryModel, ProductModel, ProductSpecificationModel } from "@/app/action";
 import { getProductDimensions } from "@/shared/helpers/getProductDimensions";
 import { getSpecificationsProductInfo } from "@/shared/helpers/getSpecificationsProductInfo";
 import { ActivityBar } from "@/shared/ui/activity-bar/ActivityBar";

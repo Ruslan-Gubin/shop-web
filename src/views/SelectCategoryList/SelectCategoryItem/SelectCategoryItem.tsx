@@ -1,5 +1,5 @@
 import { Activity } from "react";
-import type { CategoryModel } from "@/app/category/action";
+import type { CategoryModel } from "@/app/action";
 import { BirdSelectIcon } from "@/views/LayoutLeftSide/NavigateMenu/svg/BirdSelectIcon";
 import styles from "./SelectCategoryItem.module.css";
 

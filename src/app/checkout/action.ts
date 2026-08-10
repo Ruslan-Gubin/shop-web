@@ -1,6 +1,6 @@
 "use server";
 import { cookies } from "next/headers";
-import type { ProductModel, PromotionModel } from "@/app/action";
+import type { CartDiscountModel, ProductModel, PromotionModel } from "@/app/action";
 import { CONFIG_APP } from "@/shared/config/config";
 import { fetchService } from "@/shared/fetch-api";
 import { updateTokensInAction } from "@/shared/helpers/updateCookieAction";
@@ -8,7 +8,6 @@ import { getValidatePayload } from "@/shared/services/get-form-action-state";
 import { setErrorFromServer } from "@/shared/services/set-new-store-error-from-server";
 import type { MapBoxGetSearchGeocodeResponse } from "@/shared/ui/mapbox/MapBox";
 import type { AddressItem } from "@/stores/checkout/types";
-import type { CartDiscountModel } from "../cart-discounts/action";
 import { createOrderSchema } from "./schema";
 
 export type WarehouseModel = {

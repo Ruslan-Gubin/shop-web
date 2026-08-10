@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import type { CategoryModel } from "@/app/category/action";
+import type { CategoryModel } from "@/app/action";
 import { useMultiValueQueryString } from "@/shared/hooks/useMultiValueQueryString";
 import { useUpdateQueryString } from "@/shared/hooks/useUpdateQueryString";
 import { DropdownFilterCategory } from "@/shared/ui/dropdown/filter/category/DropdownFilterCategory";

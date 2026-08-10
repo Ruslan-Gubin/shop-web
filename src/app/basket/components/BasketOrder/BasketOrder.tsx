@@ -2,8 +2,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
-import type { ProductModel, PromotionModel } from "@/app/action";
-import type { CartDiscountModel } from "@/app/cart-discounts/action";
+import type { CartDiscountModel, ProductModel, PromotionModel } from "@/app/action";
 import type {
   CheckingBalancePayload,
   CheckingBalanceResponse,

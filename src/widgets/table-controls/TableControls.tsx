@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { AddSvg } from "@/app/category/components/category-item/svg/AddSvg";
+import { AddSvg } from "@/shared/svg/AddSvg";
 import { Button } from "@/shared/ui/button-main/Button";
 import { SearchInputQuery } from "@/shared/ui/search-input-query/SearchInputQuery";
 import styles from "./TableControls.module.css";

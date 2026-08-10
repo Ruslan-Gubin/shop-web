@@ -1,13 +1,13 @@
 import { useRouter } from "next/navigation";
 import { useEffectEvent, useLayoutEffect, useState } from "react";
-import { DeleteSvg } from "@/app/category/components/category-item/svg/DeleteSvg";
-import { EditSvg } from "@/app/category/components/category-item/svg/EditSvg";
 import { getIsValidCurrentPage } from "@/shared/helpers/getIsValidCurrentPage";
 import { getUpdateQueryPageString } from "@/shared/helpers/getUpdateQueryPageString";
 import type { ResponseData } from "@/shared/types/response";
 import { Details } from "@/shared/ui/details/Details";
 import type { RenderTableOptions } from "@/widgets/main-table/MainTable";
 import styles from "./MainMobileTable.module.css";
+import { DeleteSvg } from "@/shared/svg/DeleteSvg";
+import { EditSvg } from "@/shared/svg/EditSvg";
 
 interface Props<T> {
   data: T[];

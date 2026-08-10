@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
-import { AddSvg } from "@/app/category/components/category-item/svg/AddSvg";
-import { MinusSvg } from "@/app/category/components/category-item/svg/MinusSvg";
+import { AddSvg } from "@/shared/svg/AddSvg";
+import { MinusSvg } from "@/shared/svg/MinusSvg";
 import { basketAdapter } from "@/stores/basket/adapter";
 import { basketStore } from "@/stores/basket/store";
 import styles from "./BasketProductCount.module.css";

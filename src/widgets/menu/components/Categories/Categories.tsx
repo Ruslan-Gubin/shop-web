@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useState } from "react";
-import type { CategoryModel } from "@/app/category/action";
+import type { CategoryModel } from "@/app/action";
 import { getParentCategory } from "@/shared/helpers/getParentCategory";
 import { menuAdapter } from "@/stores/menu/adapter";
 import { BirdSelectIcon } from "@/views/LayoutLeftSide/NavigateMenu/svg/BirdSelectIcon";

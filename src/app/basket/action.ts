@@ -1,6 +1,5 @@
-import type { ProductModel, PromotionModel } from "@/app/action";
+import type { CartDiscountModel, ProductModel, PromotionModel } from "@/app/action";
 import { fetchService } from "@/shared/fetch-api";
-import type { CartDiscountModel } from "../cart-discounts/action";
 
 export const fetchBasketData = async (
   basketIds: string,

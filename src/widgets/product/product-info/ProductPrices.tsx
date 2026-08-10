@@ -1,8 +1,8 @@
 "use client";
 import { useMemo } from "react";
-import { CartSvg } from "@/app/category/components/category-item/svg/CartSvg";
 import { formatterRub } from "@/shared/helpers/formatters";
 import { getCurrentPrice } from "@/shared/helpers/getCurrentPrice";
+import { CartSvg } from "@/shared/svg/CartSvg";
 import { basketStore } from "@/stores/basket/store";
 import styles from "./ProductPrices.module.css";
 

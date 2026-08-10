@@ -1,7 +1,6 @@
 "use client";
-import type { ProductModel, PromotionModel } from "@/app/action";
+import type { CartDiscountModel, ProductModel, PromotionModel } from "@/app/action";
 import { BasketOrder } from "@/app/basket/components/BasketOrder/BasketOrder";
-import type { CartDiscountModel } from "@/app/cart-discounts/action";
 import type { AddressItem } from "@/stores/checkout/types";
 import type {
   CheckingBalancePayload,

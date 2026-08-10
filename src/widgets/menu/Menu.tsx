@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useEffectEvent, useRef } from "react";
-import type { CategoryModel } from "@/app/category/action";
+import type { CategoryModel } from "@/app/action";
 import { debounce } from "@/shared/helpers/debounce";
 import { menuAdapter } from "@/stores/menu/adapter";
 import { menuStore } from "@/stores/menu/store";

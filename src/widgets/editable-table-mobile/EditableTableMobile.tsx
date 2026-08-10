@@ -1,5 +1,5 @@
-import { DeleteSvg } from "@/app/category/components/category-item/svg/DeleteSvg";
-import { EditSvg } from "@/app/category/components/category-item/svg/EditSvg";
+import { DeleteSvg } from "@/shared/svg/DeleteSvg";
+import { EditSvg } from "@/shared/svg/EditSvg";
 import { Details } from "@/shared/ui/details/Details";
 import type { EditableTableDataItem } from "../editable-table/EditableTable";
 import styles from "./EditableTableMobile.module.css";

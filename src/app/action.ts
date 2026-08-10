@@ -6,6 +6,40 @@ import { updateTokensInAction } from "@/shared/helpers/updateCookieAction";
 import type { SearchModel } from "./catalog/action";
 import type { QuestionModel } from "./catalog/detail/[id]/action";
 
+export interface CategoryModel {
+  id: number;
+  children: CategoryModel[];
+  parent_id: number | null;
+  position: number;
+  moderated: boolean;
+  is_active: boolean;
+  created_user_id: number | null;
+  name: string;
+  description: string;
+  product_count: number;
+  image: string;
+  created_at: string;
+  updated_at: string | null;
+}
+//TODO check and change path
+export const fetchCategories = async () => {
+  return await fetchService.get<CategoryModel[]>({
+    url: "category/categories",
+  });
+};
+
+export type CartDiscountModel = {
+  id: number;
+  name: string;
+  min_sum: number;
+  percent: number;
+  apply_to: string;
+  is_active: boolean;
+  created_user_id: number;
+  created_at: string;
+  updated_at: string | null;
+};
+
 export interface PriceTypeModel {
   id: number;
   name: string;
