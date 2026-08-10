@@ -1,0 +1,30 @@
+.footer {
+  padding-inline: var(--padding-content-block);
+  padding-block: 16px;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  column-gap: var(--padding-content-block);
+  max-height: 72px;
+  flex: 1;
+
+  @media (max-width: 880px) {
+    max-width: calc(100dvw - 40px);
+  }
+
+  @media (max-width: 500px) {
+    max-width: calc(100dvw - 32px);
+  }
+
+  @media (max-width: 350px) {
+    flex-direction: column;
+    flex-wrap: wrap;
+    row-gap: 8px;
+    max-height: min-content;
+
+    & button {
+      width: 100%;
+    }
+  }
+}

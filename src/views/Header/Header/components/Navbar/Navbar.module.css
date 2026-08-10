@@ -1,0 +1,12 @@
+.root {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  column-gap: var(--padding-header-content);
+  width: 100%;
+
+  @media (max-width: 880px) {
+    width: 100%;
+    justify-content: space-around;
+  }
+}

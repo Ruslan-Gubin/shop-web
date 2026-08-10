@@ -1,0 +1,68 @@
+.actions {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+  align-items: center;
+  width: 100%;
+}
+
+.actionButton {
+  width: calc(100% - var(--padding-content-block) - var(--padding-content-block));
+  font-size: 17px;
+  font-weight: 500;
+  padding-inline: var(--padding-content-block);
+  height: 50px;
+  border-radius: 20px;
+  background-color: var(--color-violet);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background-color: var(--color-violet-hover);
+  }
+
+  &:hover:disabled {
+    background-color: var(--color-violet);
+  }
+
+  @media (max-width: 880px) {
+    height: 46px;
+  }
+
+  @media (max-width: 500px) {
+    height: 42px;
+    font-size: 15px;
+    text-wrap: nowrap;
+  }
+
+  @media (max-width: 300px) {
+    font-size: 14px;
+  }
+}
+
+.actionButtonLight {
+  background-color: #f8e7ff;
+  color: var(--color-violet);
+
+  &:hover {
+    background-color: #e5c9ff;
+  }
+}
+
+.addButtonTextLg {
+  display: inline;
+
+  @media (max-width: 500px) {
+    display: none;
+  }
+}
+
+.addButtonTextSm {
+  display: none;
+
+  @media (max-width: 500px) {
+    display: inline;
+  }
+}

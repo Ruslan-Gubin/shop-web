@@ -1,0 +1,160 @@
+.page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding-block: 24px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.headerInfo {
+  display: flex;
+  flex-direction: column;
+  row-gap: 4px;
+}
+
+.orderNumber {
+  font-size: 22px;
+  font-weight: 600;
+  color: #242424;
+  margin: 0;
+}
+
+.orderDate {
+  font-size: 13px;
+  color: #868695;
+  margin: 0;
+}
+
+.statusBadge {
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.card {
+  background: white;
+  border-radius: 16px;
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+}
+
+.cardTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: #242424;
+  margin: 0;
+}
+
+.cardRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+}
+
+.cardLabel {
+  color: #868695;
+}
+
+.cardValue {
+  color: #242424;
+  text-align: right;
+  font-weight: 500;
+}
+
+.divider {
+  height: 1px;
+  background: #e8e8ee;
+  margin: 4px 0;
+}
+
+.productItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+}
+
+.productName {
+  font-size: 14px;
+  color: #242424;
+  flex: 1;
+}
+
+.productCount {
+  font-size: 14px;
+  color: #868695;
+  white-space: nowrap;
+}
+
+.productPrice {
+  font-size: 14px;
+  color: #242424;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.totalSection {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+}
+
+.totalRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+.totalLabel {
+  color: #868695;
+}
+
+.totalValue {
+  color: #242424;
+  font-weight: 500;
+}
+
+.grandTotal {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-violet);
+  text-align: right;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--color-violet);
+  text-decoration: none;
+  width: fit-content;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.error {
+  text-align: center;
+  padding: 48px 24px;
+  color: #868695;
+  font-size: 16px;
+}

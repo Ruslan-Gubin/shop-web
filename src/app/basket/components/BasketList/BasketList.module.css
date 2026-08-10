@@ -1,0 +1,39 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: var(--border-radius-block);
+  row-gap: var(--padding-content-block);
+  padding: var(--padding-content-block);
+}
+
+.header {
+  display: flex;
+  column-gap: 8px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  row-gap: 8px;
+  overflow: hidden;
+}
+
+.headerTitle {
+  line-height: 24px;
+}
+
+.headerActionContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.headerActionButtons {
+  display: flex;
+  column-gap: 8px;
+}
+
+.basketList {
+  border-top: 1px solid #f1f1f5;
+}

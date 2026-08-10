@@ -1,0 +1,59 @@
+.methodList {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--padding-content-block);
+
+  @media (max-width: 1200px) {
+    grid-template-columns: 1fr;
+  }
+
+  @media (max-width: 500px) {
+    grid-template-columns: 1fr;
+    row-gap: var(--padding-content-block);
+  }
+}
+
+.leftSide {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  row-gap: var(--padding-content-block);
+}
+
+.activeMarker {
+  display: flex;
+  column-gap: 4px;
+}
+
+.activeMarkerPinSvg {
+  width: 32px;
+  height: 32px;
+}
+
+.leftSideTitle {
+  font-weight: 500;
+  color: #242424;
+  font-size: 16px;
+}
+
+.activeMarkerInfo {
+  display: flex;
+  flex-direction: column;
+  row-gap: 4px;
+}
+
+.activeMarkerAddressText {
+  font-size: 14px;
+  text-wrap: balance;
+}
+
+.mapSide {
+  height: 180px;
+  border-radius: 16px;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.leftSideFooter {
+  display: flex;
+}

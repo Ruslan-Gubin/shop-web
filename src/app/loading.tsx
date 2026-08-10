@@ -1,0 +1,14 @@
+import { LoadingSvg } from "@/shared/svg/LoadingSvg";
+import styles from "./styles/Loading.module.css";
+
+export default async function Loading() {
+  return (
+    <div className={styles.loadingWrapper}>
+      <div className={styles.centerContent}>
+        <div className={styles.loadingSvgContainer}>
+          <LoadingSvg />
+        </div>
+      </div>
+    </div>
+  );
+}

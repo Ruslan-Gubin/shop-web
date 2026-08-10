@@ -1,0 +1,36 @@
+.productActions {
+  display: flex;
+}
+
+.productActionButton {
+  height: 32px;
+  width: 32px;
+  background-color: #f1f1f5;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s linear;
+
+  path {
+    color: #242424;
+  }
+
+  &:hover {
+    background-color: #e8e8f0;
+  }
+
+  &:disabled {
+    path {
+      color: #bfbfc9;
+    }
+  }
+}
+
+.productActionInput {
+  width: 50px;
+  height: 32px;
+  line-height: 22px;
+  color: #242424;
+  text-align: center;
+}

@@ -1,0 +1,34 @@
+.breadCrumbs {
+  display: flex;
+  column-gap: 16px;
+  align-items: center;
+  font-size: 13px;
+  min-width: 0;
+}
+
+.breadCrumbsList {
+  display: flex;
+  column-gap: 8px;
+
+  @media (max-width: 500px) {
+    overflow-x: scroll;
+    flex-wrap: nowrap;
+    max-width: calc(100%);
+    scrollbar-width: none;
+  }
+}
+
+.breadCrumbsItem {
+  color: var(--text-color-placeholder);
+  display: flex;
+  column-gap: 8px;
+  text-wrap: nowrap;
+}
+
+.linkItem {
+  &:hover {
+    color: var(--text-color-main);
+    text-decoration: underline;
+    text-underline-position: under;
+  }
+}

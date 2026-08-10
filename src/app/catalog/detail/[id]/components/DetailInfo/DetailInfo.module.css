@@ -1,0 +1,52 @@
+.infoContainer {
+  height: max-content;
+  position: sticky;
+  top: calc(var(--header-size-height) + 8px);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--padding-content-block);
+
+  @media (max-width: 880px) {
+    position: static;
+  }
+}
+
+.infoContainerHeader {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+}
+
+.title {
+  font-size: 19px;
+}
+
+.basketPrice {
+  display: none;
+
+  @media (max-width: 1020px) {
+    display: block;
+  }
+
+  @media (max-width: 880px) {
+    display: none;
+  }
+}
+
+.basketActionContainer {
+  display: none;
+
+  @media (max-width: 1020px) {
+    display: block;
+    & footer > div > div {
+      border: 1px solid #d3d4dd;
+    }
+  }
+
+  @media (max-width: 880px) {
+    display: none;
+  }
+}
+
+

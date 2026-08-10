@@ -1,0 +1,16 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--padding-content-block);
+}
+
+.inputLine {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: var(--padding-content-block);
+
+  @media (max-width: 500px) {
+    grid-template-columns: 1fr;
+    row-gap: var(--padding-content-block);
+  }
+}

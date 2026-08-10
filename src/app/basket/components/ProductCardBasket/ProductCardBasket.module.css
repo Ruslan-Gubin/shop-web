@@ -1,0 +1,120 @@
+.root {
+  padding-block: var(--padding-content-block);
+  border-bottom: 1px solid #f1f1f5;
+  display: grid;
+  grid-template-columns: 1fr 120px 210px;
+  column-gap: 16px;
+  align-items: flex-start;
+  overflow: hidden;
+
+  &:nth-last-child(1) {
+    border-bottom: none;
+  }
+
+  @media (max-width: 1200px) {
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--padding-content-block);
+  }
+}
+
+.productInfoContainer {
+  margin: 0;
+  display: flex;
+  column-gap: 20px;
+  position: relative;
+}
+
+.checkBoxContainer {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+}
+
+.productPicture {
+  display: flex;
+  justify-content: center;
+  width: 96px;
+  min-width: 96px;
+  max-width: 96px;
+  height: 128px;
+  max-height: 128px;
+  border-radius: 8px;
+  overflow: hidden;
+
+  @media (max-width: 1200px) {
+    width: 106px;
+    height: 132px;
+    max-width: 106px;
+    max-height: 132px;
+  }
+}
+
+.productInfoImg {
+  min-height: 100%;
+  object-fit: cover;
+}
+
+.productDescriptionContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+
+  @media (max-width: 400px) {
+    width: 100%;
+  }
+}
+
+.productName {
+  color: #242424;
+  line-height: 22px;
+  text-align: start;
+
+  @media (max-width: 1200px) {
+    font-size: 14px;
+    line-height: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+}
+
+.productDetails {
+  font-size: 14px;
+  color: #868695;
+
+  @media (max-width: 1200px) {
+    font-size: 12px;
+  }
+}
+
+.productActionButtons {
+  display: flex;
+  column-gap: 8px;
+
+  @media (max-width: 1200px) {
+    display: none;
+  }
+}
+
+.productActionButtonsMobile {
+  display: none;
+
+  @media (max-width: 1200px) {
+    display: flex;
+  }
+}
+
+.productActionCountContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @media (max-width: 1200px) {
+    width: 100%;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+}

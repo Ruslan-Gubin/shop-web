@@ -1,0 +1,39 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+}
+
+.label {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.descriptionContainer {
+  min-height: fit-content;
+  overflow-y: hidden;
+}
+
+.description {
+  font-size: 14px;
+  line-height: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+}
+
+.descriptionOpen {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.showMoreButton {
+  font-size: 13px;
+  color: var(--color-violet);
+
+  &:hover {
+    color: var(--color-violet-hover);
+  }
+}

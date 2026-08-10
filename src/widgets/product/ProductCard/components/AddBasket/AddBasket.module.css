@@ -1,0 +1,26 @@
+.changeCountBasket {
+  color: var(--color-violet);
+  background-color: #f4e7ff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 12px;
+  padding-inline: 12px;
+  height: 36px;
+}
+
+.count {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.changeCountButton {
+  color: inherit;
+  height: 100%;
+  display: flex;
+  align-items: center;
+
+  &:disabled {
+    opacity: 0.3;
+  }
+}

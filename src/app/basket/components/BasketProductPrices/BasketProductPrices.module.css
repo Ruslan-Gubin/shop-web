@@ -1,0 +1,46 @@
+.productPriceContainer {
+  display: flex;
+  flex-wrap: wrap;
+  color: var(--color-green-light);
+  align-items: center;
+  gap: 4px 8px;
+  justify-content: flex-end;
+
+  @media (max-width: 1200px) {
+    display: none;
+  }
+}
+
+.productPriceMobile {
+  display: none;
+
+  @media (max-width: 1200px) {
+    justify-content: flex-start;
+    display: flex;
+  }
+}
+
+.productPriceTotal {
+  color: var(--color-green-light);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 23px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
+
+  @media (max-width: 1200px) {
+    font-size: 18px;
+  }
+}
+
+.productPriceDiscount {
+  color: #868695;
+  font-size: 14px;
+  text-decoration: line-through;
+  position: relative;
+  top: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
+}

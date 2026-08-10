@@ -1,0 +1,13 @@
+.menu {
+  display: flex;
+  flex-direction: column;
+}
+
+.menuItem {
+  font-size: 16px;
+  display: flex;
+  column-gap: 8px;
+  min-height: 36px;
+  align-items: center;
+  cursor: pointer;
+}

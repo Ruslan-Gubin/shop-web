@@ -1,0 +1,40 @@
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding-inline: var(--padding-content-block);
+  padding-top: var(--padding-content-block);
+  column-gap: 8px;
+
+  @media (max-width: 880px) {
+    max-width: calc(100dvw - 40px);
+  }
+
+  @media (max-width: 500px) {
+    max-width: calc(100dvw - 32px);
+  }
+}
+
+.titleWrapper {
+  display: flex;
+  align-items: center;
+  column-gap: 12px;
+}
+
+.headerTitle {
+  font-weight: 500;
+  font-size: 22px;
+}
+
+.closeButton {
+  width: 20px;
+  min-width: 20px;
+  height: 20px;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0);
+}
+
+.svgContainer {
+  width: 24px;
+  height: 24px;
+}

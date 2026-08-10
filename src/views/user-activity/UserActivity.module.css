@@ -1,0 +1,27 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--padding-content-block);
+}
+
+.headerSelect {
+  display: flex;
+  gap: var(--padding-main-content);
+  flex-wrap: wrap;
+}
+
+.selectItem {
+  display: flex;
+  column-gap: 8px;
+  color: var(--text-color-placeholder);
+}
+
+.selectItemActive {
+  color: var(--text-color);
+}
+
+.selectCount {
+  vertical-align: top;
+  font-size: 14px;
+  display: inline-block;
+}

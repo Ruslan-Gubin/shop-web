@@ -1,0 +1,21 @@
+.heartIcon {
+  cursor: pointer;
+}
+
+.heart {
+  fill: rgba(255, 255, 255, 0.4);
+  stroke: #242424;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke 0.2s linear;
+}
+
+.heartIcon:hover .heart {
+  stroke: var(--color-violet-hover);
+}
+
+.heartIcon[data-active="true"] .heart {
+  fill: var(--color-red-light);
+  stroke: var(--color-red-light);
+}

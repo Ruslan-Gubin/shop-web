@@ -1,0 +1,37 @@
+.selectTypeContainer {
+  display: flex;
+  background-color: #f1f1f5;
+  column-gap: 2px;
+  height: 48px;
+  min-height: 48px;
+  border-radius: 12px;
+  padding: 2px;
+
+  @media (max-width: 916px) {
+    height: 40px;
+    min-height: 40px;
+  }
+}
+
+.selectTypeButton {
+  border-radius: 12px;
+  width: 50%;
+  font-weight: 500;
+  color: var(----text-color-main);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
+
+  &:hover {
+    background-color: #e8e8f0;
+  }
+}
+
+.selectTypeButtonActive {
+  background-color: white;
+  cursor: default;
+
+  &:hover {
+    background-color: white;
+  }
+}

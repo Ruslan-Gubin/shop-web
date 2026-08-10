@@ -1,0 +1,13 @@
+.modalContent {
+  width: 576px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--padding-content-block);
+  max-width: 95vw;
+  min-height: 145px;
+
+  @media (max-width: 530px) {
+    max-width: 95vw;
+  }
+}

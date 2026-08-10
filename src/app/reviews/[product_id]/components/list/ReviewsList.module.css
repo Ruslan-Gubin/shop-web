@@ -1,0 +1,86 @@
+.productsList {
+  width: 100%;
+}
+
+.reviewsList {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--padding-content-block);
+}
+
+.reviewItem {
+  position: relative;
+  padding: var(--padding-content-block);
+  border-radius: 20px;
+  background-color: white;
+  line-height: 22px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+  overflow: hidden;
+}
+
+.reviewHeader {
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.headerLeftSide {
+  display: flex;
+  column-gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.reviewDate {
+  font-size: 14px;
+  color: var(--text-color-placeholder);
+}
+
+.ratingList {
+  display: flex;
+  column-gap: 4px;
+  cursor: default;
+}
+
+.reviewStar {
+  list-style: none;
+  font-size: 16px;
+  line-height: 1;
+  padding: 2px;
+}
+
+.starActive {
+  color: #fca95d;
+}
+
+.reviewStarInactive {
+  color: #d1d5db;
+}
+
+.reviewText {
+  line-height: 20px;
+}
+
+.reviewLabel {
+  font-weight: 500;
+  padding-right: 4px;
+}
+
+.answerContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+  border-radius: 8px;
+  flex: 1;
+}
+
+.answerText {
+  line-height: 20px;
+  background-color: #f6f6f9;
+  padding: 16px;
+  border-radius: 8px;
+}

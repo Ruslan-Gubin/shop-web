@@ -1,0 +1,26 @@
+.root {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  column-gap: 16px;
+
+  @media (max-width: 880px) {
+    position: fixed;
+    top: 0;
+    padding-inline: var(--padding-main-content);
+    padding-block: 8px;
+    border-radius: 0 0 20px 20px;
+    left: 0px;
+    background-color: white;
+    z-index: 2;
+    align-items: flex-end;
+    height: calc(var(--header-size-height) + 44px);
+  }
+}
+
+.actions {
+  display: flex;
+  column-gap: 16px;
+  align-items: center;
+}

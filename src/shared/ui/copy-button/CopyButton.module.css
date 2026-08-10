@@ -1,0 +1,10 @@
+.copyButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+
+  &:hover {
+    color: var(--color-violet);
+  }
+}

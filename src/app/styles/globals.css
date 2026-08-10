@@ -1,0 +1,186 @@
+:root {
+  --background-body: #e5e5e5;
+  --background-content-color: #f5f7fa;
+  --background-side-navigate: #f8f8f8;
+  --text-color-main: #242424;
+  --text-color-placeholder: #8a8999;
+  --background-pre-block: #f2f2f2;
+  --color-text-code: #545454;
+  --border-radius-main: 8px;
+  --row-gap-content: 8px;
+  --gap-info-block: 20px;
+  --padding-main: 32px;
+  --header-size-height: 116px;
+  --content-size-width: 1504px;
+  --font-size-h1: 58px;
+  --font-size-h2: 24px;
+  --font-size-h3: 20px;
+  --spectrum-gray-100: #1d1d1d;
+  --media-screen-md: 880px;
+  --media-screen-sm: 500px;
+  --header-mobile-menu-transform: translateX(-100%);
+  --header-mobile-menu-transition: transform 0s linear;
+  --color-red: #f32d2d;
+  --color-red-light: #ff4b6e;
+  --color-red-dark: #cd5c5c;
+  --color-violet: #a73afd;
+  --color-violet-hover: #a73afde6;
+  --color-green-light: #10c44c;
+  --padding-main-content: 32px;
+  --padding-content-block: 24px;
+  --border-radius-block: 20px;
+  --navigate-bottom-height: 52px;
+  --menu-section-width: 312px;
+  --padding-header-content: 24px;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-side-navigate: #f8f8f8;
+    --background-content-color: #f5f7fa;
+    --text-color-main: #171717;
+    --background-pre-block: #f2f2f2;
+    --color-text-code: #545454;
+    scrollbar-width: thin;
+    scrollbar-gutter: stable;
+    scrollbar-color: #cbcbcb transparent;
+    color-scheme: dark;
+  }
+
+  input {
+    background-color: transparent;
+  }
+}
+
+@media (max-width: 1200px) {
+  :root {
+    --padding-main-content: 24px;
+    --padding-header-content: 20px;
+  }
+}
+
+@media (max-width: 880px) {
+  :root {
+    --border-radius-main: 6px;
+    --padding-content-block: 20px;
+    --padding-main: 20px;
+    --padding-main-content: 20px;
+    --border-radius-block: 16px;
+    --header-size-height: 96px;
+    --padding-header-content: 16px;
+  }
+}
+
+@media (max-width: 624px) {
+  :root {
+    --menu-section-width: 50dvw;
+  }
+}
+
+@media (max-width: 500px) {
+  :root {
+    --border-radius-main: 4px;
+    --padding-content-block: 16px;
+    --gap-info-block: 16px;
+    --row-gap-content: 6px;
+    --padding-main: 16px;
+    --font-size-h1: 36px;
+    --font-size-h2: 22px;
+    --font-size-h3: 16px;
+    --padding-main-content: 16px;
+    --menu-section-width: 100dvw;
+  }
+}
+
+.dark {
+  --background-side-navigate: grey;
+  --background-content-color: #0a0a0a;
+  --text-color-main: #f6f6f6;
+  --background-pre-block: #1a1b26;
+  --color-text-code: var(--text-color-main);
+  color-scheme: dark;
+}
+
+html,
+nav,
+aside {
+  scrollbar-width: thin;
+  scrollbar-gutter: stable;
+  scrollbar-color: #cbcbcb;
+}
+
+body {
+  background-color: var(--background-body);
+  font-weight: 400;
+  color: var(--text-color-main);
+  font-family: var(--Roboto), sans-serif;
+}
+
+h1 {
+  font-size: var(--font-size-h1);
+}
+
+h2 {
+  font-size: var(--font-size-h2);
+}
+
+h3 {
+  font-size: var(--font-size-h3);
+}
+
+button {
+  user-select: none;
+}
+
+.article__page {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--padding-content-block);
+}
+
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--padding-content-block);
+}
+
+.table-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--gap-info-block);
+}
+
+.form-modal-inputs {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--gap-info-block);
+  padding-top: 4px;
+}
+
+.instruction-link {
+  color: #0075f2;
+}
+
+.carousel-list {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--padding-main-content);
+  padding-top: 8px;
+
+  @media (max-width: 880px) {
+    padding-top: 0;
+  }
+}
+
+.additional-content {
+  display: flex;
+  flex-direction: column;
+  row-gap: calc(var(--padding-content-block) + var(--padding-content-block));
+  padding-top: var(--padding-content-block);
+}
+
+.example-response-calc {
+  /* экран от 880 до 500 размер будет 600 при сужении будет 465 */
+  width: calc(465px + (600 - 465) * ((100vw - 500px) / (880 - 500)));
+}

@@ -1,0 +1,19 @@
+.header {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.title {
+  &::first-letter {
+    text-transform: uppercase;
+  }
+}
+
+.subtitle {
+  color: #868695;
+  font-size: 14px;
+  position: relative;
+  top: -4px;
+}

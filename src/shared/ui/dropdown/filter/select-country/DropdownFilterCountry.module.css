@@ -1,0 +1,19 @@
+.menu {
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: 880px) {
+    max-height: 50dvh;
+    overflow-y: auto;
+  }
+}
+
+.menuItem {
+  font-size: 16px;
+  display: flex;
+  column-gap: 8px;
+  min-height: 36px;
+  align-items: center;
+  cursor: pointer;
+  color: var(--text-color-main);
+}

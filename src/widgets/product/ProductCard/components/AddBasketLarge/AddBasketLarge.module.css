@@ -1,0 +1,109 @@
+.productItemButton {
+  width: 100%;
+  font-size: 17px;
+  font-weight: 500;
+  padding-inline: var(--padding-content-block);
+  height: 50px;
+  border-radius: 20px;
+  background-color: var(--color-violet);
+  color: white;
+
+  &:hover {
+    background-color: var(--color-violet-hover);
+  }
+
+  &:hover:disabled {
+    background-color: var(--color-violet);
+  }
+
+  @media (max-width: 880px) {
+    height: 46px;
+  }
+
+  @media (max-width: 500px) {
+    height: 42px;
+    font-size: 15px;
+    text-wrap: nowrap;
+  }
+
+  @media (max-width: 300px) {
+    font-size: 14px;
+  }
+}
+
+.countLine {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  column-gap: 8px;
+
+  @media (max-width: 500px) {
+    grid-template-columns: 1fr;
+
+    & .productItemButton {
+      display: none;
+    }
+  }
+}
+
+.changeCountBasket {
+  background-color: #f6f6f9;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 20px;
+  padding-inline: 16px;
+  height: 50px;
+
+  & svg {
+    color: var(--color-violet);
+  }
+
+  @media (max-width: 880px) {
+    height: 46px;
+  }
+
+  @media (max-width: 500px) {
+    height: 42px;
+  }
+}
+
+.count {
+  font-size: 17px;
+
+  @media (max-width: 500px) {
+    font-size: 15px;
+  }
+
+  @media (max-width: 300px) {
+    font-size: 14px;
+  }
+}
+
+.changeCountButton {
+  color: inherit;
+  height: 100%;
+  display: flex;
+  align-items: center;
+
+  &:disabled {
+    opacity: 0.3;
+  }
+}
+
+.addButtonTextLg {
+  display: inline;
+
+  @media (max-width: 500px) {
+    display: none;
+  }
+}
+
+.addButtonTextSm {
+  display: none;
+
+  @media (max-width: 500px) {
+    display: inline;
+  }
+}

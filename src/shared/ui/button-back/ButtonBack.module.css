@@ -1,0 +1,29 @@
+.buttonBack {
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+  font-size: 14px;
+  color: var(--text-color-placeholder);
+
+  & svg {
+    color: var(--text-color-main);
+    transform: rotate(180deg);
+  }
+
+  &:hover {
+    color: var(--color-violet);
+
+    & svg {
+      color: var(--color-violet);
+    }
+  }
+}
+
+.svgBack {
+  height: 20px;
+  width: 20px;
+  min-width: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,0 +1,48 @@
+.modalBody {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--padding-content-block);
+  max-height: 430px;
+  height: 430px;
+}
+
+.selectTypeRoot {
+  background-color: white;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
+
+.addressList {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--gap-info-block);
+}
+
+.deleteButton {
+  width: 24px;
+  height: 22px;
+  color: #a9a8b0;
+  opacity: 0;
+  transition: opacity 0.2s linear;
+
+  &:hover {
+    color: #242424;
+  }
+
+  &:disabled {
+    display: none;
+  }
+}
+
+.addressItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 8px;
+
+  &:hover .deleteButton {
+    opacity: 1;
+  }
+}

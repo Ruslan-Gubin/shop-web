@@ -1,0 +1,21 @@
+.root {
+  flex: 1 1 auto;
+  padding-inline: var(--padding-content-block);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-gutter: stable;
+  scrollbar-color: #f6f6f9 transparent;
+  transition: scrollbar-color 0.2s ease;
+
+  &:hover {
+    scrollbar-color: #cbcbcb transparent;
+  }
+
+  @media (max-width: 880px) {
+    max-width: calc(100dvw - 40px);
+  }
+
+  @media (max-width: 500px) {
+    max-width: calc(100dvw - 32px);
+  }
+}

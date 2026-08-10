@@ -1,0 +1,33 @@
+.actionButtonSvg {
+  height: 32px;
+  width: 32px;
+  min-width: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  & path {
+    stroke: #a9a8b0;
+    transition: stroke 0.2s linear;
+  }
+
+  &:hover {
+    & path {
+      stroke: black;
+    }
+  }
+}
+
+.actionButtonSvgFavorites {
+  & path {
+    stroke: var(--color-red-light);
+    transition: stroke 0.2s linear;
+    fill: var(--color-red-light);
+  }
+
+  &:hover {
+    & path {
+      stroke: var(--color-red-light);
+    }
+  }
+}

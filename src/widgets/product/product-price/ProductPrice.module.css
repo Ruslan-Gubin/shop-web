@@ -1,0 +1,49 @@
+.priceLine {
+  display: flex;
+  align-items: center;
+  column-gap: 4px;
+}
+
+.priceLineStickyAction {
+  @media (max-width: 880px) {
+    padding-left: 8px;
+
+    & .svgContainer {
+      width: 16px;
+      min-width: 16px;
+    }
+
+    & h2 {
+      font-size: 14px;
+    }
+  }
+}
+
+.price {
+  color: var(--color-green-light);
+}
+
+.priceSm {
+  color: var(--color-green-light);
+  font-size: 18px;
+  line-height: 22px;
+
+  @media (max-width: 500px) {
+    font-size: 16px;
+    line-height: 20px;
+  }
+}
+
+.svgContainer {
+  width: 24px;
+  min-width: 24px;
+  color: var(--color-green-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.svgContainerSm {
+  width: 16px;
+  min-width: 16px;
+}

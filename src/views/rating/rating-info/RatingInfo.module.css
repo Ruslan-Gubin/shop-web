@@ -1,0 +1,46 @@
+.ratingInfo {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.totalRatingStars {
+  position: relative;
+  display: flex;
+  height: 20px;
+}
+
+.starsGray {
+  display: flex;
+  column-gap: 4px;
+  align-items: center;
+  color: #d1d5db;
+}
+
+.starsGold {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  column-gap: 4px;
+  align-items: center;
+  color: #fca95d;
+  white-space: nowrap;
+}
+
+.totalRatingItem {
+  font-size: 16px;
+  padding: 2px;
+  list-style: none;
+}
+
+.ratingInfoTotalCount {
+  color: var(--text-color-placeholder);
+
+  &:hover {
+    color: var(--color-violet);
+  }
+}

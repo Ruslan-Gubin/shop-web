@@ -1,0 +1,15 @@
+.contentText {
+  color: #0b0c0c;
+  padding-bottom: 8px;
+  font-size: 14px;
+  font-weight: 500;
+}
+.contentTextRed {
+  width: 380px;
+  color: var(--color-red);
+  line-height: 20px;
+  text-wrap: balance;
+  font-size: 14px;
+  font-weight: 500;
+  max-width: 90%;
+}

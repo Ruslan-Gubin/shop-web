@@ -1,0 +1,16 @@
+.root {
+  padding: var(--gap-info-block);
+  border: 1px solid lightgray;
+  border-radius: 4px;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-info-block);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+
+  & h3 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
+  }
+}

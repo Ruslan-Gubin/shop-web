@@ -1,0 +1,158 @@
+.root {
+  display: flex;
+  row-gap: var(--padding-content-block);
+  flex-direction: column;
+}
+
+.starActive {
+  color: #fca95d;
+}
+
+.modalSubtitle {
+  color: var(--text-color-placeholder);
+}
+
+.carouselWrapper {
+  position: relative;
+}
+
+.buttonNavigate {
+  position: absolute;
+  height: 48px;
+  width: 48px;
+  top: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  background-color: white;
+  border-radius: 50%;
+  box-shadow: 0 2px 16px #00000014;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+
+  & svg {
+    transform: rotate(180deg);
+  }
+
+  &:disabled {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  @media (max-width: 880px) {
+    display: none;
+  }
+}
+
+.buttonNavigateNext {
+  right: 0;
+
+  transform: translateY(-50%) translateX(+50%);
+
+  & svg {
+    transform: rotate(0deg);
+  }
+}
+
+.reviewsList {
+  position: relative;
+  display: flex;
+  column-gap: var(--padding-content-block);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.reviewItem {
+  position: relative;
+  padding: var(--padding-content-block);
+  border-radius: 16px;
+  max-height: 188px;
+  background-color: white;
+  scroll-snap-align: start;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+
+  min-width: calc((100% - 48px) / 3);
+  max-width: calc((100% - 48px) / 3);
+
+  @media (max-width: 880px) {
+    min-width: calc((100% - 20px) / 2);
+    max-width: calc((100% - 20px) / 2);
+  }
+
+  @media (max-width: 500px) {
+    min-width: 100%;
+    max-width: 100%;
+  }
+}
+
+.contentLink {
+  display: block;
+  max-height: 100%;
+  min-height: 0;
+}
+
+.content {
+  overflow-y: auto;
+  max-height: 100%;
+  scrollbar-width: none;
+  display: flex;
+  flex-direction: column;
+  row-gap: 4px;
+}
+
+.reviewHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.hearerLeftSide {
+  display: flex;
+  column-gap: 8px;
+  align-items: center;
+}
+
+.ratingList {
+  display: flex;
+  column-gap: 4px;
+}
+
+.reviewStar {
+  background: none;
+  border: none;
+  cursor: default;
+  font-size: 16px;
+  line-height: 1;
+  padding: 2px;
+  transition: color 0.15s ease;
+}
+
+.reviewStarInactive {
+  color: #d1d5db;
+
+  &:hover {
+    color: #d1d5db;
+  }
+}
+
+.reviewDate {
+  font-size: 14px;
+  color: var(--text-color-placeholder);
+}
+
+.reviewText {
+  line-height: 20px;
+  font-size: 14px;
+}
+
+.reviewLabel {
+  font-weight: 500;
+  padding-right: 4px;
+}

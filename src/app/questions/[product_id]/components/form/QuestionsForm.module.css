@@ -1,0 +1,44 @@
+.root {
+  padding: var(--padding-content-block);
+  border-radius: 20px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--padding-content-block);
+}
+
+.selectItem {
+  display: flex;
+  column-gap: 8px;
+  color: var(--text-color);
+}
+
+.selectCount {
+  vertical-align: top;
+  font-size: 14px;
+  display: inline-block;
+}
+
+.footerActions {
+  display: flex;
+  column-gap: var(--padding-content-block);
+
+  & button {
+    min-width: 145px;
+  }
+
+  @media (max-width: 500px) {
+    & button {
+      min-width: calc(50% - 8px);
+    }
+  }
+
+  @media (max-width: 320px) {
+    flex-direction: column;
+    row-gap: 8px;
+
+    & button {
+      min-width: 100%;
+    }
+  }
+}

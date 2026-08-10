@@ -1,0 +1,28 @@
+.productPriceContainer {
+  display: flex;
+  flex-wrap: wrap;
+  color: var(--color-green-light);
+  align-items: center;
+  gap: 4px 8px;
+}
+
+.productPriceTotal {
+  color: var(--color-green-light);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 23px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
+}
+
+.productPriceDiscount {
+  color: #868695;
+  font-size: 14px;
+  text-decoration: line-through;
+  position: relative;
+  top: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
+}

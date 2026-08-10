@@ -1,0 +1,5 @@
+.recommendedBlock {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--padding-content-block);
+}

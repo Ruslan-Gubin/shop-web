@@ -1,0 +1,26 @@
+.headerActionButton {
+  width: 38px;
+  aspect-ratio: 1/1;
+  background-color: #f6f6f9;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s linear;
+
+  path {
+    stroke: #242424;
+  }
+
+  &:hover {
+    background-color: #e8e8f0;
+  }
+
+  &:disabled {
+    background-color: #f1f1f5;
+    cursor: default;
+    path {
+      stroke: #c8c8d1;
+    }
+  }
+}

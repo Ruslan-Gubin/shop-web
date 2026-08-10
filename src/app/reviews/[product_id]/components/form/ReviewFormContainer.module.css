@@ -1,0 +1,20 @@
+.root {
+  padding: var(--padding-content-block);
+  border-radius: 20px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--padding-content-block);
+}
+
+.selectItem {
+  display: flex;
+  column-gap: 8px;
+  color: var(--text-color);
+}
+
+.selectCount {
+  vertical-align: top;
+  font-size: 14px;
+  display: inline-block;
+}

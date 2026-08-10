@@ -1,0 +1,64 @@
+.productsList {
+  width: 100%;
+}
+
+.questionsList {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--padding-content-block);
+
+  @media (max-width: 880px) {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.questionsItem {
+  position: relative;
+  padding: var(--padding-content-block);
+  border-radius: 20px;
+  background-color: white;
+  line-height: 22px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+}
+
+.questionsHeader {
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.questionDate {
+  font-size: 14px;
+  color: var(--text-color-placeholder);
+}
+
+.answerContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+  border-radius: 8px;
+  flex: 1;
+}
+
+.answerTitle {
+  color: #868695;
+}
+
+.answerTextContainer {
+  max-height: 100%;
+  overflow-y: auto;
+  scrollbar-width: none;
+  padding: 0;
+}
+
+.answerText {
+  line-height: 20px;
+  background-color: #f6f6f9;
+  padding: 16px;
+  border-radius: 8px;
+}

@@ -1,0 +1,15 @@
+.root {
+  display: flex;
+  column-gap: 4px;
+  align-items: center;
+  font-size: 14px;
+  text-decoration: none;
+  color: inherit;
+  flex-wrap: wrap;
+  min-height: 20px;
+  height: 20px;
+}
+
+.count {
+  color: var(--text-color-placeholder);
+}

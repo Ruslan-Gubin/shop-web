@@ -1,0 +1,31 @@
+.button {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  width: 21px;
+  height: 21px;
+  min-width: 21px;
+  gap: 1px;
+  color: #c2c2c2;
+  overflow: hidden;
+  transition: color 0.2s linear;
+
+  @media (max-width: 880px) {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    color: var(--text-color-main);
+  }
+}
+
+.buttonActive {
+  color: var(--text-color-main);
+
+  @media (max-width: 880px) {
+    display: none;
+  }
+}
+
+.buttonElement {
+  border-radius: 2px;
+  border: 2px solid currentColor;
+}

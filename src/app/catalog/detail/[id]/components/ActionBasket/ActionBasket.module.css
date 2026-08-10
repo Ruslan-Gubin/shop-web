@@ -1,0 +1,58 @@
+.basketContainer {
+  width: 340px;
+  min-width: 340px;
+  position: sticky;
+  border-radius: var(--border-radius-block);
+  top: calc(var(--header-size-height) + 8px);
+  row-gap: var(--padding-content-block);
+  padding: var(--padding-content-block);
+  background-color: #fff;
+  flex-direction: column;
+  display: flex;
+  height: max-content;
+  box-shadow: 0 2px 16px #00000014;
+
+  @media (max-width: 1020px) {
+    display: none;
+  }
+
+  @media (max-width: 880px) {
+    display: flex;
+    position: fixed;
+    left: 0;
+    top: auto;
+    bottom: var(--navigate-bottom-height);
+    width: 100dvw;
+    min-width: 100dvw;
+    border-radius: 20px 20px 0 0;
+    z-index: 999;
+    box-shadow: none;
+    padding: 8px;
+    row-gap: 8px;
+
+    /* & h2 { */
+    /*   font-size: 13px; */
+    /*   padding-left: 8px; */
+    /* } */
+    /**/
+    /* & .priceLine > .svgContainer > svg { */
+    /*   background-color: orange; */
+    /*   width: 16px; */
+    /*   height: 16px; */
+    /*   padding-left: 8px; */
+    /* } */
+
+    & footer {
+      flex-direction: row-reverse;
+      column-gap: 8px;
+    }
+
+    & footer > div {
+      grid-template-columns: 1fr;
+    }
+
+    & footer > div > a {
+      display: none;
+    }
+  }
+}

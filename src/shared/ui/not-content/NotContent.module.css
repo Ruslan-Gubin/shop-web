@@ -1,0 +1,26 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  row-gap: var(--padding-content-block);
+  padding: var(--padding-content-block);
+  border-radius: var(--border-radius-block);
+}
+
+.textContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
+  text-align: center;
+}
+
+.title {
+  font-size: 16px;
+}
+
+.subTitle {
+  color: var(--text-color-placeholder);
+  max-width: 580px;
+  line-height: 22px;
+}

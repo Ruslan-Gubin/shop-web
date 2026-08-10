@@ -1,0 +1,93 @@
+.showOnlyTablet {
+  display: none;
+
+  @media (max-width: 880px) {
+    display: block;
+  }
+}
+
+.showOnlyDesktops {
+  display: block;
+
+  @media (max-width: 880px) {
+    display: none;
+  }
+}
+
+.navbarItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 6px;
+
+  @media (max-width: 880px) {
+    justify-content: space-around;
+  }
+}
+
+.svgContainer {
+  width: 24px;
+  height: 24px;
+  position: relative;
+  color: white;
+
+  svg {
+    height: 100%;
+    width: 100%;
+  }
+
+  @media (max-width: 880px) {
+    width: 28px;
+    height: 28px;
+    color: #c8c8d1;
+
+    svg {
+      height: 28px;
+      width: 28px;
+    }
+  }
+
+  @media (max-width: 300px) {
+    width: 24px;
+    height: 24px;
+
+    svg {
+      height: 24px;
+      width: 24px;
+    }
+  }
+}
+
+.svgContainerActive {
+  @media (max-width: 880px) {
+    color: var(--color-violet);
+  }
+}
+
+.navbarLabel {
+  font-size: 14px;
+  color: #ffffff99;
+
+  @media (max-width: 880px) {
+    display: none;
+  }
+}
+
+.navbarCount {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  min-width: 16px;
+  height: 16px;
+  background-color: #f55123;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 3px 1px;
+  border-radius: 16px;
+
+  & span {
+    color: white;
+    font-size: 10px;
+  }
+}

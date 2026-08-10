@@ -1,0 +1,27 @@
+.favoritesButton {
+  border-radius: 20px;
+
+  &:disabled {
+    background-color: #f6f6f9;
+    color: #a0a0aa;
+  }
+
+  &:hover:disabled {
+    background-color: #f6f6f9;
+    color: #a0a0aa;
+  }
+
+  @media (max-width: 1020px) {
+    &:disabled {
+      border: 1px solid lightgray;
+    }
+  }
+
+  @media (max-width: 880px) {
+    border-radius: 16px;
+
+    &:disabled {
+      border: none;
+    }
+  }
+}

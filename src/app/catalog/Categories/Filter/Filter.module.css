@@ -1,0 +1,52 @@
+.filter {
+  display: flex;
+  column-gap: var(--padding-content-block);
+  justify-content: space-between;
+  align-items: flex-start;
+  position: sticky;
+  top: var(--header-size-height);
+  background-color: var(--background-content-color);
+  z-index: 1;
+  padding-block: 16px;
+  margin-block: -16px;
+
+  @media (max-width: 500px) {
+    position: fixed;
+    top: 96px;
+    background-color: white;
+    left: 0px;
+    max-width: 100dvw;
+    padding-block: 8px;
+    padding-inline: var(--padding-main-content);
+    border-radius: 0 0 20px 20px;
+    margin-block: 0;
+  }
+}
+
+.filterList {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+
+  @media (max-width: 880px) {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+
+    & li {
+      scroll-snap-align: start;
+    }
+  }
+}
+
+.cartSizeActions {
+  display: flex;
+  column-gap: 12px;
+  align-items: center;
+  height: 36px;
+}
+
+.cartSizeButton {
+  background-color: blue;
+}

@@ -1,0 +1,13 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: var(--border-radius-block);
+  row-gap: var(--padding-content-block);
+  padding: var(--padding-content-block);
+  overflow: hidden;
+}
+
+.headerTitle {
+  line-height: 24px;
+}

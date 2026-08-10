@@ -1,0 +1,8 @@
+export const CONFIG_APP = {
+  BACKEND_URL: process.env.BACKEND_URL || "",
+  MAPBOX_ACCESS_TOKEN: process.env.MAPBOX_ACCESS_TOKEN || "",
+  MAPBOX_STYLE: process.env.MAPBOX_STYLE || "",
+  ACCESS_TOKEN_COOKIE: "ACCESS_TOKEN_SHOP_WEB",
+  REFRESH_TOKEN_COOKIE: "REFRESH_TOKEN_SHOP_WEB",
+  MODE: process.env.NODE_ENV,
+} as const;
