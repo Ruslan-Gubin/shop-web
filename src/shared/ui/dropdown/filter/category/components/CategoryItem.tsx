@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import type { CategoryModel } from "@/app/action";
-import { BirdSelectIcon } from "@/views/LayoutLeftSide/NavigateMenu/svg/BirdSelectIcon";
+import { BirdSelectIcon } from "@/shared/svg/BirdSelectIcon";
 import styles from "./CategoryItem.module.css";
 
 type Props = {

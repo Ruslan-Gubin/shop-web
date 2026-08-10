@@ -4,12 +4,12 @@ import type { AddressItem } from "./types";
 export class CheckoutAdapter {
   private store = checkoutStore;
 
-  public changePaymentMethod(value: "cash" | "card") {
-    this.store.setState({ payment_method: value });
+  public changePaymentMethod(payment_method: "cash" | "card") {
+    this.store.setState({ payment_method });
   }
 
-  public setDeliveryDate(value: string) {
-    this.store.setState({ delivery_date: value });
+  public setDeliveryDate(delivery_date: string) {
+    this.store.setState({ delivery_date });
   }
 
   public setDeliveryTime(value: number) {
@@ -18,8 +18,8 @@ export class CheckoutAdapter {
     this.store.setState({ delivery_time: prevValue && prevValue === value ? 0 : value });
   }
 
-  public setMethodReceipt(value: "pickup" | "courier") {
-    this.store.setState({ method_receipt: value });
+  public setMethodReceipt(method_receipt: "pickup" | "courier") {
+    this.store.setState({ method_receipt });
   }
 
   public setActiveAddress(lng: number, lat: number) {
@@ -69,17 +69,6 @@ export class CheckoutAdapter {
     } else if (key === "comment_error") {
       this.store.setState({ comment_error: value });
     }
-  }
-
-  public clearAdditionalInfoInputs() {
-    this.store.setState({
-      comment: "",
-      comment_error: "",
-      phone: "",
-      phone_error: "",
-      recipient_name: "",
-      recipient_name_error: "",
-    });
   }
 }
 

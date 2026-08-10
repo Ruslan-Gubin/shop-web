@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useLayoutEffect, useState } from "react";
 import type { CategoryModel } from "@/app/action";
 import { getParentCategory } from "@/shared/helpers/getParentCategory";
-import { BirdSelectIcon } from "@/views/LayoutLeftSide/NavigateMenu/svg/BirdSelectIcon";
+import { BirdSelectIcon } from "@/shared/svg/BirdSelectIcon";
 import { DropdownFilterWrapper } from "../wrapper/DropdownFilterWrapper";
 import { CategoryItem } from "./components/CategoryItem";
 import styles from "./DropdownFilterCategory.module.css";

@@ -1,5 +1,5 @@
 import { UserSvg } from "@/shared/svg/UserSvg";
-import { WarehouseSvg } from "@/views/LayoutLeftSide/svg/WarehouseSvg";
+import { WarehouseSvg } from "@/shared/svg/WarehouseSvg";
 import styles from "./CustomMarker.module.css";
 
 type Props = {
