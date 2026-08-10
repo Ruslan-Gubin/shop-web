@@ -6,6 +6,30 @@ import { updateTokensInAction } from "@/shared/helpers/updateCookieAction";
 import type { SearchModel } from "./catalog/action";
 import type { QuestionModel } from "./catalog/detail/[id]/action";
 
+export interface PriceTypeModel {
+  id: number;
+  name: string;
+  description: string;
+  isPublic: boolean;
+  minQuantity: number;
+  created_user_id: number;
+  created_at: string;
+  updated_at: string | null;
+}
+
+export type PromotionModel = {
+  id: number;
+  name: string;
+  description: string | null;
+  percent: number;
+  date_from: string;
+  date_to: string;
+  is_active: boolean;
+  created_user_id: number;
+  created_at: string;
+  updated_at: string | null;
+};
+
 export type SpecificationModel = {
   id: number;
   name: string;

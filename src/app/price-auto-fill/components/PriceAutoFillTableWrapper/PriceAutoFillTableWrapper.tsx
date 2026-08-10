@@ -1,6 +1,6 @@
 "use client";
 import { useState, useTransition } from "react";
-import type { PriceTypeModel } from "@/app/price-types/action";
+import type { PriceTypeModel } from "@/app/action";
 import { useWindowSize } from "@/shared/hooks/useWindowSize";
 import { notificationAdapter } from "@/stores/notification/adapter";
 import { EditableTable, type EditableTableDataItem } from "@/widgets/editable-table/EditableTable";

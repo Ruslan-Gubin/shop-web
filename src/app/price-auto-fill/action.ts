@@ -10,7 +10,7 @@ import {
 import { getFormActionState } from "@/shared/services/get-form-action-state";
 import { resetNewStateValues } from "@/shared/services/reset-new-store-values";
 import { setNewStoreErrorFromServer } from "@/shared/services/set-new-store-error-from-server";
-import type { FetchPriceTypesResponse } from "../price-types/action";
+import type { PriceTypeModel } from "../action";
 import { createRangeSchema } from "./schema";
 
 export interface RangeModel {
@@ -55,6 +55,11 @@ export const fetchRange = async (id: string) => {
     });
 };
 
+export type FetchPriceTypesResponse = {
+  paginationPage: string;
+  priceTypes: PriceTypeModel[];
+  totalCount: number;
+};
 export const fetchPriceAutoFillPageData = async (range?: string) => {
   return await fetchService.fetchChain<[RangeModel[], FetchPriceTypesResponse, PriceFillModel[]]>([
     {

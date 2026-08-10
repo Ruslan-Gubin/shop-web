@@ -1,6 +1,5 @@
-import type { ProductModel } from "@/app/action";
+import type { ProductModel, PromotionModel } from "@/app/action";
 import type { CartDiscountModel } from "@/app/cart-discounts/action";
-import type { PromotionModel } from "@/app/promotions/action";
 import { getCurrentPrice } from "./getCurrentPrice";
 import { getLargePrice } from "./getLargePrice";
 
