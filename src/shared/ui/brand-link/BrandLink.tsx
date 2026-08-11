@@ -4,7 +4,7 @@ import styles from "./BrandLink.module.css";
 type Props = {
   href: string;
   name: string;
-  onCLick: () => void;
+  onCLick?: () => void;
 };
 
 export const BrandLink = (props: Props) => {
