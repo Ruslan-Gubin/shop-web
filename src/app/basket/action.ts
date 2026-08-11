@@ -1,5 +1,11 @@
+"use server";
+import { revalidatePath } from "next/cache";
 import type { CartDiscountModel, ProductModel, PromotionModel } from "@/app/action";
 import { fetchService } from "@/shared/fetch-api";
+
+export const revalidateBasketAction = async () => {
+  revalidatePath("/basket", "page");
+};
 
 export const fetchBasketData = async (
   basketIds: string,
@@ -19,25 +25,30 @@ export const fetchBasketData = async (
     {
       url: "product/by-ids",
       params: { ids: basketIds },
-      tags: [`Basket_${basketIds}`],
+      tags: [`Basket`],
+      revalidate: 30,
     },
     {
       url: "cart-discounts/active",
       tags: ["CartDiscounts"],
+      revalidate: 30,
     },
     {
       url: "promotions/active",
       tags: ["Promotions"],
+      revalidate: 30,
     },
     {
       url: "product/by-ids",
       params: { ids: recentIds },
       tags: [`Recent_${recentIds}`],
+      revalidate: 30,
     },
     {
       url: "product/buy-together",
       params: { ids: basketIds },
       tags: [`BasketBuyTogether_${basketIds}`],
+      revalidate: 30,
     },
     {
       url: "product/recommended",
@@ -48,6 +59,7 @@ export const fetchBasketData = async (
         limit: "30",
       },
       tags: [`BasketRecommended_${basketIds}`],
+      revalidate: 30,
     },
   ]);
 };

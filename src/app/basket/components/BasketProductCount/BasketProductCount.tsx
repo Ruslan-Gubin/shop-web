@@ -9,6 +9,7 @@ import styles from "./BasketProductCount.module.css";
 type Props = {
   id: number;
   available: number;
+  accounting: boolean;
 };
 
 export const BasketProductCount = (props: Props) => {
@@ -69,7 +70,7 @@ export const BasketProductCount = (props: Props) => {
     if (typeof quantity === "number" && !Number.isNaN(quantity)) {
       let updateQuantity = quantity || 1;
 
-      if (updateQuantity > props.available) {
+      if (props.accounting && updateQuantity > props.available) {
         updateQuantity = props.available;
       }
 
@@ -104,7 +105,7 @@ export const BasketProductCount = (props: Props) => {
         type="button"
         onClick={() => handleIncrementProduct(props.id)}
         className={styles.productActionButton}
-        disabled={count >= props.available}
+        disabled={props.accounting && count >= props.available}
       >
         <AddSvg />
       </button>

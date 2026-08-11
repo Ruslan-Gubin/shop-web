@@ -22,7 +22,7 @@ type Props = {
 
 export const ProductCard = (props: Props) => {
   const inStock =
-    (typeof props.available === "number" && props.available > 0 && props.accounting) ||
+    (props.accounting && typeof props.available === "number" && props.available > 0) ||
     !props.accounting;
 
   return (
@@ -48,7 +48,14 @@ export const ProductCard = (props: Props) => {
         </div>
       </Link>
       {inStock ? (
-        <AddBasket available={props.available} id={props.id} />
+        <AddBasket
+          available={
+            props.accounting && typeof props.available === "number" && props.available > 0
+              ? props.available
+              : null
+          }
+          id={props.id}
+        />
       ) : (
         <Button fullWidth size="xs2" variantColor="light-gray" disabled>
           Нет в наличии

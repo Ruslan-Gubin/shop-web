@@ -9,12 +9,13 @@ import styles from "./BasketList.module.css";
 
 type Props = {
   products: ProductModel[];
+  revalidateBasketAction: () => Promise<void>;
 };
 
 export const BasketList = (props: Props) => {
   return (
     <>
-      <BasketDeleteModal />
+      <BasketDeleteModal revalidateBasketAction={props.revalidateBasketAction} />
       <section className={styles.root}>
         <header className={styles.header}>
           <h2 className={styles.headerTitle}>Корзина</h2>

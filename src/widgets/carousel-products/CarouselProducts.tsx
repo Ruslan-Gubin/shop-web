@@ -19,13 +19,11 @@ type Props = {
     href: string;
     text: string;
   };
+  revalidateBasketAction?: () => Promise<void>;
 };
 
 export const CarouselProducts = (props: Props) => {
   const { ref, activeArrows, leftActive, rightActive, handleScroll } = useHorizontalScroll();
-
-  const getInStock = (available: number, accounting: boolean) =>
-    (accounting && typeof available === "number" && available > 0) || !accounting;
 
   return (
     <div className={styles.root}>
@@ -63,8 +61,21 @@ export const CarouselProducts = (props: Props) => {
                   <RatingBadge rating={product.rating} reviewCount={product.review_count} />
                 </div>
               </Link>
-              {getInStock(product.available, product.accounting) ? (
-                <AddBasket available={product.available} id={product.id} />
+              {!product.accounting ||
+              (product.accounting &&
+                typeof product.available === "number" &&
+                product.available > 0) ? (
+                <AddBasket
+                  revalidateBasketAction={props.revalidateBasketAction}
+                  available={
+                    product.accounting &&
+                    typeof product.available === "number" &&
+                    product.available > 0
+                      ? product.available
+                      : null
+                  }
+                  id={product.id}
+                />
               ) : (
                 <Button fullWidth size="xs2" variantColor="light-gray" disabled>
                   Нет в наличии

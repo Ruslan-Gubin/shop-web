@@ -9,6 +9,7 @@ type Props = {
   basketProducts: ProductModel[];
   cartDiscounts: CartDiscountModel[];
   promotions: PromotionModel[];
+  revalidateBasketAction: () => Promise<void>;
 };
 
 export const BasketWrapper = (props: Props) => {
@@ -28,7 +29,10 @@ export const BasketWrapper = (props: Props) => {
       {isHasOrderItems && (
         <section className={styles.root}>
           <section>
-            <BasketList products={props.basketProducts} />
+            <BasketList
+              revalidateBasketAction={props.revalidateBasketAction}
+              products={props.basketProducts}
+            />
           </section>
           <BasketOrder
             defaultCenter={{ lng: 0, lat: 0 }}

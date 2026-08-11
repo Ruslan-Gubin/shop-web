@@ -55,7 +55,11 @@ export const ProductCardBasket = (props: Props) => {
       </figure>
       <div className={styles.productActionCountContainer}>
         {inStock ? (
-          <BasketProductCount available={props.product.available} id={props.product.id} />
+          <BasketProductCount
+            accounting={props.product.accounting}
+            available={props.product.available}
+            id={props.product.id}
+          />
         ) : (
           <Button size="xs2" variantColor="light-gray" disabled>
             Нет в наличии

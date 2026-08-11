@@ -9,6 +9,7 @@ import {
   fetchProductStocks,
   type ProductModel,
 } from "@/app/action";
+import { getDecodeBrandName } from "@/shared/helpers/getDecodeBrandName";
 import { getProductDimensions } from "@/shared/helpers/getProductDimensions";
 import { getSpecificationsProductInfo } from "@/shared/helpers/getSpecificationsProductInfo";
 import { EMPTY_IMG_SVG, listenerImgError } from "@/shared/helpers/listenerImgError";
@@ -141,8 +142,12 @@ export const QuickViewModal = () => {
           <section className={styles.infoSide}>
             <header className={styles.infoHeaderLine}>
               <div className={styles.titleContainer}>
-                {typeof product.brand_id === "number" && (
-                  <BrandLink href={`/brands/${product.brand_id}`} name={"Бренд"} />
+                {typeof product.brand_name === "string" && product.brand_name.length > 0 && (
+                  <BrandLink
+                    onCLick={onCloseModal}
+                    href={`/brands/${getDecodeBrandName(product.brand_name)}`}
+                    name={getDecodeBrandName(product.brand_name)}
+                  />
                 )}
                 <Link onClick={onCloseModal} href={`/catalog/detail/${product_id}`}>
                   <h3 className={styles.title}>{product.name}</h3>

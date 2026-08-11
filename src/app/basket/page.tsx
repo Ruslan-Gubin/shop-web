@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 import { ErrorAlert } from "@/shared/ui/error-alert/ErrorAlert";
 import { UpdateToken } from "@/views/UpdateToken/UpdateToken";
 import { CarouselProducts } from "@/widgets/carousel-products/CarouselProducts";
-import { fetchBasketData } from "./action";
+import { fetchBasketData, revalidateBasketAction } from "./action";
 import { BasketWrapper } from "./components/BasketWrapper";
 
 export default async function BasketPage() {
@@ -54,6 +54,7 @@ export default async function BasketPage() {
         <ErrorAlert message={recommendedData.message} />
       )}
       <BasketWrapper
+        revalidateBasketAction={revalidateBasketAction}
         promotions={promotions}
         cartDiscounts={cartDiscounts}
         basketProducts={basketProducts}
@@ -65,15 +66,24 @@ export default async function BasketPage() {
             headerLink={recent.length > 6 ? { text: "Смотреть все", href: "/recent" } : undefined}
             products={recent}
             title="Вы недавно смотрели"
+            revalidateBasketAction={revalidateBasketAction}
           />
         )}
 
         {basketProducts.length > 0 && buyTogether.length > 0 && (
-          <CarouselProducts products={buyTogether} title="С этими товарами покупают" />
+          <CarouselProducts
+            revalidateBasketAction={revalidateBasketAction}
+            products={buyTogether}
+            title="С этими товарами покупают"
+          />
         )}
 
         {basketProducts.length === 0 && recommended.length > 0 && (
-          <CarouselProducts products={recommended} title="Подобрали для вас" />
+          <CarouselProducts
+            revalidateBasketAction={revalidateBasketAction}
+            products={recommended}
+            title="Подобрали для вас"
+          />
         )}
       </section>
     </section>
