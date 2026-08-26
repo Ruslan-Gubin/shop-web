@@ -6,9 +6,11 @@ import { menuAdapter } from "@/stores/menu/adapter";
 import { menuStore } from "@/stores/menu/store";
 import { Categories } from "./components/Categories/Categories";
 import styles from "./Menu.module.css";
+import { notificationAdapter } from "@/stores/notification/adapter";
 
 type Props = {
   categories: CategoryModel[];
+  errorMessage: string;
 };
 
 export const Menu = (props: Props) => {
@@ -54,6 +56,12 @@ export const Menu = (props: Props) => {
     return () => {
       window.removeEventListener("resize", debounceResizeListener);
     };
+  }, []);
+
+  useEffect(() => {
+    if (props.errorMessage) {
+      notificationAdapter.add(props.errorMessage, "error");
+    }
   }, []);
 
   return (

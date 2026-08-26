@@ -4,5 +4,5 @@ import { Menu } from "./Menu";
 export const MenuWrapper = async () => {
   const categoriesData = await fetchCategories();
 
-  return <>{Array.isArray(categoriesData.data) && <Menu categories={categoriesData.data} />}</>;
+  return <Menu errorMessage={categoriesData.message} categories={categoriesData.data || []} />;
 };

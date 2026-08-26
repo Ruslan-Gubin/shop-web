@@ -1,14 +1,15 @@
 "use server";
 import { cookies } from "next/headers";
+import z from "zod";
 import { CONFIG_APP } from "@/shared/config/config";
 import { fetchService } from "@/shared/fetch-api";
 import { updateTokensInAction } from "@/shared/helpers/updateCookieAction";
+import { createResponseSchema } from "@/shared/types/response";
 import type { SearchModel } from "./catalog/action";
 import type { QuestionModel } from "./catalog/detail/[id]/action";
 
-export interface CategoryModel {
+interface Category {
   id: number;
-  children: CategoryModel[];
   parent_id: number | null;
   position: number;
   moderated: boolean;
@@ -20,12 +21,55 @@ export interface CategoryModel {
   image: string;
   created_at: string;
   updated_at: string | null;
+  children: Category[];
 }
+
+const categorySchema = z.lazy(() =>
+  z.object({
+    id: z.number().int().positive().min(1),
+    parent_id: z.number().int().positive().nullable(),
+    position: z.number().int().positive(),
+    moderated: z.boolean(),
+    is_active: z.boolean(),
+    created_user_id: z.number().int().min(1).positive().nullable(),
+    name: z.string().min(2).max(50),
+    description: z.string().min(1).max(255),
+    product_count: z.number().int(),
+    image: z.string(),
+    created_at: z.string(),
+    updated_at: z.string().nullable(),
+    children: z.array(categorySchema).default([]),
+  }),
+) as z.ZodType<Category>;
+
+export type CategoryModel = z.infer<typeof categorySchema>;
+
 //TODO check and change path
 export const fetchCategories = async () => {
-  return await fetchService.get<CategoryModel[]>({
-    url: "category/categories",
-  });
+  return await fetchService
+    .get<CategoryModel[]>({
+      url: "category/categories",
+    })
+    .then(async (response) => {
+      return createResponseSchema(z.array(categorySchema))
+        .safeParseAsync(response)
+        .then((res) => {
+          if (!res.success) {
+            const message =
+              `Ошибка категории: ${res.error.issues[0]?.message}` || "Ошибка категории";
+
+            return {
+              data: null,
+              errors: [],
+              message,
+              status: "error",
+              tokens: null,
+            };
+          } else {
+            return res.data;
+          }
+        });
+    });
 };
 
 export type CartDiscountModel = {
@@ -96,7 +140,6 @@ export interface ProductModel {
   id: number;
   name: string;
   code: string;
-  //brand_id: number;
   brand_name: string;
   category_id: number;
   description: string;
