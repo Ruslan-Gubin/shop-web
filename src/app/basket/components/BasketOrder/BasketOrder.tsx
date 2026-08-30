@@ -214,12 +214,23 @@ export const BasketOrder = (props: Props) => {
 
     props.checkingBalanceAction(selectedProducts).then((response) => {
       if (Array.isArray(response.data) && response.data.length > 0) {
-        setStocksWarning(
-          response.data.map((el) => ({
-            ...el,
-            name: `product name: ${el.product_id}`,
-          })),
-        );
+        const updateStocksWarning = [];
+
+        for (let i = 0; i < response.data.length; i++) {
+          const item = response.data[i];
+
+          const findProduct = props.basketProducts.find(
+            (product) => product.id === item.product_id,
+          );
+
+          updateStocksWarning.push({
+            available: item.available,
+            product_id: item.product_id,
+            name: findProduct?.name || "",
+          });
+        }
+
+        setStocksWarning(updateStocksWarning);
       } else if (Array.isArray(response.data) && response.data.length === 0) {
         if (props.type === "basket") {
           router.push("/checkout");

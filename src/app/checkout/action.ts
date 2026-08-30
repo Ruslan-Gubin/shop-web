@@ -132,7 +132,7 @@ export const checkingBalanceAction = async (
   return await fetchService
     .post<{ product_id: number; available: number }[]>({
       url: "product-stock/checking-balances",
-      payload: payload,
+      payload,
     })
     .then((response) => {
       if (response.tokens) {
