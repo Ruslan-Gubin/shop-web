@@ -33,7 +33,7 @@ const categorySchema = z.lazy(() =>
     is_active: z.boolean(),
     created_user_id: z.number().int().min(1).positive().nullable(),
     name: z.string().min(2).max(50),
-    description: z.string().min(1).max(255),
+    description: z.string().max(255),
     product_count: z.number().int(),
     image: z.string(),
     created_at: z.string(),

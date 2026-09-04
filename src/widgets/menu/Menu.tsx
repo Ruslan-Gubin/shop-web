@@ -4,9 +4,9 @@ import type { CategoryModel } from "@/app/action";
 import { debounce } from "@/shared/helpers/debounce";
 import { menuAdapter } from "@/stores/menu/adapter";
 import { menuStore } from "@/stores/menu/store";
+import { notificationAdapter } from "@/stores/notification/adapter";
 import { Categories } from "./components/Categories/Categories";
 import styles from "./Menu.module.css";
-import { notificationAdapter } from "@/stores/notification/adapter";
 
 type Props = {
   categories: CategoryModel[];
