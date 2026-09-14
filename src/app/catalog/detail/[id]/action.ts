@@ -56,7 +56,7 @@ export const fetchProductDetail = async (
     ]
   >([
     {
-      url: `product-review/can-review/${product_id}`,
+      url: `product/can-review/${product_id}`,
       tags: [`CanReview_${product_id}`],
     },
     {

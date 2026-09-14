@@ -29,7 +29,7 @@ export const fetchReviewsData = async (product_id: string, limit: number, page?:
       tags: [`Product_${product_id}`],
     },
     {
-      url: `product-review/can-review/${product_id}`,
+      url: `product/can-review/${product_id}`,
       tags: [`CanReview_${product_id}`],
     },
     {
