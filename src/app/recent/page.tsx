@@ -27,7 +27,7 @@ export default async function RecentPage() {
 
   return (
     <section className="page-wrapper">
-      {recentData?.tokens && <UpdateToken tokens={recentData.tokens} />}
+      {recommendedData?.tokens && <UpdateToken tokens={recommendedData.tokens} />}
       {recentData.status === "error" && recentData.message && (
         <ErrorAlert message={recentData.message} />
       )}

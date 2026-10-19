@@ -16,7 +16,7 @@
 }
 
 .methodItem {
-  border: 1px solid #f1f1f5;
+  border: 1px solid var(--color-light-gray);
   border-radius: 12px;
   padding: 12px;
   display: flex;

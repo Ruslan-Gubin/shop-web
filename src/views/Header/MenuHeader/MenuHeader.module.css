@@ -1,7 +1,7 @@
 .mobileMenuHeader {
   border: 1px solid #fff6;
   height: 48px;
-  color: #f1f1f5;
+  color: var(--color-light-gray);
   border-radius: 12px;
   display: flex;
   align-items: center;

@@ -35,5 +35,5 @@
 }
 
 .basketList {
-  border-top: 1px solid #f1f1f5;
+  border-top: 1px solid var(--color-light-gray);
 }

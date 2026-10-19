@@ -1,6 +1,31 @@
 .loginForm {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  gap: 40px;
+  max-width: 100%;
+  gap: var(--padding-content-block);
+  width: var(--modal-width);
+  padding: var(--padding-content-block);
+}
+
+.headerContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--padding-content-block);
+}
+
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--padding-content-block);
+}
+
+.errorText {
+  text-align: center;
+  color: #e0245e;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
 }

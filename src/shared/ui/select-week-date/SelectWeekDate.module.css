@@ -2,7 +2,7 @@
   display: flex;
   border-radius: 12px;
   background-color: #25507e05;
-  border: 1px solid #f1f1f5;
+  border: 1px solid var(--color-light-gray);
   padding-block: 12px;
   padding-inline: 12px;
   user-select: none;

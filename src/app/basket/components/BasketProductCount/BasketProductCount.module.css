@@ -5,7 +5,7 @@
 .productActionButton {
   height: 32px;
   width: 32px;
-  background-color: #f1f1f5;
+  background-color: var(--color-light-gray);
   border-radius: 8px;
   display: flex;
   align-items: center;

@@ -51,8 +51,8 @@ export const SignupForm = (props: Props) => {
         id="email"
         variant="outlined"
         variantSize="sm"
-        placeholder="Имя"
-        label="Имя"
+        placeholder="Почта"
+        label="Почта"
         rightIcon={<CancelSvg />}
       />
       <Input

@@ -1,5 +1,6 @@
 import type { ErrorItem } from "../types/response";
 
+//TODO REMOVE
 export const setNewStoreErrorFromServer = <T>(
   errors: ErrorItem[],
   newState: Record<keyof T, { value: string; error: string } | string | number | null>,

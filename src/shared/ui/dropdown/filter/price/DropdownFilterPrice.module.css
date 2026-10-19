@@ -22,7 +22,7 @@
 }
 
 .input {
-  background-color: #f1f1f5;
+  background-color: var(--color-light-gray);
   max-width: 124px;
   height: 36px;
   padding: 6px 12px;

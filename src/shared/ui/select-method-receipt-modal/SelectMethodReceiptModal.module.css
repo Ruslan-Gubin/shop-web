@@ -1,6 +1,6 @@
 .selectTypeContainer {
   display: flex;
-  background-color: #f1f1f5;
+  background-color: var(--color-light-gray);
   column-gap: 2px;
   height: 48px;
   min-height: 48px;

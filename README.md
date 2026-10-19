@@ -2,11 +2,15 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
+## Правки
+
+Если выбрать в поиске "ручка" получаю в фильтр очень много левый фильтров.
+В самом фильтре может быть встречаться такое - Крышка: [1] Без крышки [2] в комплекте [3] В комплекте.
+
 First, run the development server:
 
 ```bash
-npm run dev
-# or
+npm run dev or
 yarn dev
 # or
 pnpm dev

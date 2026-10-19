@@ -1,5 +1,5 @@
 .modalContent {
-  width: 576px;
+  width: var(--modal-width);
   max-height: 90vh;
   display: flex;
   flex-direction: column;

@@ -17,7 +17,7 @@
   }
 
   &:disabled {
-    background-color: #f1f1f5;
+    background-color: var(--color-light-gray);
     cursor: default;
     path {
       stroke: #c8c8d1;

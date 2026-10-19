@@ -47,7 +47,7 @@
 .dropdown {
   position: relative;
   height: 36px;
-  background-color: #f1f1f5;
+  background-color: var(--color-light-gray);
   padding-inline: 12px;
   display: flex;
   align-items: center;

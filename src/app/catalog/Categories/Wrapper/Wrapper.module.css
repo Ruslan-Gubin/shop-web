@@ -53,7 +53,7 @@
     color: var(--text-color-main);
     font-size: 14px;
     height: 36px;
-    background-color: #f1f1f5;
+    background-color: var(--color-light-gray);
     display: flex;
     align-items: center;
     justify-content: center;

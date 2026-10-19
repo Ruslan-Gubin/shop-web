@@ -1,57 +1,44 @@
 "use server";
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 import { CONFIG_APP } from "@/shared/config/config";
 import { fetchService } from "@/shared/fetch-api";
-import { getFormActionState } from "@/shared/services/get-form-action-state";
-import { resetNewStateValues } from "@/shared/services/reset-new-store-values";
-import { setNewStoreErrorFromServer } from "@/shared/services/set-new-store-error-from-server";
-import { signinSchema } from "./schema";
+import { updateTokensInAction } from "@/shared/helpers/updateCookieAction";
 
-export type SigninFormFields = {
-  email: { value: string; error: string };
-  password: { value: string; error: string };
-  message: string;
-  status: string;
+export const sendPhoneAction = async (phone: string) => {
+  const cookieStore = await cookies();
+  const device = cookieStore.get("DEVICE_ID");
+
+  return fetchService
+    .post<{ device_id: string; phone: string }>({
+      url: "sms/request-otp",
+      payload: { phone, device_id: device?.value || null, hash_code: "" },
+    })
+    .then((response) => {
+      if (response.tokens) {
+        updateTokensInAction(cookieStore, response.tokens);
+      }
+      return response;
+    });
 };
 
-export async function submitSigninAction(
-  prevState: SigninFormFields,
-  formData: FormData,
-): Promise<SigninFormFields> {
-  const validate = getFormActionState(formData, prevState, signinSchema);
+export const sendCodeAction = async (phone: string, code: string) => {
+  const cookieStore = await cookies();
 
-  if (validate.isValid) {
-    await fetchService
-      .post<{ token: string; refresh: string }>({
-        url: "auth/sign-in",
-        payload: validate.payload,
-      })
-      .then(async (response) => {
-        validate.newState.message = response.message;
-        validate.newState.status = response.status;
-
-        if (response.status === "success" && response.data) {
-          const cookieStore = await cookies();
-          cookieStore.set(CONFIG_APP.ACCESS_TOKEN_COOKIE, response.data.token);
-          cookieStore.set(CONFIG_APP.REFRESH_TOKEN_COOKIE, response.data.refresh);
-
-          resetNewStateValues(validate.newState);
-
-          return response.status;
-        } else {
-          setNewStoreErrorFromServer(response.errors, validate.newState);
-        }
-      })
-      .then((status) => {
-        if (status === "success") {
-          redirect("/");
-        }
-      });
-  } else {
-    validate.newState.message = "";
-    validate.newState.status = "";
-  }
-
-  return validate.newState;
-}
+  return fetchService
+    .post<{ token: string; refresh: string }>({
+      url: "auth/verify-otp",
+      payload: { phone, code },
+    })
+    .then((response) => {
+      if (
+        response.status === "success" &&
+        response.data &&
+        response.data.refresh &&
+        response.data.token
+      ) {
+        cookieStore.set(CONFIG_APP.ACCESS_TOKEN_COOKIE, response.data.token);
+        cookieStore.set(CONFIG_APP.REFRESH_TOKEN_COOKIE, response.data.refresh);
+      }
+      return response;
+    });
+};

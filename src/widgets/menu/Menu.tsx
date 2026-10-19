@@ -60,9 +60,9 @@ export const Menu = (props: Props) => {
 
   useEffect(() => {
     if (props.errorMessage) {
-      notificationAdapter.add(props.errorMessage, "error");
+      notificationAdapter.add(props.errorMessage, "success");
     }
-  }, []);
+  }, [props.errorMessage]);
 
   return (
     <section className={isActiveMenu ? `${styles.root} ${styles.rootActive}` : styles.root}>

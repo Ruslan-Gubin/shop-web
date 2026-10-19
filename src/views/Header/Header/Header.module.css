@@ -29,6 +29,6 @@
     padding-inline: var(--padding-content-block);
     overflow: hidden;
     box-shadow: 0 4px 20px #0000001a;
-    border-top: 1px solid #f1f1f5;
+    border-top: 1px solid var(--color-light-gray);
   }
 }

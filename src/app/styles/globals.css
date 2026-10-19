@@ -32,6 +32,8 @@
   --navigate-bottom-height: 52px;
   --menu-section-width: 312px;
   --padding-header-content: 24px;
+  --color-light-gray: #f1f1f5;
+  --modal-width: 576px;
   color-scheme: light;
 }
 
