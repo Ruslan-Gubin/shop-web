@@ -10,6 +10,7 @@ type Props = {
   cartDiscounts: CartDiscountModel[];
   promotions: PromotionModel[];
   revalidateBasketAction: () => Promise<void>;
+  isRegister: boolean;
 };
 
 export const BasketWrapper = (props: Props) => {
@@ -35,12 +36,18 @@ export const BasketWrapper = (props: Props) => {
             />
           </section>
           <BasketOrder
+            delivery_price={0}
+            address={null}
+            sectors={{ type: "", features: [] }}
+            minOrderSum={0}
+            isAgreed={true}
             defaultCenter={{ lng: 0, lat: 0 }}
             basketProducts={props.basketProducts}
             cartDiscounts={props.cartDiscounts}
             promotions={props.promotions}
             checkingBalanceAction={checkingBalanceAction}
             type="basket"
+            isRegister={props.isRegister}
           />
         </section>
       )}

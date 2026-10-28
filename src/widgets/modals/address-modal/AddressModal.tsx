@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { getActiveAddress } from "@/shared/helpers/getActiveAddress";
 import { CloseSvg } from "@/shared/svg/CloseSvg";
 import { Button } from "@/shared/ui/button-main/Button";
 import { Checkbox } from "@/shared/ui/checkbox/Checkbox";
@@ -11,6 +10,7 @@ import { checkoutAdapter } from "@/stores/checkout/adapter";
 import type { AddressItem } from "@/stores/checkout/types";
 import styles from "./AddressModal.module.css";
 import { AddressSearch } from "./components/AddressSearch/AddressSearch";
+import { getOrderAddress } from "@/shared/helpers/getOrderAddress";
 
 type Props = {
   defaultCenter: { lng: number; lat: number };
@@ -119,10 +119,10 @@ export const AddressModal = (props: Props) => {
     }
   };
 
-  const activeAddress = getActiveAddress(
+  const activeAddress = getOrderAddress(
+    props.defaultCenter,
     props.pickupAddress,
     props.courierAddress,
-    props.initCenter,
     methodReceipt,
     selectPickup,
     selectCourier ? selectCourier : props.activeCourier,

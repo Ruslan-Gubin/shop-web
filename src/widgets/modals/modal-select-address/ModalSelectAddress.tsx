@@ -22,6 +22,7 @@ type Props = {
   activePickup: { lng: number; lat: number } | null;
   activeCourier: { lng: number; lat: number } | null;
   defaultCenter: { lng: number; lat: number };
+  isDeliveryCourier: boolean;
 };
 
 export const ModalSelectAddress = (props: Props) => {
@@ -128,6 +129,7 @@ export const ModalSelectAddress = (props: Props) => {
             <SelectMethodReceiptModal
               methodReceipt={methodReceipt}
               onChangeMethod={handleChangeMethod}
+              isDeliveryCourier={props.isDeliveryCourier}
             />
           </section>
           <ul className={styles.addressList}>

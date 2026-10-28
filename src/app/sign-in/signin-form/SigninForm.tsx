@@ -26,7 +26,7 @@ const initCode = ["", "", "", "", "", ""];
 export const SigninForm = (props: Props) => {
   const router = useRouter();
   const [step, setStep] = useState<number>(1);
-  const [phone, setPhone] = useState(""); //7 949 386 57 86
+  const [phone, setPhone] = useState("7 949 386 57 86"); //7 949 386 57 86
   const [validPhone, setValidPhone] = useState<boolean>(false);
   const [code, setCode] = useState<string[]>(initCode);
   const [validCode, setValidCode] = useState<boolean>(false);

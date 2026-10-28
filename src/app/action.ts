@@ -8,6 +8,14 @@ import { createResponseSchema } from "@/shared/types/response";
 import type { SearchModel } from "./catalog/action";
 import type { QuestionModel } from "./catalog/detail/[id]/action";
 
+export type UserModel = {
+  email: string;
+  id: number;
+  name: string;
+  phone: string;
+  role: string;
+};
+
 interface Category {
   id: number;
   parent_id: number | null;

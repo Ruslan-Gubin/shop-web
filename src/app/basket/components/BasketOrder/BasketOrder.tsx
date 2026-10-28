@@ -8,13 +8,16 @@ import type {
   CheckingBalanceResponse,
   CreateOrderPayload,
   CreateOrderResponse,
+  MapFeatureModel,
+  OrderModel,
 } from "@/app/checkout/action";
 import { calcBasketInfo } from "@/shared/helpers/calcBasketInfo";
 import { declOfNum } from "@/shared/helpers/declOfNum";
 import { formatterRub } from "@/shared/helpers/formatters";
 import { getDateFromAndDateTo } from "@/shared/helpers/getDateFromAndDateTo";
 import { getDeliveryTimeDisplay } from "@/shared/helpers/getDeliveryTimeDisplay";
-import { getOrderAddress } from "@/shared/helpers/getOrderAddress";
+import { getFullAddressItem } from "@/shared/helpers/getFullAddressItem";
+import { getIsDisabledDeliveryAddress } from "@/shared/helpers/getIsDisabledDeliveryAddress";
 import { getSelectDeliveryDate } from "@/shared/helpers/getSelectDeliveryDate";
 import { Button } from "@/shared/ui/button-main/Button";
 import { Checkbox } from "@/shared/ui/checkbox/Checkbox";
@@ -37,6 +40,15 @@ type Props = {
   pickupAddress?: AddressItem[];
   checkingBalanceAction: (payload: CheckingBalancePayload) => Promise<CheckingBalanceResponse>;
   createOrderAction?: (payload: CreateOrderPayload) => Promise<CreateOrderResponse>;
+  isRegister: boolean;
+  minOrderSum: number;
+  address: AddressItem | null;
+  isAgreed: boolean;
+  sectors: {
+    type: string;
+    features: MapFeatureModel[];
+  };
+  delivery_price: number;
 };
 
 export const BasketOrder = (props: Props) => {
@@ -46,26 +58,23 @@ export const BasketOrder = (props: Props) => {
   const delivery_date = checkoutStore((store) => store.delivery_date);
   const delivery_time = checkoutStore((store) => store.delivery_time);
   const method_receipt = checkoutStore((store) => store.method_receipt);
-  const courierAddress = checkoutStore((store) => store.courierAddress);
   const selected = basketStore((store) => store.selected);
-  const delivery_price = props.type === "checkout" && method_receipt === "courier" ? 100 : 0;
-  const activePickup = checkoutStore((store) => store.activePickup);
-  const activeCourier = checkoutStore((store) => store.activeCourier);
   const comment = checkoutStore((store) => store.comment);
   const recipient_name = checkoutStore((store) => store.recipient_name);
   const phone = checkoutStore((store) => store.phone);
   const [stocksWarning, setStocksWarning] = useState<
     { product_id: number; available: number; name: string }[]
   >([]);
-  const [successModal, setSuccessModal] = useState<{
+  const [successOrder, setSuccessOrder] = useState<{
     isOpen: boolean;
-    email: string;
-    order_id: number;
-    orderNumber: string;
-  }>({ isOpen: false, email: "", order_id: 0, orderNumber: "" });
+    orderData: OrderModel | null;
+  }>({ isOpen: false, orderData: null });
 
   const [isShowStickySubmit, setIsShowStickySubmit] = useState<boolean>(true);
   const refSubmitBtn = useRef<HTMLDivElement | null>(null);
+
+  const isCheckout = props.type === "checkout";
+  const isBasket = props.type === "basket";
 
   const orderInfo = useMemo(
     () =>
@@ -100,9 +109,6 @@ export const BasketOrder = (props: Props) => {
     };
   }, [isShowStickySubmit]);
 
-  const isCheckout = props.type === "checkout";
-  const isBasket = props.type === "basket";
-
   const selectDeliveryDate = getSelectDeliveryDate(delivery_date);
   const deliveryTimeDisplay = getDeliveryTimeDisplay(delivery_date, delivery_time, 10, 19);
 
@@ -112,30 +118,19 @@ export const BasketOrder = (props: Props) => {
     month: "long",
   });
 
-  const address = props.pickupAddress
-    ? getOrderAddress(
-        props.defaultCenter,
-        props.pickupAddress,
-        courierAddress,
-        method_receipt,
-        activePickup,
-        activeCourier,
-      )
-    : null;
-
   const createOrder = (selectedProducts: { product_id: number; quantity: number }[]) => {
-    const { date_from, date_to } = getDateFromAndDateTo(delivery_date, delivery_time, 10, 19);
+    const selectDate = getDateFromAndDateTo(delivery_date, delivery_time, 10, 19);
 
     const payload: CreateOrderPayload = {
       payment_method,
-      date_from,
-      date_to,
+      date_from: selectDate.date_from,
+      date_to: selectDate.date_to,
       method_receipt,
       comment,
       phone: phone.replace(/\D/g, ""),
       phoneCode: phone ? "+7" : "",
       recipient_name,
-      address,
+      address: props.address,
       products: selectedProducts,
     };
 
@@ -144,8 +139,6 @@ export const BasketOrder = (props: Props) => {
         let notification: { status: "error" | "success"; message: string } | null = null;
 
         if (response.status === "success" && response.data) {
-          const order_id = response.data.id;
-
           for (let i = 0; i < selectedProducts.length; i++) {
             basketAdapter.delete(selectedProducts[i].product_id);
           }
@@ -159,7 +152,7 @@ export const BasketOrder = (props: Props) => {
             message: "Заказ удачно создан",
           };
 
-          setSuccessModal({ isOpen: true, orderNumber: String(order_id), order_id, email: "" });
+          setSuccessOrder({ isOpen: true, orderData: response.data });
         } else {
           Object.entries(response.errors).forEach(([key, error]) => {
             if (error.length > 0) {
@@ -204,58 +197,76 @@ export const BasketOrder = (props: Props) => {
   };
 
   const handleSubmitOrder = () => {
-    const selectedProducts: { product_id: number; quantity: number }[] = [];
+    if (!props.isRegister) {
+      router.push("/sign-in");
+    } else {
+      const selectedProducts: { product_id: number; quantity: number }[] = [];
 
-    for (const key in basket) {
-      if (selected.includes(Number(key)) && basket[key] > 0) {
-        selectedProducts.push({ product_id: Number(key), quantity: basket[key] });
+      for (const key in basket) {
+        if (selected.includes(Number(key)) && basket[key] > 0) {
+          selectedProducts.push({ product_id: Number(key), quantity: basket[key] });
+        }
       }
+
+      props.checkingBalanceAction(selectedProducts).then((response) => {
+        if (Array.isArray(response.data) && response.data.length > 0) {
+          const updateStocksWarning = [];
+
+          for (let i = 0; i < response.data.length; i++) {
+            const item = response.data[i];
+
+            const findProduct = props.basketProducts.find(
+              (product) => product.id === item.product_id,
+            );
+
+            updateStocksWarning.push({
+              available: item.available,
+              product_id: item.product_id,
+              name: findProduct?.name || "",
+            });
+          }
+
+          setStocksWarning(updateStocksWarning);
+        } else if (Array.isArray(response.data) && response.data.length === 0) {
+          if (isBasket) {
+            router.push("/checkout");
+          } else {
+            createOrder(selectedProducts);
+          }
+        }
+      });
     }
-
-    props.checkingBalanceAction(selectedProducts).then((response) => {
-      if (Array.isArray(response.data) && response.data.length > 0) {
-        const updateStocksWarning = [];
-
-        for (let i = 0; i < response.data.length; i++) {
-          const item = response.data[i];
-
-          const findProduct = props.basketProducts.find(
-            (product) => product.id === item.product_id,
-          );
-
-          updateStocksWarning.push({
-            available: item.available,
-            product_id: item.product_id,
-            name: findProduct?.name || "",
-          });
-        }
-
-        setStocksWarning(updateStocksWarning);
-      } else if (Array.isArray(response.data) && response.data.length === 0) {
-        if (props.type === "basket") {
-          router.push("/checkout");
-        } else {
-          createOrder(selectedProducts);
-        }
-      }
-    });
   };
 
   const onNavigateSuccessModal = (order_id?: number) => {
-    setSuccessModal({ isOpen: false, email: "", orderNumber: "", order_id: 0 });
+    setSuccessOrder({ isOpen: false, orderData: null });
     router.push(order_id ? `/orders/${order_id}` : "/");
   };
 
+  const isDisabledMinOrderSum =
+    orderInfo.total > 0 && props.minOrderSum > 0 && orderInfo.total < props.minOrderSum;
+
+  const isDisabledDeliveryAddress = useMemo(
+    () => getIsDisabledDeliveryAddress(method_receipt, props.address, props.sectors.features),
+    [props.address, method_receipt, props.sectors.features],
+  );
+
   const disabledSubmit =
-    props.type === "checkout" ? orderInfo.total === 0 || address === null : orderInfo.total === 0;
+    orderInfo.total <= 0 ||
+    (isCheckout && props.address === null) ||
+    (isCheckout && !props.isAgreed) ||
+    (isCheckout && isDisabledMinOrderSum) ||
+    (isCheckout && isDisabledDeliveryAddress);
+
+  const submitText = !props.isRegister ? "Войти" : isCheckout ? "Оформить" : "Перейти к оформлению";
+  const total = orderInfo.total + props.delivery_price;
 
   return (
     <>
       <SuccessOrderModal
-        order_id={successModal.order_id}
-        active={props.type === "checkout" && successModal.isOpen}
-        email={successModal.email}
-        number={successModal.orderNumber}
+        active={isCheckout && successOrder.isOpen}
+        orderData={successOrder.orderData}
+        addressName={props.address ? getFullAddressItem(props.address) : ""}
         onNavigate={onNavigateSuccessModal}
       />
       <StockWarningModal
@@ -320,7 +331,7 @@ export const BasketOrder = (props: Props) => {
           {isCheckout && (
             <li className={styles.line}>
               <span className={styles.textInfo}>Стоимость доставки</span>
-              <span className={styles.textInfo}>{formatterRub.format(delivery_price)}</span>
+              <span className={styles.textInfo}>{formatterRub.format(props.delivery_price)}</span>
             </li>
           )}
           {isBasket && (
@@ -349,7 +360,9 @@ export const BasketOrder = (props: Props) => {
           {isCheckout && (
             <li className={styles.line}>
               <span className={styles.textInfo}>Адрес</span>
-              <span className={styles.textInfo}>{address ? address.name : "не выбран"}</span>
+              <span className={styles.textInfo}>
+                {props.address ? props.address.name : "не выбран"}
+              </span>
             </li>
           )}
 
@@ -373,9 +386,7 @@ export const BasketOrder = (props: Props) => {
         </ul>
         <div className={styles.line}>
           <h3 className={styles.totalText}>Итого</h3>
-          <h3 className={styles.totalText}>
-            {formatterRub.format(orderInfo.total + delivery_price)}
-          </h3>
+          <h3 className={styles.totalText}>{formatterRub.format(total)}</h3>
         </div>
         <div ref={refSubmitBtn}>
           <Button
@@ -386,7 +397,7 @@ export const BasketOrder = (props: Props) => {
             disabled={disabledSubmit}
             onClick={handleSubmitOrder}
           >
-            {props.type === "checkout" ? "Оформить" : "Перейти к оформлению"}
+            {submitText}
           </Button>
         </div>
 
@@ -400,11 +411,11 @@ export const BasketOrder = (props: Props) => {
               disabled={disabledSubmit}
               onClick={handleSubmitOrder}
             >
-              {props.type === "checkout" ? "Оформить" : "Перейти к оформлению"}
+              {submitText}
             </Button>
           </div>
         )}
-        {props.type === "checkout" && (
+        {isCheckout && (
           <div className={styles.access}>
             <Checkbox checked readOnly />
             <span>

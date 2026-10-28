@@ -88,7 +88,7 @@ export default async function ProfilePage() {
       )}
       {userData.status === "error" && userData.message && <ErrorAlert message={userData.message} />}
 
-      {phone.length > 1210 ? (
+      {phone.length > 0 ? (
         <ProfileContent navigateList={navigateList} title={`Телефон: ${getPhoneDisplay(phone)}`} />
       ) : (
         <NotContent

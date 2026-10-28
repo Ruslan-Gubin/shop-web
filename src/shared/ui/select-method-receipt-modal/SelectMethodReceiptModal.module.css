@@ -15,7 +15,7 @@
 
 .selectTypeButton {
   border-radius: 12px;
-  width: 50%;
+  width: 100%;
   font-weight: 500;
   color: var(----text-color-main);
   overflow: hidden;

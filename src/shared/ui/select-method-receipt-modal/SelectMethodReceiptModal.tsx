@@ -3,6 +3,7 @@ import styles from "./SelectMethodReceiptModal.module.css";
 type Props = {
   methodReceipt: "pickup" | "courier";
   onChangeMethod: (value: "pickup" | "courier") => void;
+  isDeliveryCourier: boolean;
 };
 
 export const SelectMethodReceiptModal = (props: Props) => {
@@ -19,17 +20,19 @@ export const SelectMethodReceiptModal = (props: Props) => {
       >
         Самовывоз
       </button>
-      <button
-        type="button"
-        className={
-          props.methodReceipt === "courier"
-            ? `${styles.selectTypeButton} ${styles.selectTypeButtonActive}`
-            : styles.selectTypeButton
-        }
-        onClick={() => props.onChangeMethod("courier")}
-      >
-        Курьером
-      </button>
+      {props.isDeliveryCourier && (
+        <button
+          type="button"
+          className={
+            props.methodReceipt === "courier"
+              ? `${styles.selectTypeButton} ${styles.selectTypeButtonActive}`
+              : styles.selectTypeButton
+          }
+          onClick={() => props.onChangeMethod("courier")}
+        >
+          Курьером
+        </button>
+      )}
     </div>
   );
 };

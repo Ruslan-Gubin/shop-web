@@ -1,5 +1,5 @@
 import { fetchService } from "@/shared/fetch-api";
-import type { ProductModel } from "../action";
+import type { ProductModel, UserModel } from "../action";
 
 export const fetchProfileData = async (
   recentIds: string,
@@ -15,13 +15,7 @@ export const fetchProfileData = async (
         purchases: number;
         waiting: number;
       },
-      {
-        email: string | null;
-        id: number;
-        name: string;
-        phone: string;
-        role: string;
-      },
+      UserModel,
     ]
   >([
     {

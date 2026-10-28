@@ -25,6 +25,9 @@ type Props = {
     name: string;
     place: string;
   }>;
+  isDeliveryCourier: boolean;
+  minOrderSum: number;
+  address: AddressItem | null;
 };
 
 export const MethodReceiptCard = (props: Props) => {
@@ -32,8 +35,15 @@ export const MethodReceiptCard = (props: Props) => {
 
   return (
     <BasketInfoCard title="Способ получения">
-      <SelectMethodReceipt method_receipt={method_receipt} />
+      <SelectMethodReceipt
+        method_receipt={method_receipt}
+        isDeliveryCourier={props.isDeliveryCourier}
+        minOrderSum={props.minOrderSum}
+      />
       <CheckoutAddress
+        address={props.address}
+        minOrderSum={props.minOrderSum}
+        isDeliveryCourier={props.isDeliveryCourier}
         defaultCenter={props.defaultCenter}
         fetchReverseAction={props.fetchReverseAction}
         fetchForwardAction={props.fetchForwardAction}

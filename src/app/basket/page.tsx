@@ -23,6 +23,7 @@ export default async function BasketPage() {
     recentData,
     buyTogetherData,
     recommendedData,
+    userData,
   ] = await fetchBasketData(basketIds, recentIds, favoriteIds);
 
   const basketProducts = (basketProductsData.status === "success" && basketProductsData.data) || [];
@@ -31,10 +32,12 @@ export default async function BasketPage() {
   const recent = (recentData.status === "success" && recentData.data) || [];
   const buyTogether = (buyTogetherData.status === "success" && buyTogetherData.data) || [];
   const recommended = (recommendedData.status === "success" && recommendedData.data) || [];
+  const user = userData.data;
 
   return (
     <section className="page-wrapper">
-      {recentData?.tokens && <UpdateToken tokens={recentData.tokens} />}
+      {userData?.tokens && <UpdateToken tokens={userData.tokens} />}
+      {userData.status === "error" && userData.message && <ErrorAlert message={userData.message} />}
       {promotionsData.status === "error" && promotionsData.message && (
         <ErrorAlert message={basketProductsData.message} />
       )}
@@ -58,6 +61,7 @@ export default async function BasketPage() {
         promotions={promotions}
         cartDiscounts={cartDiscounts}
         basketProducts={basketProducts}
+        isRegister={user !== null}
       />
 
       <section className="carousel-list">

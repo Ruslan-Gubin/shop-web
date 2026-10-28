@@ -1,6 +1,6 @@
 "use server";
 import { revalidatePath } from "next/cache";
-import type { CartDiscountModel, ProductModel, PromotionModel } from "@/app/action";
+import type { CartDiscountModel, ProductModel, PromotionModel, UserModel } from "@/app/action";
 import { fetchService } from "@/shared/fetch-api";
 
 export const revalidateBasketAction = async () => {
@@ -20,6 +20,7 @@ export const fetchBasketData = async (
       ProductModel[],
       ProductModel[],
       ProductModel[],
+      UserModel,
     ]
   >([
     {
@@ -60,6 +61,10 @@ export const fetchBasketData = async (
       },
       tags: [`BasketRecommended_${basketIds}`],
       revalidate: 30,
+    },
+    {
+      url: "users/me",
+      tags: ["ProfileData"],
     },
   ]);
 };

@@ -1,6 +1,7 @@
 "use server";
+import type { Position } from "geojson";
 import { cookies } from "next/headers";
-import type { CartDiscountModel, ProductModel, PromotionModel } from "@/app/action";
+import type { CartDiscountModel, ProductModel, PromotionModel, UserModel } from "@/app/action";
 import { CONFIG_APP } from "@/shared/config/config";
 import { fetchService } from "@/shared/fetch-api";
 import { updateTokensInAction } from "@/shared/helpers/updateCookieAction";
@@ -9,6 +10,20 @@ import { setErrorFromServer } from "@/shared/services/set-new-store-error-from-s
 import type { MapBoxGetSearchGeocodeResponse } from "@/shared/ui/mapbox/MapBox";
 import type { AddressItem } from "@/stores/checkout/types";
 import { createOrderSchema } from "./schema";
+
+export type MapFeatureModel = {
+  type: string;
+  properties: {
+    id: number;
+    color: string;
+    price: number;
+    min_sum: number;
+  };
+  geometry: {
+    type: string;
+    coordinates: Position[][];
+  };
+};
 
 export type WarehouseModel = {
   id: number;
@@ -34,6 +49,16 @@ export type WarehouseModel = {
   } | null;
 };
 
+export type SectorModel = {
+  id: number;
+  color: string;
+  coordinates: number[][];
+  price: number;
+  min_sum: number;
+  created_at: string;
+  updated_at: string;
+};
+
 export const fetchCheckoutData = async (
   basketIds: string,
   recentIds: string,
@@ -47,6 +72,8 @@ export const fetchCheckoutData = async (
       WarehouseModel[],
       ProductModel[],
       ProductModel[],
+      SectorModel[],
+      UserModel,
     ]
   >([
     {
@@ -81,6 +108,14 @@ export const fetchCheckoutData = async (
       },
       tags: [`CheckoutRecommended_${basketIds}`],
     },
+    {
+      url: "sectors/delivery",
+      tags: ["Sectors"],
+    },
+    {
+      url: "users/me",
+      tags: ["ProfileData"],
+    },
   ]);
 };
 
@@ -95,23 +130,38 @@ export type OrderStatus =
   | "completed"
   | "cancelled_customer";
 
+export type OrderPriceChangeItem = {
+  id: number;
+  price: number;
+};
+
 export type OrderModel = {
   id: number;
-  create_user_id: number;
-  order_number: string;
-  comment: string;
   status: OrderStatus;
   rejected_reason: string;
   phone: string;
   phoneCode: string;
   recipient_name: string;
-  payment_method: string;
-  method_receipt: string;
   date_from: Date | null;
   date_to: Date | null;
   discount: number;
   created_at: Date;
   updated_at: Date | null;
+  comment: string;
+  create_user_id: number;
+  discount_name: string;
+  discount_percent: number;
+  discount_quantity: number;
+  discount_total: number;
+  method_receipt: string;
+  order_number: string;
+  payment_method: string;
+  subtotal: number;
+  total: number;
+  price_changes: OrderPriceChangeItem[];
+  address?: AddressItem | null;
+  warehouse?: WarehouseModel | null;
+  delivery_price: number;
 };
 
 export type CheckingBalancePayload = {
