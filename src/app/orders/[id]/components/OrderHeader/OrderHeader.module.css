@@ -1,0 +1,70 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
+  padding: var(--padding-content-block);
+  border-radius: var(--border-radius-block);
+  background-color: #fff;
+}
+
+.dateRow {
+  display: flex;
+  justify-content: space-between;
+  column-gap: 12px;
+}
+
+.infoLabel {
+  font-size: 14px;
+}
+
+.infoValue {
+  flex: 1;
+  text-align: right;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.rejectedText {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.readyNotice {
+  display: flex;
+  align-items: flex-start;
+  column-gap: 10px;
+  padding: 12px;
+  border: 1px solid #f9731630;
+  border-radius: 12px;
+  background-color: #f9731614;
+}
+
+.readyIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 11px;
+  background-color: #f97316;
+  color: #fff;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.readyTextWrap {
+  display: flex;
+  flex-direction: column;
+  row-gap: 4px;
+}
+
+.readyTitle {
+  font-size: 15px;
+  font-weight: 600;
+  color: #c2410c;
+}
+
+.readyBody {
+  line-height: 18px;
+  color: #374151;
+}

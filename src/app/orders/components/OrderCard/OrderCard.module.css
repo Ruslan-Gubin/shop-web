@@ -1,0 +1,88 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  row-gap: 14px;
+  padding: var(--padding-content-block);
+  border-radius: var(--border-radius-block);
+  background-color: #fff;
+  color: var(--text-color-main);
+  transition: box-shadow 0.2s linear;
+
+  &:hover {
+    box-shadow: 0 4px 20px #24242414;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-violet);
+    outline-offset: 2px;
+  }
+
+  @media (max-width: 500px) {
+    row-gap: 12px;
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 12px;
+  flex-wrap: wrap;
+  row-gap: 8px;
+}
+
+.statusBadge {
+  border: 1px solid transparent;
+  border-radius: 20px;
+  padding: 6px 12px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.infoBlock {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+.infoRow {
+  display: flex;
+  justify-content: space-between;
+  column-gap: 12px;
+
+  @media (max-width: 500px) {
+    column-gap: 8px;
+  }
+}
+
+.infoLabel {
+  font-size: 14px;
+}
+
+.infoValue {
+  flex: 1;
+  text-align: right;
+  font-size: 14px;
+  font-weight: 500;
+  word-break: break-word;
+}
+
+.rejectedText {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.totalRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 12px;
+  padding-top: 14px;
+  border-top: 1px solid var(--color-light-gray);
+}
+
+.totalLabel,
+.totalValue {
+  font-size: 20px;
+  font-weight: 700;
+}

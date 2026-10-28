@@ -1,0 +1,14 @@
+.root {
+  display: flex;
+  flex-direction: column;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+}
+
+.observer {
+  height: 10px;
+}

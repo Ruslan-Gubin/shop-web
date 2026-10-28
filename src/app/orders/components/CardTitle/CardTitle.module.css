@@ -1,0 +1,11 @@
+.root {
+  display: flex;
+  column-gap: 8px;
+  color: var(--text-color);
+}
+
+.count {
+  vertical-align: top;
+  font-size: 14px;
+  display: inline-block;
+}

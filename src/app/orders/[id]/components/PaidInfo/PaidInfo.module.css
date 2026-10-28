@@ -1,0 +1,45 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
+  padding: var(--padding-content-block);
+  border-radius: var(--border-radius-block);
+  background-color: #fff;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  column-gap: 12px;
+
+  @media (max-width: 500px) {
+    column-gap: 8px;
+  }
+}
+
+.value {
+  flex: 1;
+  text-align: right;
+  font-weight: 500;
+}
+
+.totalLabel,
+.totalValue {
+  font-size: 14px;
+}
+
+.totalValue {
+  font-weight: 500;
+  word-break: break-word;
+}
+
+.divider {
+  height: 1px;
+  margin-block: 4px;
+  background-color: var(--color-light-gray);
+}
+
+.grandTotal {
+  font-size: 20px;
+  font-weight: 700;
+}

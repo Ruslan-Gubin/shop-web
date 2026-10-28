@@ -1,0 +1,61 @@
+.root {
+  display: flex;
+  align-items: flex-start;
+  column-gap: 12px;
+}
+
+.imageLink {
+  position: relative;
+  flex-shrink: 0;
+  width: 72px;
+  height: 96px;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: var(--color-light-gray);
+}
+
+.productInfo {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.productName {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.productDescription {
+  line-height: 18px;
+  color: var(--text-color-placeholder);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  column-gap: 12px;
+  row-gap: 4px;
+  margin-top: 6px;
+}
+
+.action {
+  font-weight: 500;
+  color: var(--color-violet);
+  background-color: transparent;
+  padding: 0;
+  text-align: left;
+  transition: color 0.2s linear;
+
+  &:hover {
+    color: var(--color-violet-hover);
+  }
+}

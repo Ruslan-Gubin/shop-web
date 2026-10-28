@@ -1,0 +1,14 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
+  padding: var(--padding-content-block);
+  border-radius: var(--border-radius-block);
+  background-color: #fff;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
+}

@@ -1,0 +1,61 @@
+.cancelButton {
+  align-self: flex-start;
+  padding: 4px 12px;
+  border: 1px solid var(--color-red-dark);
+  border-radius: 16px;
+  color: var(--color-red-dark);
+  font-size: 14px;
+  font-weight: 500;
+  background-color: transparent;
+  transition:
+    color 0.2s linear,
+    border-color 0.2s linear;
+
+  &:hover {
+    color: var(--color-red);
+    border-color: var(--color-red);
+  }
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+}
+
+.description {
+  color: var(--text-color-placeholder);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.presetList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.presetChip {
+  height: 36px;
+  padding-inline: 16px;
+  border: 1px solid transparent;
+  border-radius: 44px;
+  background-color: var(--color-light-gray);
+  color: var(--text-color-main);
+  font-size: 14px;
+  transition:
+    color 0.2s linear,
+    border-color 0.2s linear,
+    background-color 0.2s linear;
+
+  &:hover {
+    color: var(--color-violet);
+  }
+}
+
+.presetChipActive {
+  border-color: var(--color-violet);
+  background-color: #a73afd10;
+  color: var(--color-violet);
+  font-weight: 500;
+}
