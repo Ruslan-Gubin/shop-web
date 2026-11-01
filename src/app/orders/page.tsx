@@ -7,69 +7,36 @@ import { UpdateToken } from "@/views/UpdateToken/UpdateToken";
 import { fetchOrdersData } from "./action";
 import { OrdersList } from "./components/OrdersList/OrdersList";
 import { OrdersTabs } from "./components/OrdersTabs/OrdersTabs";
-import { getOrdersView, getOrdersViewFlag } from "./helpers/url";
-import type { OrdersCounts, OrdersViewFlag } from "./types";
-import styles from "./OrdersPage.module.css";
+import { emptyStates } from "./helpers/emptyStates";
+import { getOrdersViewFlag } from "./helpers/url";
+import type { OrdersSearchParams, OrdersViewFlag } from "./types";
 
 const limit = 30;
 
-const viewTitles: Record<OrdersViewFlag, string> = {
-  all: "Заказы",
-  purchases: "Покупки",
-  waiting: "Лист ожидания",
-};
-
-const emptyStates: Record<
-  OrdersViewFlag,
-  { title: string; subTitle: string; href: string; buttonText: string }
-> = {
-  all: {
-    title: "Заказов пока нет",
-    subTitle: "Перейдите в корзину, чтобы оформить заказ.",
-    href: "/basket",
-    buttonText: "Перейти в корзину",
-  },
-  purchases: {
-    title: "Покупок пока нет",
-    subTitle: "Полученные заказы появятся в этом списке.",
-    href: "/catalog",
-    buttonText: "Перейти в каталог",
-  },
-  waiting: {
-    title: "В листе ожидания пусто",
-    subTitle: "Здесь появятся заказы, готовые к выдаче или доставке.",
-    href: "/catalog",
-    buttonText: "Перейти в каталог",
-  },
-};
-
-export default async function OrdersPage(req: {
-  searchParams: Promise<{
-    all?: string;
-    purchases?: string;
-    waiting?: string;
-    page?: string;
-  }>;
-}) {
+export default async function OrdersPage(req: { searchParams: Promise<OrdersSearchParams> }) {
   const searchParams = await req.searchParams;
   const viewFlag = getOrdersViewFlag(searchParams);
-  const view = getOrdersView(viewFlag);
   const page = searchParams.page && Number(searchParams.page) > 0 ? searchParams.page : "1";
 
-  const [ordersData, countsData, userData] = await fetchOrdersData(view, page, limit);
+  const viewTitles: Record<OrdersViewFlag, string> = {
+    orders: "Заказы",
+    purchases: "Покупки",
+    waiting: "Лист ожидания",
+  };
+
+  const [ordersData, countsData, userData] = await fetchOrdersData(viewFlag, page, limit);
 
   const orders = ordersData.data?.orders || [];
   const total = ordersData.data?.totalCount || 0;
-  const counts: OrdersCounts | null = countsData.data;
+  const counts = countsData.data;
   const phone = userData.data?.phone || "";
-  const tokens = ordersData.tokens || countsData.tokens || userData.tokens;
 
   const isLoadMoreDisabled = getIsLoadMoreDisabled(page, total, limit);
   const emptyState = emptyStates[viewFlag];
 
   return (
     <section className="page-wrapper">
-      {tokens && <UpdateToken tokens={tokens} />}
+      {userData?.tokens && <UpdateToken tokens={userData.tokens} />}
 
       {phone.length === 0 ? (
         <NotContent
@@ -79,7 +46,7 @@ export default async function OrdersPage(req: {
           buttonText="Войти"
         />
       ) : (
-        <section className={styles.root}>
+        <section className="page-wrapper">
           <PageHeader
             title={viewTitles[viewFlag]}
             subtitle={
@@ -95,12 +62,13 @@ export default async function OrdersPage(req: {
 
           {orders.length > 0 ? (
             <OrdersList
+              patch="/orders"
               orders={orders}
               viewFlag={viewFlag}
-              page={page}
               limit={limit}
               total={total}
               isLoadMoreDisabled={isLoadMoreDisabled}
+              searchParams={searchParams}
             />
           ) : (
             <NotContent

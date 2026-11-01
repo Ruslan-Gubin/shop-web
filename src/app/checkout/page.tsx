@@ -113,19 +113,19 @@ export default async function CheckoutPage() {
         isDeliveryCourier={isDeliveryCourier}
       />
 
-      {/* <section className="carousel-list"> */}
-      {/*   {recent.length > 0 && ( */}
-      {/*     <CarouselProducts */}
-      {/*       headerLink={recent.length > 6 ? { text: "Смотреть все", href: "/recent" } : undefined} */}
-      {/*       products={recent} */}
-      {/*       title="Вы недавно смотрели" */}
-      {/*     /> */}
-      {/*   )} */}
-      {/**/}
-      {/*   {recommended.length > 0 && ( */}
-      {/*     <ProductSection products={recommended} title="Подобрали для вас" /> */}
-      {/*   )} */}
-      {/* </section> */}
+      <section className="carousel-list">
+        {recent.length > 0 && (
+          <CarouselProducts
+            headerLink={recent.length > 6 ? { text: "Смотреть все", href: "/recent" } : undefined}
+            products={recent}
+            title="Вы недавно смотрели"
+          />
+        )}
+
+        {recommended.length > 0 && (
+          <ProductSection products={recommended} title="Подобрали для вас" />
+        )}
+      </section>
     </section>
   );
 }

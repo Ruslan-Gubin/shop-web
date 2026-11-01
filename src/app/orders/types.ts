@@ -1,6 +1,9 @@
-import type { OrderModel } from "@/app/checkout/action";
-
-export type { OrderModel };
+export type OrdersSearchParams = {
+  all?: string;
+  purchases?: string;
+  waiting?: string;
+  page?: string;
+};
 
 export type OrderStatus =
   | "new"
@@ -14,9 +17,7 @@ export type OrderStatus =
   | "completed"
   | "cancelled_customer";
 
-export type OrderView = "orders" | "purchases" | "waiting";
-
-export type OrdersViewFlag = "all" | "purchases" | "waiting";
+export type OrdersViewFlag = "orders" | "purchases" | "waiting";
 
 export type OrdersCounts = {
   orders: number;

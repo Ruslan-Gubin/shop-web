@@ -15,15 +15,6 @@ type Props = {
   id: number;
 };
 
-const PRESET_REASONS = [
-  "Передумал",
-  "Оформил случайно",
-  "Нашёл дешевле",
-  "Слишком долго ждать",
-  "Хочу изменить заказ",
-  "Товар больше не нужен",
-];
-
 export const CancelOrderModal = (props: Props) => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -31,6 +22,15 @@ export const CancelOrderModal = (props: Props) => {
   const [customReason, setCustomReason] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  const PRESET_REASONS = [
+    "Передумал",
+    "Оформил случайно",
+    "Нашёл дешевле",
+    "Слишком долго ждать",
+    "Хочу изменить заказ",
+    "Товар больше не нужен",
+  ];
 
   const finalReason = customReason.trim() || selectedReason;
   const isDisabled = finalReason.length === 0 || loading;
@@ -106,7 +106,7 @@ export const CancelOrderModal = (props: Props) => {
 
             <ul className={styles.presetList}>
               {PRESET_REASONS.map((reason) => (
-                <li key={reason}>
+                <li key={reason} className={styles.presetChipItem}>
                   <button
                     type="button"
                     className={

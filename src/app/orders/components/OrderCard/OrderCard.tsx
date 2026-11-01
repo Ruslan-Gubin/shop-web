@@ -1,8 +1,8 @@
 import Link from "next/link";
+import type { OrderModel } from "@/app/checkout/action";
 import { formatterRub } from "@/shared/helpers/formatters";
 import { formatDeliveryInterval, formatOrderDate } from "../../helpers/formatters";
 import { getOrderCardStatusLabel, getOrderStatusColor } from "../../helpers/orderStatus";
-import type { OrderModel } from "../../types";
 import styles from "./OrderCard.module.css";
 
 type Props = {
@@ -35,7 +35,11 @@ export const OrderCard = (props: Props) => {
         {statusLabel && statusColor && (
           <span
             className={styles.statusBadge}
-            style={{ color: statusColor, borderColor: `${statusColor}40`, backgroundColor: `${statusColor}18` }}
+            style={{
+              color: statusColor,
+              borderColor: `${statusColor}40`,
+              backgroundColor: `${statusColor}18`,
+            }}
           >
             {statusLabel}
           </span>

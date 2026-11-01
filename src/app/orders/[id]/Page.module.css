@@ -1,0 +1,23 @@
+.content {
+  display: grid;
+  column-gap: var(--padding-main-content);
+  grid-template-columns: 1fr 360px;
+
+  @media (max-width: 1200px) {
+    row-gap: var(--padding-main-content);
+    flex-direction: column;
+    display: flex;
+  }
+}
+
+.leftSide {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--padding-content-block);
+}
+
+.rightSide {
+  height: max-content;
+  top: calc(var(--header-size-height) + 8px);
+  position: sticky;
+}

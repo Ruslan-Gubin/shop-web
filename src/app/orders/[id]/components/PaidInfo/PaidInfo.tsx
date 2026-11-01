@@ -1,5 +1,5 @@
+import type { OrderModel } from "@/app/checkout/action";
 import { formatterRub } from "@/shared/helpers/formatters";
-import type { OrderModel } from "../../../types";
 import { CardTitle } from "../../../components/CardTitle/CardTitle";
 import styles from "./PaidInfo.module.css";
 

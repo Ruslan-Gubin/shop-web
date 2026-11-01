@@ -11,6 +11,11 @@
   display: flex;
   justify-content: space-between;
   column-gap: 12px;
+
+  @media (max-width: 360px) {
+    flex-direction: column;
+    row-gap: 8px;
+  }
 }
 
 .infoLabel {
@@ -22,6 +27,10 @@
   text-align: right;
   font-size: 14px;
   font-weight: 500;
+
+  @media (max-width: 360px) {
+    text-align: left;
+  }
 }
 
 .rejectedText {

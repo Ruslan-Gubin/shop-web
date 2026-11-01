@@ -33,9 +33,16 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.presetChipItem {
+  max-width: 100%;
 }
 
 .presetChip {
+  width: 100%;
   height: 36px;
   padding-inline: 16px;
   border: 1px solid transparent;
@@ -44,18 +51,15 @@
   color: var(--text-color-main);
   font-size: 14px;
   transition:
-    color 0.2s linear,
     border-color 0.2s linear,
     background-color 0.2s linear;
-
-  &:hover {
-    color: var(--color-violet);
-  }
+  max-width: 100%;
+  overflow: hidden;
+  text-wrap: nowrap;
+  text-overflow: ellipsis;
 }
 
 .presetChipActive {
   border-color: var(--color-violet);
-  background-color: #a73afd10;
-  color: var(--color-violet);
-  font-weight: 500;
+  background-color: white;
 }

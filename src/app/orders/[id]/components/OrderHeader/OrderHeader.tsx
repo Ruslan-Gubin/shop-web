@@ -1,10 +1,10 @@
+import type { OrderModel } from "@/app/checkout/action";
 import { formatDeliveryIntervalHours, formatOrderDate } from "../../../helpers/formatters";
 import {
   cancelledStatuses,
   getOrderStatusColor,
   getOrderStatusLabel,
 } from "../../../helpers/orderStatus";
-import type { OrderModel } from "../../../types";
 import { CancelOrderModal } from "../CancelOrderModal/CancelOrderModal";
 import styles from "./OrderHeader.module.css";
 

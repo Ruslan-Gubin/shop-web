@@ -1,10 +1,10 @@
+import type { OrderModel } from "@/app/checkout/action";
 import { CONFIG_APP } from "@/shared/config/config";
 import { formatDateRu } from "@/shared/helpers/formatters";
-import { formatDeliveryInterval } from "../../../helpers/formatters";
-import { getFullAddressItem } from "@/shared/helpers/getFullAddressItem";
 import { getPhoneDisplay } from "@/shared/helpers/getFormattedPhone";
-import type { OrderModel } from "../../../types";
+import { getFullAddressItem } from "@/shared/helpers/getFullAddressItem";
 import { CardTitle } from "../../../components/CardTitle/CardTitle";
+import { formatDeliveryInterval } from "../../../helpers/formatters";
 import { OrderMap } from "../OrderMap/OrderMap";
 import styles from "./DeliveryInfo.module.css";
 

@@ -1,7 +1,7 @@
 import type { ProductModel } from "@/app/action";
 import { NotContent } from "@/shared/ui/not-content/NotContent";
-import type { OrderProductModel, OrderStatus } from "../../../types";
 import { CardTitle } from "../../../components/CardTitle/CardTitle";
+import type { OrderProductModel, OrderStatus } from "../../../types";
 import { OrderProductCard } from "../OrderProductCard/OrderProductCard";
 import styles from "./OrderProducts.module.css";
 

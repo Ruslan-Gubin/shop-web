@@ -48,7 +48,7 @@ export default async function ProfilePage() {
         counts && counts.orders > 0
           ? `${counts.orders} ${declOfNum(counts.orders, ["заказ", "заказа", "заказов"])}`
           : "Ближайшие: не ожидаются",
-      href: "orders/all",
+      href: "orders?all",
     },
     {
       label: "Покупки",
@@ -56,7 +56,7 @@ export default async function ProfilePage() {
         counts && counts.purchases > 0
           ? `Купили ${counts.purchases} раз`
           : "Здесь можно купить что-то заново",
-      href: "orders/purchases",
+      href: "orders?purchases",
     },
     {
       label: "Лист ожидания",
@@ -64,7 +64,7 @@ export default async function ProfilePage() {
         counts && counts.waiting > 0
           ? `Ожидается ${counts.waiting} ${declOfNum(counts.waiting, ["заказ", "заказа", "заказов"])}`
           : "Нет ожидания",
-      href: "orders/waiting",
+      href: "orders?waiting",
     },
     { label: "Избранное", value: favoritesValue, href: "favorites" },
     {
