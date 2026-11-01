@@ -27,6 +27,7 @@
 .leftSide {
   display: flex;
   column-gap: var(--padding-content-block);
+  min-width: 0px;
 }
 
 .imageLink {

@@ -17,6 +17,7 @@ type Props = {
   limit: number;
   total: number;
   question_id: string;
+  variant?: "grid" | "list";
 };
 
 export const QuestionsList = (props: Props) => {
@@ -84,7 +85,14 @@ export const QuestionsList = (props: Props) => {
 
   return (
     <div className={styles.productsList}>
-      <ul ref={refList} className={styles.questionsList}>
+      <ul
+        ref={refList}
+        className={
+          props.variant === "list"
+            ? `${styles.questionsList} ${styles.questionsListList}`
+            : styles.questionsList
+        }
+      >
         {(data.length > 0 ? data : props.questions).map((questionItem) => (
           <li id={String(questionItem.id)} key={questionItem.id} className={styles.questionsItem}>
             <header className={styles.questionsHeader}>
@@ -101,7 +109,11 @@ export const QuestionsList = (props: Props) => {
 
             <p>{questionItem.question}</p>
             <div className={styles.answerContainer}>
-              <p className={styles.answerText}>{questionItem.answer}</p>
+              {questionItem.answer?.trim() ? (
+                <p className={styles.answerText}>{questionItem.answer}</p>
+              ) : (
+                <p className={styles.answerEmpty}>Пока нет ответа</p>
+              )}
             </div>
           </li>
         ))}

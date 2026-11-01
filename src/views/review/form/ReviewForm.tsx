@@ -36,6 +36,8 @@ type Props = {
     message: string;
   }>;
   deleteReviewAction: (review_id: number) => Promise<ResponseData<null>>;
+  initActive?: boolean;
+  isNotClose?: boolean;
 };
 
 const STARS = [1, 2, 3, 4, 5];
@@ -49,7 +51,7 @@ type ErrorsType = {
 
 export const ReviewForm = (props: Props) => {
   const [disabled, transition] = useTransition();
-  const [active, setActive] = useState<boolean>(false);
+  const [active, setActive] = useState<boolean>(props.initActive ?? false);
   const [activeModal, setActiveModal] = useState<boolean>(false);
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
 
@@ -87,7 +89,9 @@ export const ReviewForm = (props: Props) => {
   }, [props.myReview]);
 
   const handleReset = () => {
-    setActive(false);
+    if (!props.isNotClose) {
+      setActive(false);
+    }
     setErrors({ comment: "", dignities: "", rating: "", disadvantages: "" });
     setValues({ comment: "", dignities: "", rating: 0, disadvantages: "" });
   };
@@ -125,7 +129,9 @@ export const ReviewForm = (props: Props) => {
               title: "Спасибо за ваш отзыв",
               subtitle: "Отзыв будет опубликован после проверки",
             });
-            setActive(false);
+            if (!props.isNotClose) {
+              setActive(false);
+            }
             setActiveModal(true);
           } else {
             const updateErrors = { ...errors };
@@ -162,7 +168,9 @@ export const ReviewForm = (props: Props) => {
                 subtitle: "Ваш отзыв успешно изменен",
               });
               setActiveModal(true);
-              setActive(false);
+              if (!props.isNotClose) {
+                setActive(false);
+              }
             } else {
               const updateErrors = { ...errors };
 

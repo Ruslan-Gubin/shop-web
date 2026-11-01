@@ -119,6 +119,8 @@ export const fetchProductDetail = async (
 
 export const createQuestionAction = async (question: string, product_id: string) => {
   const cookieStore = await cookies();
+  const headersList = await headers();
+  const referer = headersList.get("referer") || "";
 
   return fetchService
     .post<QuestionModel>({
@@ -128,6 +130,10 @@ export const createQuestionAction = async (question: string, product_id: string)
     .then((response) => {
       if (response.tokens) {
         updateTokensInAction(cookieStore, response.tokens);
+      }
+
+      if (response.status === "success" && referer) {
+        revalidatePath(new URL(referer).pathname);
       }
 
       return response;

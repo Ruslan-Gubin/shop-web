@@ -1,0 +1,41 @@
+.root {
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.list {
+  display: flex;
+  column-gap: 2px;
+  width: max-content;
+  padding: 2px;
+  border-radius: 8px;
+  background-color: var(--color-light-gray);
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+  height: 36px;
+  padding-inline: 16px;
+  border-radius: 8px;
+  color: var(--text-color-main);
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.2s linear;
+
+  @media (max-width: 500px) {
+    height: 34px;
+    padding-inline: 12px;
+  }
+}
+
+.tabActive {
+  background-color: #fff;
+  color: var(--color-violet);
+  cursor: default;
+
+  &:hover {
+    background-color: #fff;
+  }
+}

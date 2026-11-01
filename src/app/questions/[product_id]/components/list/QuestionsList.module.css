@@ -14,6 +14,11 @@
   }
 }
 
+.questionsListList {
+  display: flex;
+  flex-direction: column;
+}
+
 .questionsItem {
   position: relative;
   padding: var(--padding-content-block);
@@ -61,4 +66,9 @@
   background-color: #f6f6f9;
   padding: 16px;
   border-radius: 8px;
+}
+
+.answerEmpty {
+  font-size: 14px;
+  color: var(--text-color-placeholder);
 }

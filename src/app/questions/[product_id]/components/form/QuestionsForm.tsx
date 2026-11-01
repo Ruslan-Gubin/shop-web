@@ -18,10 +18,12 @@ type Props = {
     question: string,
     product_id: string,
   ) => Promise<ResponseData<QuestionModel>>;
+  initActive?: boolean;
+  isNotClose?: boolean;
 };
 
 export const QuestionsForm = (props: Props) => {
-  const [active, setActive] = useState<boolean>(false);
+  const [active, setActive] = useState<boolean>(props.initActive ?? false);
   const [question, setQuestion] = useState<string>("");
   const [questionError, setQuestionError] = useState<string>("");
   const [activeModal, setActiveModal] = useState<boolean>(false);
@@ -43,7 +45,9 @@ export const QuestionsForm = (props: Props) => {
               title: "Спасибо за ваш вопрос",
               subtitle: "Вопрос будет опубликован вместе с ответом",
             });
-            setActive(false);
+            if (!props.isNotClose) {
+              setActive(false);
+            }
             setQuestion("");
           } else {
             setModalContent({
@@ -59,7 +63,11 @@ export const QuestionsForm = (props: Props) => {
   };
 
   const handleReset = () => {
-    setActive(false);
+    if (!props.isNotClose) {
+      setActive(false);
+    }
+    setQuestion("");
+    setQuestionError("");
   };
 
   const handleChangeQuestion = (value: string) => {
