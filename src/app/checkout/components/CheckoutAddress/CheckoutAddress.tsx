@@ -1,4 +1,5 @@
 import { useState } from "react";
+import type { MapFeatureModel } from "@/app/checkout/action";
 import { formatterRub } from "@/shared/helpers/formatters";
 import { getFullAddressItem } from "@/shared/helpers/getFullAddressItem";
 import { PinAddressSvg } from "@/shared/svg/PinAddressSvg";
@@ -35,6 +36,10 @@ type Props = {
   isDeliveryCourier: boolean;
   minOrderSum: number;
   address: AddressItem | null;
+  sectors: {
+    type: string;
+    features: MapFeatureModel[];
+  };
 };
 
 export const CheckoutAddress = (props: Props) => {
@@ -76,6 +81,7 @@ export const CheckoutAddress = (props: Props) => {
         activeCourier={activeCourier}
       />
       <AddressModal
+        isDeliveryCourier={props.isDeliveryCourier}
         defaultCenter={props.defaultCenter}
         fetchReverseAction={props.fetchReverseAction}
         fetchForwardAction={props.fetchForwardAction}
@@ -89,6 +95,7 @@ export const CheckoutAddress = (props: Props) => {
         onClose={() => setSelectAddressModal(false)}
         activePickup={activePickup}
         activeCourier={activeCourier}
+        sectors={props.sectors}
       />
 
       <ul className={styles.methodList}>

@@ -95,6 +95,7 @@ export const CheckoutWrapper = (props: Props) => {
           <BasketMethodCard />
           <DeliveryDateCard />
           <MethodReceiptCard
+            sectors={props.sectors}
             address={address}
             minOrderSum={deliveryParams.min_sum}
             isDeliveryCourier={props.isDeliveryCourier}

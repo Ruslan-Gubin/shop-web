@@ -2,95 +2,21 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import {
   FullscreenControl,
   GeolocateControl,
+  Layer,
   Map as MapMain,
   type MapMouseEvent,
   type MapRef,
   Marker,
   type MarkerEvent,
   NavigationControl,
+  Source,
   type ViewStateChangeEvent,
 } from "react-map-gl/mapbox";
 import "mapbox-gl/dist/mapbox-gl.css";
+import type { MapFeatureModel } from "@/app/checkout/action";
 import type { AddressItem } from "@/stores/checkout/types";
 import { CustomMarker } from "./map-marker/CustomMarker";
-
-export type MapBoxFeaturesItem = {
-  id: string;
-  geometry: { type: string; coordinates: number[] };
-  properties: {
-    context: {
-      address: {
-        address_number: string;
-        mapbox_id: string;
-        name: string;
-        street_name: string;
-      };
-      country: {
-        country_code: string;
-        country_code_alpha_3: string;
-        mapbox_id: string;
-        name: string;
-        translations: {
-          ru: {
-            language: string;
-            name: string;
-          };
-        };
-        wikidata_id: string;
-      };
-      place: {
-        mapbox_id: string;
-        name: string;
-
-        translations: {
-          ru: {
-            language: string;
-            name: string;
-          };
-        };
-        wikidata_id: string;
-      };
-      postcode: {
-        mapbox_id: string;
-        name: string;
-      };
-      region: {
-        mapbox_id: string;
-        name: string;
-        region_code: string;
-        region_code_full: string;
-        translations: {
-          ru: {
-            language: string;
-            name: string;
-          };
-        };
-        wikidata_id: string;
-      };
-      street: {
-        mapbox_id: string;
-        name: string;
-      };
-    };
-    coordinates: {
-      accuracy: string;
-      latitude: number;
-      longitude: number;
-    };
-    routable_points: {
-      latitude: number;
-      longitude: number;
-      name: string;
-    }[];
-    mapbox_id: string;
-    feature_type: string;
-    full_address: string;
-    name: string;
-    name_preferred: string;
-    place_formatted: string;
-  };
-  type: string;
-};
+import type { MapBoxFeaturesItem } from "./types";
 
 export type MapBoxGetSearchGeocodeResponse = {
   attribution: string;
@@ -110,6 +36,7 @@ type Props = {
   onClickMarker: (lng: number, lat: number) => void;
   onClickMap?: (lng: number, lat: number) => void;
   hasFullScreen?: boolean;
+  zones?: { type: string; features: MapFeatureModel[] };
 };
 
 export const MapBox = (props: Props) => {
@@ -211,6 +138,24 @@ export const MapBox = (props: Props) => {
       pitch={0}
       bearing={0}
     >
+      {props.zones && props.zones.features.length > 0 && (
+        <Source
+          id="delivery-zones"
+          type="geojson"
+          data={props.zones as unknown as GeoJSON.FeatureCollection}
+        >
+          <Layer
+            id="delivery-zones-fill"
+            type="fill"
+            paint={{ "fill-color": ["get", "color"], "fill-opacity": 0.15 }}
+          />
+          <Layer
+            id="delivery-zones-line"
+            type="line"
+            paint={{ "line-color": ["get", "color"], "line-width": 1.5, "line-opacity": 0.6 }}
+          />
+        </Source>
+      )}
       <GeolocateControl position="top-left" />
       <NavigationControl position="top-left" />
       {props.hasFullScreen && <FullscreenControl containerId="1" position="top-right" />}

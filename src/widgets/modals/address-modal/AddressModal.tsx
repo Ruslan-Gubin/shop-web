@@ -1,4 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import type { MapFeatureModel } from "@/app/checkout/action";
+import { findMapSector } from "@/shared/helpers/findMapSector";
+import { formatterRub } from "@/shared/helpers/formatters";
+import { getOrderAddress } from "@/shared/helpers/getOrderAddress";
 import { CloseSvg } from "@/shared/svg/CloseSvg";
 import { Button } from "@/shared/ui/button-main/Button";
 import { Checkbox } from "@/shared/ui/checkbox/Checkbox";
@@ -10,7 +14,6 @@ import { checkoutAdapter } from "@/stores/checkout/adapter";
 import type { AddressItem } from "@/stores/checkout/types";
 import styles from "./AddressModal.module.css";
 import { AddressSearch } from "./components/AddressSearch/AddressSearch";
-import { getOrderAddress } from "@/shared/helpers/getOrderAddress";
 
 type Props = {
   defaultCenter: { lng: number; lat: number };
@@ -39,6 +42,11 @@ type Props = {
     name: string;
     place: string;
   }>;
+  sectors: {
+    type: string;
+    features: MapFeatureModel[];
+  };
+  isDeliveryCourier: boolean;
 };
 
 export const AddressModal = (props: Props) => {
@@ -119,6 +127,18 @@ export const AddressModal = (props: Props) => {
     }
   };
 
+  const zone = useMemo(
+    () =>
+      selectCourier
+        ? findMapSector(props.sectors.features, selectCourier.lng, selectCourier.lat)
+        : null,
+    [selectCourier, props.sectors.features],
+  );
+
+  const isOutOfZone = methodReceipt === "courier" && selectCourier !== null && zone === null;
+  const deliveryPrice = zone?.properties.price || 0;
+  const minOrderSum = zone?.properties.min_sum || 0;
+
   const activeAddress = getOrderAddress(
     props.defaultCenter,
     props.pickupAddress,
@@ -132,7 +152,7 @@ export const AddressModal = (props: Props) => {
     checkoutAdapter.setMethodReceipt(methodReceipt);
     if (methodReceipt === "pickup" && selectPickup) {
       checkoutAdapter.setActiveAddress(selectPickup.lng, selectPickup.lat);
-    } else if (methodReceipt === "courier" && selectCourier) {
+    } else if (methodReceipt === "courier" && selectCourier && !isOutOfZone) {
       checkoutAdapter.addAddress(selectCourier);
       checkoutAdapter.setActiveAddress(selectCourier.lng, selectCourier.lat);
       setSelectCourier(null);
@@ -142,7 +162,7 @@ export const AddressModal = (props: Props) => {
 
   const isSubmitDisabled =
     (methodReceipt === "pickup" && !selectPickup) ||
-    (methodReceipt === "courier" && !selectCourier);
+    (methodReceipt === "courier" && (!selectCourier || isOutOfZone));
 
   const handleChangeValues = (value: string, key: string) => {
     setSelectCourier((prev) => (prev ? { ...prev, [key]: value } : null));
@@ -178,6 +198,7 @@ export const AddressModal = (props: Props) => {
           )}
         </header>
         <SelectMethodReceiptModal
+          isDeliveryCourier={props.isDeliveryCourier}
           methodReceipt={methodReceipt}
           onChangeMethod={handleChangeMethod}
         />
@@ -196,6 +217,16 @@ export const AddressModal = (props: Props) => {
                 </>
               )}
             </div>
+          )}
+
+          {methodReceipt === "courier" && isOutOfZone && (
+            <p className={styles.outOfZoneText}>По этому адресу доставка не осуществляется.</p>
+          )}
+
+          {methodReceipt === "courier" && selectCourier && !isOutOfZone && minOrderSum > 0 && (
+            <p className={styles.minOrderSumText}>
+              Минимальная сумма заказа {formatterRub.format(minOrderSum)}.
+            </p>
           )}
 
           {methodReceipt === "courier" && selectCourier && (
@@ -297,6 +328,20 @@ export const AddressModal = (props: Props) => {
         </footer>
       </section>
       <section className={styles.mapSide}>
+        {methodReceipt === "courier" && selectCourier && !isOutOfZone && (
+          <div className={styles.deliveryPrice}>
+            {deliveryPrice > 0 ? (
+              <>
+                <span>Доставка</span>
+                <span className={styles.deliveryPriceValue}>
+                  {formatterRub.format(deliveryPrice)}
+                </span>
+              </>
+            ) : (
+              <span className={styles.deliveryPriceFree}>Бесплатно</span>
+            )}
+          </div>
+        )}
         {activeAddress && props.active && (
           <MapBox
             onClickMap={handleClickMap}
@@ -315,6 +360,7 @@ export const AddressModal = (props: Props) => {
             mapStyle={props.mapStyle}
             width={"100%"}
             height={"100%"}
+            zones={methodReceipt === "courier" ? props.sectors : undefined}
           />
         )}
       </section>

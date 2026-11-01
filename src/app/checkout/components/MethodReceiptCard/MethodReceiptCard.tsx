@@ -1,4 +1,5 @@
 "use client";
+import type { MapFeatureModel } from "@/app/checkout/action";
 import { checkoutStore } from "@/stores/checkout/store";
 import type { AddressItem } from "@/stores/checkout/types";
 import { BasketInfoCard } from "../BasketInfoCard/BasketInfoCard";
@@ -28,6 +29,10 @@ type Props = {
   isDeliveryCourier: boolean;
   minOrderSum: number;
   address: AddressItem | null;
+  sectors: {
+    type: string;
+    features: MapFeatureModel[];
+  };
 };
 
 export const MethodReceiptCard = (props: Props) => {
@@ -51,6 +56,7 @@ export const MethodReceiptCard = (props: Props) => {
         method_receipt={method_receipt}
         mapStyle={props.mapStyle}
         mapToken={props.mapToken}
+        sectors={props.sectors}
       />
     </BasketInfoCard>
   );

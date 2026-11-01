@@ -77,6 +77,8 @@ export default async function CheckoutPage() {
     lat: hasFindDefaultCenterMap ? defaultPickupCenter.lat : 48.013597598505555,
   };
 
+  console.log(isDeliveryCourier);
+
   return (
     <section className="page-wrapper">
       {userData?.tokens && <UpdateToken tokens={userData.tokens} />}
