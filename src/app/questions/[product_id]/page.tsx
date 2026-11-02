@@ -1,7 +1,7 @@
 import { createQuestionAction } from "@/app/catalog/detail/[id]/action";
 import { getIsLoadMoreDisabled } from "@/shared/helpers/getIsLoadMoreDisabled";
 import { EMPTY_IMG_SVG } from "@/shared/helpers/listenerImgError";
-import { ErrorAlert } from "@/shared/ui/error-alert/ErrorAlert";
+import { ErrorList } from "@/views/error-list/ErrorList";
 import { UpdateToken } from "@/views/UpdateToken/UpdateToken";
 import { ProductInfo } from "@/widgets/product/product-info/ProductInfo";
 import { fetchQuestionsData } from "./action";
@@ -42,18 +42,7 @@ export default async function QuestionsPage(req: {
   return (
     <section className="page-wrapper">
       {questionData?.tokens && <UpdateToken tokens={questionData.tokens} />}
-      {stocksData.status === "error" && stocksData.message && (
-        <ErrorAlert message={stocksData.message} />
-      )}
-      {pricesData.status === "error" && pricesData.message && (
-        <ErrorAlert message={pricesData.message} />
-      )}
-      {productData.status === "error" && productData.message && (
-        <ErrorAlert message={productData.message} />
-      )}
-      {questionData.status === "error" && questionData.message && (
-        <ErrorAlert message={questionData.message} />
-      )}
+      <ErrorList errorsList={[stocksData, pricesData, productData, questionData]} />
 
       {product && pricesData && stocksData && (
         <ProductInfo

@@ -2,8 +2,8 @@ import { cookies } from "next/headers";
 import { declOfNum } from "@/shared/helpers/declOfNum";
 import { getIsLoadMoreDisabled } from "@/shared/helpers/getIsLoadMoreDisabled";
 import { BreadCrumbs } from "@/shared/ui/breadcrumbs/BreadCrumbs";
-import { ErrorAlert } from "@/shared/ui/error-alert/ErrorAlert";
 import { PageHeader } from "@/shared/ui/page-header/PageHeader";
+import { ErrorList } from "@/views/error-list/ErrorList";
 import { UpdateToken } from "@/views/UpdateToken/UpdateToken";
 import { CarouselProducts } from "@/widgets/carousel-products/CarouselProducts";
 import { fetchCatalogData } from "./action";
@@ -103,18 +103,9 @@ export default async function CategoriesPage(req: {
   return (
     <section className={`page-wrapper ${styles.content}`}>
       {catalogData?.tokens && <UpdateToken tokens={catalogData.tokens} />}
-      {recentData.status === "error" && recentData.message && (
-        <ErrorAlert message={recentData.message} />
-      )}
-      {categoryData.status === "error" && categoryData.message && (
-        <ErrorAlert message={categoryData.message} />
-      )}
-      {filtersData.status === "error" && filtersData.message && (
-        <ErrorAlert message={filtersData.message} />
-      )}
-      {catalogData.status === "error" && catalogData.message && (
-        <ErrorAlert message={catalogData.message} />
-      )}
+      <ErrorList
+        errorsList={[similarSearchData, recentData, categoryData, filtersData, catalogData]}
+      />
       {searchParams.category && <BreadCrumbs notShowBack breadcrumbs={breadcrumbs} />}
       <PageHeader
         title={searchParams.search ? searchParams.search : categoryName}

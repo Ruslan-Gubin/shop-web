@@ -3,9 +3,9 @@ import { CatalogProducts } from "@/app/catalog/Categories/Products/Products";
 import { declOfNum } from "@/shared/helpers/declOfNum";
 import { getDecodeBrandName } from "@/shared/helpers/getDecodeBrandName";
 import { getIsLoadMoreDisabled } from "@/shared/helpers/getIsLoadMoreDisabled";
-import { ErrorAlert } from "@/shared/ui/error-alert/ErrorAlert";
 import { NotContent } from "@/shared/ui/not-content/NotContent";
 import { PageHeader } from "@/shared/ui/page-header/PageHeader";
+import { ErrorList } from "@/views/error-list/ErrorList";
 import { UpdateToken } from "@/views/UpdateToken/UpdateToken";
 import { CarouselProducts } from "@/widgets/carousel-products/CarouselProducts";
 import { fetchBrandData } from "./action";
@@ -61,20 +61,10 @@ export default async function BrandsPage(req: {
   return (
     <section className="page-wrapper">
       {recommendedData?.tokens && <UpdateToken tokens={recommendedData.tokens} />}
-
       {brand_name.length > 0 && (
         <PageHeader title={brand_name} subtitle={`${totalCount} ${decString}`} />
       )}
-
-      {brandProductsData.status === "error" && brandProductsData.message && (
-        <ErrorAlert message={brandProductsData.message} />
-      )}
-      {recentData.status === "error" && recentData.message && (
-        <ErrorAlert message={recentData.message} />
-      )}
-      {recommendedData.status === "error" && recommendedData.message && (
-        <ErrorAlert message={recommendedData.message} />
-      )}
+      <ErrorList errorsList={[brandProductsData, recentData, recommendedData]} />
 
       {products.length > 0 ? (
         <CatalogProducts

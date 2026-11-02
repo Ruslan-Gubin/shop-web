@@ -1,8 +1,8 @@
 import { cookies } from "next/headers";
 import { declOfNum } from "@/shared/helpers/declOfNum";
-import { ErrorAlert } from "@/shared/ui/error-alert/ErrorAlert";
 import { NotContent } from "@/shared/ui/not-content/NotContent";
 import { PageHeader } from "@/shared/ui/page-header/PageHeader";
+import { ErrorList } from "@/views/error-list/ErrorList";
 import { UpdateToken } from "@/views/UpdateToken/UpdateToken";
 import { CarouselProducts } from "@/widgets/carousel-products/CarouselProducts";
 import { ProductList } from "@/widgets/product/ProductList/ProductList";
@@ -37,15 +37,7 @@ export default async function FavoritesPage() {
   return (
     <section className="page-wrapper">
       {recentData?.tokens && <UpdateToken tokens={recentData.tokens} />}
-      {favoritesData.status === "error" && favoritesData.message && (
-        <ErrorAlert message={favoritesData.message} />
-      )}
-      {recentData.status === "error" && recentData.message && (
-        <ErrorAlert message={recentData.message} />
-      )}
-      {recommendedData.status === "error" && recommendedData.message && (
-        <ErrorAlert message={recommendedData.message} />
-      )}
+      <ErrorList errorsList={[favoritesData, recentData, recommendedData]} />
 
       {favorites.length > 0 ? (
         <>

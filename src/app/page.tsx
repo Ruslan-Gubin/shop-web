@@ -1,5 +1,5 @@
 import { getIsLoadMoreDisabled } from "@/shared/helpers/getIsLoadMoreDisabled";
-import { ErrorAlert } from "@/shared/ui/error-alert/ErrorAlert";
+import { ErrorList } from "@/views/error-list/ErrorList";
 import { UpdateToken } from "@/views/UpdateToken/UpdateToken";
 import { fetchProductsMainPage } from "./action";
 import { CatalogProducts } from "./catalog/Categories/Products/Products";
@@ -20,9 +20,7 @@ export default async function HomePage(req: {
   return (
     <section className="page-wrapper">
       {productsData?.tokens && <UpdateToken tokens={productsData.tokens} />}
-      {productsData.status === "error" && productsData.message && (
-        <ErrorAlert message={productsData.message} />
-      )}
+      <ErrorList errorsList={[productsData]} />
       <CatalogProducts
         key={patch}
         limit={limit}

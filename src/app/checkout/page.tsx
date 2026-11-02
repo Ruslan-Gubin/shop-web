@@ -3,8 +3,8 @@ import type { Position } from "geojson";
 import { cookies } from "next/headers";
 import { CONFIG_APP } from "@/shared/config/config";
 import { getDefaultCenterMap } from "@/shared/helpers/getDefaultCenterMap";
-import { ErrorAlert } from "@/shared/ui/error-alert/ErrorAlert";
 import type { AddressItem } from "@/stores/checkout/types";
+import { ErrorList } from "@/views/error-list/ErrorList";
 import { UpdateToken } from "@/views/UpdateToken/UpdateToken";
 import { CarouselProducts } from "@/widgets/carousel-products/CarouselProducts";
 import { ProductSection } from "@/widgets/product/product-section/ProductSection";
@@ -46,9 +46,10 @@ export default async function CheckoutPage() {
   const recent = (recentData.status === "success" && recentData.data) || [];
   const recommended = (recommendedData.status === "success" && recommendedData.data) || [];
   const user = userData.data;
-  const isDeliveryCourier = sectorsData.data !== null && sectorsData?.data?.length > 0;
+  const isDeliveryCourier = Array.isArray(sectorsData.data) && sectorsData.data.length > 0;
+
   const sectors =
-    sectorsData.data && Array.isArray(sectorsData.data) && sectorsData.data.length > 0
+    Array.isArray(sectorsData.data) && sectorsData.data.length > 0
       ? {
           type: "FeatureCollection",
           features: sectorsData.data.map((sector) => ({
@@ -77,27 +78,21 @@ export default async function CheckoutPage() {
     lat: hasFindDefaultCenterMap ? defaultPickupCenter.lat : 48.013597598505555,
   };
 
-  console.log(isDeliveryCourier);
-
   return (
     <section className="page-wrapper">
       {userData?.tokens && <UpdateToken tokens={userData.tokens} />}
-      {userData.status === "error" && userData.message && <ErrorAlert message={userData.message} />}
-      {promotionsData.status === "error" && promotionsData.message && (
-        <ErrorAlert message={basketProductsData.message} />
-      )}
-      {cartDiscountsData.status === "error" && cartDiscountsData.message && (
-        <ErrorAlert message={cartDiscountsData.message} />
-      )}
-      {promotionsData.status === "error" && promotionsData.message && (
-        <ErrorAlert message={promotionsData.message} />
-      )}
-      {recentData.status === "error" && recentData.message && (
-        <ErrorAlert message={recentData.message} />
-      )}
-      {recommendedData.status === "error" && recommendedData.message && (
-        <ErrorAlert message={recommendedData.message} />
-      )}
+      <ErrorList
+        errorsList={[
+          basketProductsData,
+          cartDiscountsData,
+          promotionsData,
+          warehousesData,
+          recentData,
+          recommendedData,
+          sectorsData,
+          userData,
+        ]}
+      />
       <CheckoutWrapper
         sectors={sectors}
         isRegister={user !== null}

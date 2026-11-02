@@ -1,8 +1,8 @@
 import { declOfNum } from "@/shared/helpers/declOfNum";
 import { getIsLoadMoreDisabled } from "@/shared/helpers/getIsLoadMoreDisabled";
-import { ErrorAlert } from "@/shared/ui/error-alert/ErrorAlert";
 import { NotContent } from "@/shared/ui/not-content/NotContent";
 import { PageHeader } from "@/shared/ui/page-header/PageHeader";
+import { ErrorList } from "@/views/error-list/ErrorList";
 import { UpdateToken } from "@/views/UpdateToken/UpdateToken";
 import { fetchUserReviewsData } from "./action";
 import { UserReviewsList } from "./components/UserReviewsList/UserReviewsList";
@@ -58,12 +58,8 @@ export default async function UserReviewsPage(req: {
               total > 0 ? `${total} ${declOfNum(total, ["товар", "товара", "товаров"])}` : undefined
             }
           />
-
           <UserReviewsTabs viewFlag={viewFlag} />
-
-          {productsData.status === "error" && productsData.message && (
-            <ErrorAlert message={productsData.message} />
-          )}
+          <ErrorList errorsList={[productsData, userData]} />
 
           {products.length > 0 ? (
             <UserReviewsList

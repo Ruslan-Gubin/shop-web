@@ -1,5 +1,5 @@
 import { cookies } from "next/headers";
-import { ErrorAlert } from "@/shared/ui/error-alert/ErrorAlert";
+import { ErrorList } from "@/views/error-list/ErrorList";
 import { UpdateToken } from "@/views/UpdateToken/UpdateToken";
 import { CarouselProducts } from "@/widgets/carousel-products/CarouselProducts";
 import { fetchBasketData, revalidateBasketAction } from "./action";
@@ -37,25 +37,17 @@ export default async function BasketPage() {
   return (
     <section className="page-wrapper">
       {userData?.tokens && <UpdateToken tokens={userData.tokens} />}
-      {userData.status === "error" && userData.message && <ErrorAlert message={userData.message} />}
-      {promotionsData.status === "error" && promotionsData.message && (
-        <ErrorAlert message={basketProductsData.message} />
-      )}
-      {cartDiscountsData.status === "error" && cartDiscountsData.message && (
-        <ErrorAlert message={cartDiscountsData.message} />
-      )}
-      {promotionsData.status === "error" && promotionsData.message && (
-        <ErrorAlert message={promotionsData.message} />
-      )}
-      {recentData.status === "error" && recentData.message && (
-        <ErrorAlert message={recentData.message} />
-      )}
-      {buyTogetherData.status === "error" && buyTogetherData.message && (
-        <ErrorAlert message={buyTogetherData.message} />
-      )}
-      {recommendedData.status === "error" && recommendedData.message && (
-        <ErrorAlert message={recommendedData.message} />
-      )}
+      <ErrorList
+        errorsList={[
+          basketProductsData,
+          cartDiscountsData,
+          promotionsData,
+          recentData,
+          buyTogetherData,
+          recommendedData,
+          userData,
+        ]}
+      />
       <BasketWrapper
         revalidateBasketAction={revalidateBasketAction}
         promotions={promotions}

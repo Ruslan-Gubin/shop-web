@@ -1,8 +1,8 @@
 import { declOfNum } from "@/shared/helpers/declOfNum";
 import { getIsLoadMoreDisabled } from "@/shared/helpers/getIsLoadMoreDisabled";
-import { ErrorAlert } from "@/shared/ui/error-alert/ErrorAlert";
 import { NotContent } from "@/shared/ui/not-content/NotContent";
 import { PageHeader } from "@/shared/ui/page-header/PageHeader";
+import { ErrorList } from "@/views/error-list/ErrorList";
 import { UpdateToken } from "@/views/UpdateToken/UpdateToken";
 import { fetchOrdersData } from "./action";
 import { OrdersList } from "./components/OrdersList/OrdersList";
@@ -55,10 +55,7 @@ export default async function OrdersPage(req: { searchParams: Promise<OrdersSear
           />
 
           <OrdersTabs viewFlag={viewFlag} counts={counts} />
-
-          {ordersData.status === "error" && ordersData.message && (
-            <ErrorAlert message={ordersData.message} />
-          )}
+          <ErrorList errorsList={[ordersData, countsData, userData]} />
 
           {orders.length > 0 ? (
             <OrdersList

@@ -1,6 +1,6 @@
 import { ButtonBack } from "@/shared/ui/button-back/ButtonBack";
-import { ErrorAlert } from "@/shared/ui/error-alert/ErrorAlert";
 import { NotContent } from "@/shared/ui/not-content/NotContent";
+import { ErrorList } from "@/views/error-list/ErrorList";
 import { UpdateToken } from "@/views/UpdateToken/UpdateToken";
 import { fetchOrderDetailData } from "../action";
 import { DeliveryInfo } from "./components/DeliveryInfo/DeliveryInfo";
@@ -38,17 +38,7 @@ export default async function OrderDetailPage(req: { params: Promise<Props> }) {
       {productsOriginData?.tokens && <UpdateToken tokens={productsOriginData.tokens} />}
 
       <ButtonBack label={order?.order_number ? `Заказ № ${order.order_number}` : "Заказ"} />
-
-      {orderData.status === "error" && orderData.message && (
-        <ErrorAlert message={orderData.message} />
-      )}
-      {productsData.status === "error" && productsData.message && (
-        <ErrorAlert message={productsData.message} />
-      )}
-      {userData.status === "error" && userData.message && <ErrorAlert message={userData.message} />}
-      {productsOriginData.status === "error" && productsOriginData.message && (
-        <ErrorAlert message={productsOriginData.message} />
-      )}
+      <ErrorList errorsList={[orderData, productsData, userData, productsOriginData]} />
 
       {phone.length === 0 ? (
         <NotContent

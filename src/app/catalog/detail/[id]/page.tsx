@@ -1,5 +1,5 @@
 import { cookies, headers } from "next/headers";
-import { ErrorAlert } from "@/shared/ui/error-alert/ErrorAlert";
+import { ErrorList } from "@/views/error-list/ErrorList";
 import { UpdateToken } from "@/views/UpdateToken/UpdateToken";
 import { UserActivity } from "@/views/user-activity/UserActivity";
 import { CarouselProducts } from "@/widgets/carousel-products/CarouselProducts";
@@ -96,40 +96,23 @@ export default async function DetailPage(req: { params: Promise<{ id: string }> 
   return (
     <section className="page-wrapper">
       {stocks?.tokens && <UpdateToken tokens={stocks.tokens} />}
-      {reviewsData.status === "error" && reviewsData.message && (
-        <ErrorAlert message={reviewsData.message} />
-      )}
-      {questionData.status === "error" && questionData.message && (
-        <ErrorAlert message={questionData.message} />
-      )}
-      {recommendedData.status === "error" && recommendedData.message && (
-        <ErrorAlert message={recommendedData.message} />
-      )}
-      {recentData.status === "error" && recentData.message && (
-        <ErrorAlert message={recentData.message} />
-      )}
-      {canReviewData.status === "error" && canReviewData.message && (
-        <ErrorAlert message={canReviewData.message} />
-      )}
-      {myReviewData.status === "error" && myReviewData.message && (
-        <ErrorAlert message={myReviewData.message} />
-      )}
-      {categoriesData.status === "error" && categoriesData.message && (
-        <ErrorAlert message={categoriesData.message} />
-      )}
-      {buyTogetherData.status === "error" && buyTogetherData.message && (
-        <ErrorAlert message={buyTogetherData.message} />
-      )}
-      {similarData.status === "error" && similarData.message && (
-        <ErrorAlert message={similarData.message} />
-      )}
-      {product.status === "error" && product.message && <ErrorAlert message={product.message} />}
-      {pricesData.status === "error" && pricesData.message && (
-        <ErrorAlert message={pricesData.message} />
-      )}
-      {specificationsData.status === "error" && specificationsData.message && (
-        <ErrorAlert message={specificationsData.message} />
-      )}
+      <ErrorList
+        errorsList={[
+          canReviewData,
+          myReviewData,
+          reviewsData,
+          questionData,
+          recommendedData,
+          recentData,
+          buyTogetherData,
+          similarData,
+          categoriesData,
+          product,
+          pricesData,
+          specificationsData,
+          stocks,
+        ]}
+      />
       {product.status === "success" && product.data && (
         <DetailWrapper
           questionCount={questionData.data?.totalCount || 0}

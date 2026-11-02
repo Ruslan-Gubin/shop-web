@@ -5,7 +5,7 @@ import {
 } from "@/app/catalog/detail/[id]/action";
 import { getIsLoadMoreDisabled } from "@/shared/helpers/getIsLoadMoreDisabled";
 import { EMPTY_IMG_SVG } from "@/shared/helpers/listenerImgError";
-import { ErrorAlert } from "@/shared/ui/error-alert/ErrorAlert";
+import { ErrorList } from "@/views/error-list/ErrorList";
 import { UpdateToken } from "@/views/UpdateToken/UpdateToken";
 import { ProductInfo } from "@/widgets/product/product-info/ProductInfo";
 import { fetchReviewsData } from "./action";
@@ -45,24 +45,9 @@ export default async function ReviewsPage(req: {
   return (
     <section className="page-wrapper">
       {reviewsData?.tokens && <UpdateToken tokens={reviewsData.tokens} />}
-      {stocksData.status === "error" && stocksData.message && (
-        <ErrorAlert message={stocksData.message} />
-      )}
-      {pricesData.status === "error" && pricesData.message && (
-        <ErrorAlert message={pricesData.message} />
-      )}
-      {canReviewData.status === "error" && canReviewData.message && (
-        <ErrorAlert message={canReviewData.message} />
-      )}
-      {myReviewData.status === "error" && myReviewData.message && (
-        <ErrorAlert message={myReviewData.message} />
-      )}
-      {productData.status === "error" && productData.message && (
-        <ErrorAlert message={productData.message} />
-      )}
-      {reviewsData.status === "error" && reviewsData.message && (
-        <ErrorAlert message={reviewsData.message} />
-      )}
+      <ErrorList
+        errorsList={[stocksData, pricesData, productData, canReviewData, myReviewData, reviewsData]}
+      />
 
       {product && pricesData && stocksData && (
         <ProductInfo

@@ -4,9 +4,9 @@ import { QuestionsList } from "@/app/questions/[product_id]/components/list/Ques
 import { declOfNum } from "@/shared/helpers/declOfNum";
 import { getIsLoadMoreDisabled } from "@/shared/helpers/getIsLoadMoreDisabled";
 import { EMPTY_IMG_SVG } from "@/shared/helpers/listenerImgError";
-import { ErrorAlert } from "@/shared/ui/error-alert/ErrorAlert";
 import { NotContent } from "@/shared/ui/not-content/NotContent";
 import { PageHeader } from "@/shared/ui/page-header/PageHeader";
+import { ErrorList } from "@/views/error-list/ErrorList";
 import { UpdateToken } from "@/views/UpdateToken/UpdateToken";
 import { ProductInfo } from "@/widgets/product/product-info/ProductInfo";
 import { fetchUserProductQuestionsData } from "../../action";
@@ -42,19 +42,7 @@ export default async function UserProductQuestionsPage(req: {
   return (
     <section className="page-wrapper">
       {userData?.tokens && <UpdateToken tokens={userData.tokens} />}
-      {productData.status === "error" && productData.message && (
-        <ErrorAlert message={productData.message} />
-      )}
-      {pricesData.status === "error" && pricesData.message && (
-        <ErrorAlert message={pricesData.message} />
-      )}
-      {stocksData.status === "error" && stocksData.message && (
-        <ErrorAlert message={stocksData.message} />
-      )}
-      {questionsData.status === "error" && questionsData.message && (
-        <ErrorAlert message={questionsData.message} />
-      )}
-      {userData.status === "error" && userData.message && <ErrorAlert message={userData.message} />}
+      <ErrorList errorsList={[productData, pricesData, stocksData, questionsData, userData]} />
 
       {phone.length === 0 ? (
         <NotContent

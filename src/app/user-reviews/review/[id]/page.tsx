@@ -4,9 +4,9 @@ import {
   editReviewAction,
 } from "@/app/catalog/detail/[id]/action";
 import { EMPTY_IMG_SVG } from "@/shared/helpers/listenerImgError";
-import { ErrorAlert } from "@/shared/ui/error-alert/ErrorAlert";
 import { NotContent } from "@/shared/ui/not-content/NotContent";
 import { PageHeader } from "@/shared/ui/page-header/PageHeader";
+import { ErrorList } from "@/views/error-list/ErrorList";
 import { RatingInfo } from "@/views/rating/rating-info/RatingInfo";
 import { ReviewForm } from "@/views/review/form/ReviewForm";
 import { UpdateToken } from "@/views/UpdateToken/UpdateToken";
@@ -33,19 +33,7 @@ export default async function UserProductReviewPage(req: { params: Promise<{ id:
   return (
     <section className="page-wrapper">
       {userData?.tokens && <UpdateToken tokens={userData.tokens} />}
-      {productData.status === "error" && productData.message && (
-        <ErrorAlert message={productData.message} />
-      )}
-      {pricesData.status === "error" && pricesData.message && (
-        <ErrorAlert message={pricesData.message} />
-      )}
-      {stocksData.status === "error" && stocksData.message && (
-        <ErrorAlert message={stocksData.message} />
-      )}
-      {myReviewData.status === "error" && myReviewData.message && (
-        <ErrorAlert message={myReviewData.message} />
-      )}
-      {userData.status === "error" && userData.message && <ErrorAlert message={userData.message} />}
+      <ErrorList errorsList={[productData, pricesData, stocksData, myReviewData, userData]} />
 
       {phone.length === 0 ? (
         <NotContent

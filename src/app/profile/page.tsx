@@ -1,8 +1,8 @@
 import { cookies } from "next/headers";
 import { declOfNum } from "@/shared/helpers/declOfNum";
 import { getPhoneDisplay } from "@/shared/helpers/getFormattedPhone";
-import { ErrorAlert } from "@/shared/ui/error-alert/ErrorAlert";
 import { NotContent } from "@/shared/ui/not-content/NotContent";
+import { ErrorList } from "@/views/error-list/ErrorList";
 import { UpdateToken } from "@/views/UpdateToken/UpdateToken";
 import { CarouselProducts } from "@/widgets/carousel-products/CarouselProducts";
 import { fetchProfileData } from "./action";
@@ -77,16 +77,7 @@ export default async function ProfilePage() {
   return (
     <section className="page-wrapper">
       {userData?.tokens && <UpdateToken tokens={userData.tokens} />}
-      {recentData.status === "error" && recentData.message && (
-        <ErrorAlert message={recentData.message} />
-      )}
-      {recommendedData.status === "error" && recommendedData.message && (
-        <ErrorAlert message={recommendedData.message} />
-      )}
-      {countsData.status === "error" && countsData.message && (
-        <ErrorAlert message={countsData.message} />
-      )}
-      {userData.status === "error" && userData.message && <ErrorAlert message={userData.message} />}
+      <ErrorList errorsList={[recentData, recommendedData, countsData, userData]} />
 
       {phone.length > 0 ? (
         <ProfileContent navigateList={navigateList} title={`Телефон: ${getPhoneDisplay(phone)}`} />
