@@ -97,7 +97,6 @@ export const CheckoutAddress = (props: Props) => {
         activeCourier={activeCourier}
         sectors={props.sectors}
       />
-
       <ul className={styles.methodList}>
         <li className={styles.leftSide}>
           {selectAddress && (
