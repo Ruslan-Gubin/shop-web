@@ -9,12 +9,13 @@ import { QuickViewModal } from "@/widgets/modals/quick-view-product/QuickViewMod
 import { NotificationList } from "@/widgets/notification/notifications-result/NotificationsResult";
 import { fetchPopularSearchAction, fetchSuggestionsAction } from "./action";
 import { Roboto } from "./core/fonts";
-import { getMetadata } from "./core/generateMetadata";
+import { getMetadata } from "./core/getMetadata";
 import styles from "./styles/Layout.module.css";
 
 export const metadata: Metadata = getMetadata({
-  title: "Главная страница",
-  description: "Главная страница",
+  title: "Raduga — интернет‑магазин: всё, что нужно каждый день",
+  description:
+    "В Raduga — товары для праздника, дома и сада, игрушки, аксессуары, текстиль, посуда, бытовая химия и хозтовары. Удобный каталог и карточки с подробными характеристиками помогут быстро найти нужное.",
 });
 
 export default async function RootLayout(

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import { declOfNum } from "@/shared/helpers/declOfNum";
 import { getIsLoadMoreDisabled } from "@/shared/helpers/getIsLoadMoreDisabled";
@@ -6,25 +7,16 @@ import { PageHeader } from "@/shared/ui/page-header/PageHeader";
 import { ErrorList } from "@/views/error-list/ErrorList";
 import { UpdateToken } from "@/views/UpdateToken/UpdateToken";
 import { CarouselProducts } from "@/widgets/carousel-products/CarouselProducts";
-import { fetchCatalogData } from "./action";
+import { type CatalogProps, fetchCatalogData, getMetadataCatalog } from "./action";
 import styles from "./CatalogPage.module.css";
 import { Filter } from "./Categories/Filter/Filter";
 import { SimilarSearch } from "./Categories/SimilarSearch/SimilarSearch";
 import { CatalogWrapper } from "./Categories/Wrapper/Wrapper";
 
-export default async function CategoriesPage(req: {
-  searchParams: Promise<{
-    category?: string;
-    search?: string;
-    page?: string;
-    sort?: string;
-    price_from?: string;
-    price_to?: string;
-    specifications?: string;
-    country?: string;
-    product_types?: string;
-  }>;
-}) {
+export const generateMetadata = async (req: CatalogProps): Promise<Metadata> =>
+  getMetadataCatalog(req);
+
+export default async function CategoriesPage(req: CatalogProps) {
   const searchParams = await req.searchParams;
   const limit = 20;
   const patch = "/catalog";
@@ -118,6 +110,7 @@ export default async function CategoriesPage(req: {
 
       {childrenCategories.length === 0 && (
         <Filter
+          showSort={totalCount > 1}
           filters={filters}
           searchParams={searchParams}
           mainCategory={mainCategory || null}

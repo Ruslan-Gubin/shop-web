@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { cookies, headers } from "next/headers";
 import { ErrorList } from "@/views/error-list/ErrorList";
 import { UpdateToken } from "@/views/UpdateToken/UpdateToken";
@@ -10,10 +11,18 @@ import {
   deleteReviewAction,
   editReviewAction,
   fetchProductDetail,
+  getMetadataProductDetail,
 } from "./action";
 import { DetailWrapper } from "./components/DetailWrapper";
 
-export default async function DetailPage(req: { params: Promise<{ id: string }> }) {
+type Props = {
+  params: Promise<{ id: string }>;
+};
+
+export const generateMetadata = async (req: Props): Promise<Metadata> =>
+  getMetadataProductDetail(req);
+
+export default async function DetailPage(req: Props) {
   const params = await req.params;
 
   const cookieStore = await cookies();
@@ -56,6 +65,7 @@ export default async function DetailPage(req: { params: Promise<{ id: string }> 
     specificationsData,
     stocks,
   ] = await fetchProductDetail(params.id, recentIds, allRecentIds, favoriteIds, basketIds);
+  console.log(product.data);
 
   const headersList = await headers();
 

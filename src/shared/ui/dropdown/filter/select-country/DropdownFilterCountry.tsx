@@ -9,11 +9,16 @@ type Props = {
   onReset: () => void;
   options: string[];
   title: string;
+  isRect?: boolean;
 };
 
 export const DropdownFilterCountry = (props: Props) => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
+  // const selectedValues = props.selected ? props.selected.split(",") : [];
   const activeCount = props.selected ? props.selected.split(",").length : 0;
+  // const activeCount =
+  //  props.selected ? selectedValues.filter(Boolean).length
+  //   : Number(Boolean(props.selected));
 
   const valueString = `${props.title} ${activeCount ? activeCount.toString() : ""}`;
   return (
@@ -31,6 +36,8 @@ export const DropdownFilterCountry = (props: Props) => {
           {props.options.map((value) => (
             <li key={value} className={styles.menuItem}>
               <Checkbox
+                isRect={props.isRect}
+                //checked={props.isRect ? selectedValues.includes(value) : props.selected === value}
                 checked={props.selected.includes(value)}
                 onChange={() => props.onChange(value)}
                 labelText={value}

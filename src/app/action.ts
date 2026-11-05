@@ -52,7 +52,6 @@ const categorySchema = z.lazy(() =>
 
 export type CategoryModel = z.infer<typeof categorySchema>;
 
-//TODO check and change path
 export const fetchCategories = async () => {
   return await fetchService
     .get<CategoryModel[]>({

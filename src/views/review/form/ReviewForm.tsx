@@ -196,8 +196,6 @@ export const ReviewForm = (props: Props) => {
         props
           .deleteReviewAction(props.myReview.id)
           .then((response) => {
-            console.log(response);
-
             if (response.status === "success") {
               setDeleteModal(false);
               setActive(false);

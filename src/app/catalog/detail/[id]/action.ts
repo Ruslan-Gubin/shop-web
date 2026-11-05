@@ -1,7 +1,14 @@
 "use server";
+import type { Metadata } from "next";
 import { revalidatePath } from "next/cache";
 import { cookies, headers } from "next/headers";
-import type { CategoryModel, ProductModel, ProductSpecificationModel } from "@/app/action";
+import {
+  type CategoryModel,
+  fetchProduct,
+  type ProductModel,
+  type ProductSpecificationModel,
+} from "@/app/action";
+import type { CustomMetadata } from "@/app/core/getMetadata";
 import { fetchService } from "@/shared/fetch-api";
 import { updateTokensInAction } from "@/shared/helpers/updateCookieAction";
 import { getValidatePayload } from "@/shared/services/get-form-action-state";
@@ -115,6 +122,44 @@ export const fetchProductDetail = async (
       tags: [`ProductStocks_${product_id}`],
     },
   ]);
+};
+
+export const getMetadataProductDetail = async (req: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> => {
+  const params = await req.params;
+
+  const updateMetadata: CustomMetadata = {
+    title: `Товар №${params.id || ""} — Интернет‑магазин`,
+    description:
+      "Интернет‑магазин: характеристики, фото, отзывы, вопросы к товару, цена и наличие товаров.",
+  };
+
+  if (params.id) {
+    await fetchProduct(params.id).then((response) => {
+      if (response.status === "success" && response.data) {
+        updateMetadata.title = response.data?.seo_title || response.data.name;
+        updateMetadata.description = response.data?.seo_description || response.data.description;
+
+        if (response.data?.og_title.length > 0) {
+          updateMetadata.og_title = response.data.og_title;
+        }
+
+        if (response.data?.og_description.length > 0) {
+          updateMetadata.og_description = response.data.og_description;
+        }
+
+        if (response.data.photos.length > 0) {
+          const firstImg = response.data.photos[0];
+          if (firstImg && firstImg.url.length > 0) {
+            updateMetadata.image = firstImg.url;
+          }
+        }
+      }
+    });
+  }
+
+  return updateMetadata;
 };
 
 export const createQuestionAction = async (question: string, product_id: string) => {

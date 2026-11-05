@@ -1,5 +1,52 @@
+import type { Metadata } from "next";
+import { cookies } from "next/headers";
 import { fetchService } from "@/shared/fetch-api";
+import { updateTokensInAction } from "@/shared/helpers/updateCookieAction";
 import type { CategoryModel, ProductModel } from "../action";
+import type { CustomMetadata } from "../core/getMetadata";
+
+export type CatalogProps = {
+  searchParams: Promise<{
+    category?: string;
+    search?: string;
+    page?: string;
+    sort?: string;
+    price_from?: string;
+    price_to?: string;
+    specifications?: string;
+    country?: string;
+    product_types?: string;
+  }>;
+};
+
+export const getMetadataCatalog = async (req: CatalogProps): Promise<Metadata> => {
+  const params = await req.searchParams;
+
+  const updateMetadata: CustomMetadata = {
+    title: `Каталог — Купить в интернет магазине Raduga`,
+    description: `Список товаров  в интернет‑магазине Raduga. Удобный каталог, фильтры по параметрам и карточки с подробными характеристиками — найдите нужное за пару кликов.`,
+  };
+
+  if (params.category) {
+    const cookieStore = await cookies();
+    await fetchService
+      .get<CategoryModel>({
+        url: `category/${params.category}`,
+      })
+      .then(async (response) => {
+        if (response.tokens) {
+          updateTokensInAction(cookieStore, response.tokens);
+        }
+
+        if (response.status === "success" && response.data && response.data?.name.length > 0) {
+          updateMetadata.title = `${response.data.name} — Купить в интернет магазине Raduga`;
+          updateMetadata.description = `Список товаров категории ${response.data.name} в интернет‑магазине Raduga. Удобный каталог, фильтры по параметрам и карточки с подробными характеристиками — найдите нужное за пару кликов.`;
+        }
+      });
+  }
+
+  return updateMetadata;
+};
 
 export type SearchModel = {
   id: number;
@@ -51,6 +98,9 @@ export const fetchCatalogData = async ({
     search?: string;
     price_from?: string;
     price_to?: string;
+    specifications?: string;
+    country?: string;
+    product_types?: string;
   } = {};
 
   const catalogParams: {
@@ -96,14 +146,17 @@ export const fetchCatalogData = async ({
 
   if (specifications) {
     catalogParams.specifications = specifications;
+    filterParams.specifications = specifications;
   }
 
   if (country) {
     catalogParams.country = country;
+    filterParams.country = country;
   }
 
   if (product_types) {
     catalogParams.product_types = product_types;
+    filterParams.product_types = product_types;
   }
 
   return await fetchService.fetchChain<
@@ -136,12 +189,16 @@ export const fetchCatalogData = async ({
     {
       url: "product/filters",
       params: filterParams,
-      tags: [`CATALOG_${category_id}_${search}_${price_from}_${price_to}`],
+      tags: [
+        `CATALOG_FILTERS_${category_id}_${search}_${price_from}_${price_to}_${specifications}_${country}_${product_types}`,
+      ],
     },
     {
       url: "product/catalog",
       params: catalogParams,
-      tags: [`CATALOG_${category_id}_${search}_${sort}_${price_from}_${price_to}`],
+      tags: [
+        `CATALOG_${category_id}_${search}_${sort}_${price_from}_${price_to}_${specifications}_${country}_${product_types}`,
+      ],
     },
   ]);
 };

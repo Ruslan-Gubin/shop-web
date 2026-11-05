@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button } from "@/shared/ui/button-main/Button";
 import { DropdownFilterWrapper } from "../wrapper/DropdownFilterWrapper";
 import styles from "./DropdownFilterPrice.module.css";
@@ -22,20 +22,6 @@ export const DropdownFilterPrice = (props: Props) => {
     to:
       typeof props.priceSettings.maxPrice === "number" ? String(props.priceSettings.maxPrice) : "",
   });
-
-  useEffect(() => {
-    if (
-      (props.priceSettings.activeFilterPrice.from &&
-        selectPrice.from !== props.priceSettings.activeFilterPrice.from) ||
-      (props.priceSettings.activeFilterPrice.to &&
-        selectPrice.to !== props.priceSettings.activeFilterPrice.to)
-    ) {
-      setSelectPrice({
-        from: props.priceSettings.activeFilterPrice.from,
-        to: props.priceSettings.activeFilterPrice.to,
-      });
-    }
-  }, []);
 
   const handleChangeInputs = (value: string, field: "from" | "to") => {
     if (/^\d*$/.test(value)) {

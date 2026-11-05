@@ -39,7 +39,6 @@ export const QuestionsForm = (props: Props) => {
       props
         .createQuestionAction(question.trim(), props.product_id)
         .then((response) => {
-          console.log(response);
           if (response.status === "success") {
             setModalContent({
               title: "Спасибо за ваш вопрос",

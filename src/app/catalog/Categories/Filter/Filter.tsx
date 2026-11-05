@@ -36,6 +36,7 @@ type Props = {
     country?: string;
     product_types?: string;
   };
+  showSort: boolean;
 };
 
 export const Filter = (props: Props) => {
@@ -53,6 +54,12 @@ export const Filter = (props: Props) => {
 
   const handleChangeSort = (value: string) => {
     const updateUrl = updateQueryString({ sort: value });
+
+    router.push(updateUrl, { scroll: false });
+  };
+
+  const handleChangeProductType = (value: string) => {
+    const updateUrl = updateQueryString({ product_types: value });
 
     router.push(updateUrl, { scroll: false });
   };
@@ -129,30 +136,6 @@ export const Filter = (props: Props) => {
     router.push(updateUrl);
   };
 
-  const handleSelectProductType = (value: string) => {
-    const productTypeParams: string[] = props.searchParams.product_types
-      ? props.searchParams.product_types.split(",")
-      : [];
-
-    const valueIndex = productTypeParams.findIndex((el: string) => el === value);
-
-    if (valueIndex === -1) {
-      productTypeParams.push(value);
-    } else {
-      productTypeParams.splice(valueIndex, 1);
-    }
-
-    const updateUrl = updateQueryString({ product_types: productTypeParams.join(",") });
-
-    router.push(updateUrl);
-  };
-
-  const handleResetProductType = () => {
-    const updateUrl = updateQueryString({ product_types: "" });
-
-    router.push(updateUrl);
-  };
-
   return (
     <section className={styles.filter}>
       <ul className={styles.filterList}>
@@ -167,20 +150,36 @@ export const Filter = (props: Props) => {
             />
           </li>
         )}
-        <li>
-          <DropdownFilterSelect
-            options={sortedOptions}
-            value={props.searchParams?.sort || "popular"}
-            onChange={handleChangeSort}
-          />
-        </li>
-        <li>
-          <DropdownFilterPrice
-            priceSettings={props.priceSettings}
-            onSubmit={handleChangePrice}
-            onReset={handleResetPrice}
-          />
-        </li>
+
+        {props.filters && props.filters?.product_types?.length > 1 && (
+          <li>
+            <DropdownFilterSelect
+              placeholder="Вид товара"
+              options={props.filters.product_types.map((el) => ({ label: el, value: el }))}
+              value={props.searchParams.product_types || ""}
+              onChange={handleChangeProductType}
+            />
+          </li>
+        )}
+        {props.showSort && (
+          <li>
+            <DropdownFilterSelect
+              placeholder="Сортировка"
+              options={sortedOptions}
+              value={props.searchParams?.sort || "popular"}
+              onChange={handleChangeSort}
+            />
+          </li>
+        )}
+        {props.priceSettings.minPrice !== props.priceSettings.maxPrice && (
+          <li>
+            <DropdownFilterPrice
+              priceSettings={props.priceSettings}
+              onSubmit={handleChangePrice}
+              onReset={handleResetPrice}
+            />
+          </li>
+        )}
 
         {props.filters?.specifications.map((specification) => (
           <li key={specification.id}>
@@ -199,7 +198,7 @@ export const Filter = (props: Props) => {
           </li>
         ))}
 
-        {props.filters && props.filters?.countries?.length > 0 && (
+        {props.filters && props.filters?.countries?.length > 1 && (
           <li>
             <DropdownFilterCountry
               title="Производитель"
@@ -207,18 +206,6 @@ export const Filter = (props: Props) => {
               onReset={handleResetCountry}
               onChange={handleSelectCountry}
               options={props.filters.countries}
-            />
-          </li>
-        )}
-
-        {props.filters && props.filters?.product_types?.length > 0 && (
-          <li>
-            <DropdownFilterCountry
-              title="Вид товара"
-              selected={props.searchParams.product_types || ""}
-              onReset={handleResetProductType}
-              onChange={handleSelectProductType}
-              options={props.filters?.product_types || []}
             />
           </li>
         )}

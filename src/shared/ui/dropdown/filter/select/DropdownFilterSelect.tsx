@@ -7,6 +7,7 @@ type Props = {
   value: string;
   onChange: (value: string) => void;
   options: { value: string; label: string }[];
+  placeholder: string;
 };
 
 export const DropdownFilterSelect = (props: Props) => {
@@ -18,8 +19,8 @@ export const DropdownFilterSelect = (props: Props) => {
       onOpen={() => setIsOpenMenu(true)}
       onSubmitFooter={() => setIsOpenMenu(false)}
       onClose={() => setIsOpenMenu(false)}
-      value={props.options.find((el) => el.value === props.value)?.label || ""}
-      mobileTitle="Сортировка"
+      value={props.options.find((el) => el.value === props.value)?.label || props.placeholder}
+      mobileTitle={props.placeholder}
       menuChildren={
         <ul className={styles.menu}>
           {props.options.map((option) => (
