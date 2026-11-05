@@ -56,6 +56,9 @@ export const AddressModal = (props: Props) => {
 
   const handleChangeMethod = (value: "pickup" | "courier") => {
     setMethodReceipt(value);
+    if (value === "pickup") {
+      setSelectCourier(null);
+    }
   };
 
   const handleSelectAddress = (lng: number, lat: number) => {
@@ -139,18 +142,14 @@ export const AddressModal = (props: Props) => {
   const deliveryPrice = zone?.properties.price || 0;
   const minOrderSum = zone?.properties.min_sum || 0;
 
-  //TODO если выбрать адрес не меняется значение в поисковой строке, надо посмотреть как я раньше определял активный адрес, там было по другому, надо по гиту вернуть что было и проверить как будет работать
   const activeAddress = getOrderAddress(
-    props.defaultCenter,
+    methodReceipt === "courier" && props.activeCourier ? props.activeCourier : props.defaultCenter,
     props.pickupAddress,
-    props.courierAddress,
+    selectCourier ? [...props.courierAddress, selectCourier] : props.courierAddress,
     methodReceipt,
     selectPickup,
-    methodReceipt === "courier" ? selectCourier : props.activeCourier,
+    methodReceipt === "courier" ? (selectCourier ? selectCourier : props.activeCourier) : null,
   );
-  // console.log("------------------------------");
-  // console.log("selectCourier:", selectCourier);
-  // console.log("activeAddress:", activeAddress);
 
   const handleSubmitModal = () => {
     checkoutAdapter.setMethodReceipt(methodReceipt);
