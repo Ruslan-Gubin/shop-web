@@ -25,6 +25,8 @@ type Props = {
     name: string;
     place: string;
   }>;
+  search: string;
+  onChangeSearch: (value: string) => void;
 };
 
 type SuggestResultItem = {
@@ -46,7 +48,6 @@ type SuggestionItem = {
 };
 
 export const AddressSearch = (props: Props) => {
-  const [search, setSearch] = useState<string>("");
   const [suggestions, setSuggestions] = useState<SuggestionItem[]>([]);
   const searchListRef = useRef<HTMLUListElement | null>(null);
   const debounceFn = useDebounce();
@@ -72,7 +73,7 @@ export const AddressSearch = (props: Props) => {
     props
       .fetchForwardAction(address)
       .then((payload) => {
-        setSearch(
+        props.onChangeSearch(
           payload.place === payload.name ? payload.name : `${payload.place}, ${payload.name}`,
         );
         props.onSelectCourier({
@@ -90,7 +91,7 @@ export const AddressSearch = (props: Props) => {
   };
 
   const handleChangeSearch = (value: string) => {
-    setSearch(value);
+    props.onChangeSearch(value);
     if (value.trim()) {
       debounceFn(() => {
         fetchSearchAddress(value)
@@ -122,25 +123,32 @@ export const AddressSearch = (props: Props) => {
     };
   }, [suggestions]);
 
+  const handleClearSearch = () => {
+    props.onChangeSearch("");
+    setSuggestions([]);
+  };
+
   return (
     <section>
       <Input
-        value={search}
+        value={props.search}
         onChange={(e) => handleChangeSearch(e.target.value)}
         placeholder="Искать на карте"
         variantSize="md"
         variant="outlined"
         leftIcon={<SearchSvg />}
-        onClickRightIcon={() => {
-          setSearch("");
-          setSuggestions([]);
-        }}
+        onClickRightIcon={handleClearSearch}
         rightIcon={<CloseSvg />}
       />
       {suggestions.length > 0 && (
         <ul ref={searchListRef} className={styles.searchList}>
-          {suggestions.map((item) => (
-            <li key={`${item.name}_${item.place}`}>
+          {suggestions.map((item, index) => (
+            <li
+              key={`${item.name}_${item.place}_${
+                // biome-ignore lint/suspicious/noArrayIndexKey: <index>
+                index
+              }`}
+            >
               <button
                 onClick={() => handleSelectSuggestion(item)}
                 type="button"

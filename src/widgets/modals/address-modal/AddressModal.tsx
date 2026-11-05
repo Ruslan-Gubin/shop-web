@@ -53,11 +53,13 @@ export const AddressModal = (props: Props) => {
   const [methodReceipt, setMethodReceipt] = useState<"pickup" | "courier">("courier");
   const [selectPickup, setSelectPickup] = useState<{ lng: number; lat: number } | null>(null);
   const [selectCourier, setSelectCourier] = useState<AddressItem | null>(null);
+  const [search, setSearch] = useState<string>("");
 
   const handleChangeMethod = (value: "pickup" | "courier") => {
     setMethodReceipt(value);
     if (value === "pickup") {
       setSelectCourier(null);
+      setSearch("");
     }
   };
 
@@ -110,6 +112,10 @@ export const AddressModal = (props: Props) => {
   const handleClickMap = (lng: number, lat: number) => {
     if (methodReceipt === "courier" && lng && lat) {
       props.fetchReverseAction(lng, lat).then((response) => {
+        if (response.place.length > 0 && response.name.length > 0) {
+          setSearch(`${response.place}, ${response.name}`);
+        }
+
         setSelectCourier({
           ...response,
           entrance: "",
@@ -171,6 +177,11 @@ export const AddressModal = (props: Props) => {
     setSelectCourier((prev) => (prev ? { ...prev, [key]: value } : null));
   };
 
+  const handleClearCourierSelect = () => {
+    setSelectCourier(null);
+    setSearch("");
+  };
+
   return (
     <Modal
       classContainer={styles.modalContent}
@@ -190,7 +201,7 @@ export const AddressModal = (props: Props) => {
               <button
                 className={styles.headerCloseButton}
                 type="button"
-                onClick={() => setSelectCourier(null)}
+                onClick={handleClearCourierSelect}
               >
                 <CloseSvg />
               </button>
@@ -209,6 +220,8 @@ export const AddressModal = (props: Props) => {
           {methodReceipt === "courier" && (
             <div className={styles.searchInputContainer}>
               <AddressSearch
+                search={search}
+                onChangeSearch={setSearch}
                 fetchForwardAction={props.fetchForwardAction}
                 onSelectCourier={setSelectCourier}
                 mapToken={props.mapToken}
