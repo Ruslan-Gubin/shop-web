@@ -1,0 +1,73 @@
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: var(--padding-content-block);
+
+  @media (max-width: 1200px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media (max-width: 500px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.cardHover {
+  cursor: pointer;
+  &:nth-last-child(1) {
+    cursor: default;
+  }
+}
+
+.infoCard {
+  display: flex;
+  flex-direction: column;
+  row-gap: 6px;
+  padding: 16px;
+  border-radius: var(--border-radius-block);
+  background-color: #fff;
+}
+
+.cardLink {
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  transition: background-color 0.2s linear;
+
+  &:focus-visible {
+    outline: 2px solid var(--color-violet);
+    outline-offset: 2px;
+    border-radius: var(--border-radius-main);
+  }
+}
+
+.title {
+  font-weight: 500;
+  line-height: 20px;
+  cursor: inherit;
+}
+
+.value {
+  color: #545454;
+  font-size: 16px;
+  line-height: 22px;
+  word-break: break-word;
+  cursor: inherit;
+}
+
+.mapSection {
+  display: flex;
+  flex-direction: column;
+}
+
+.mapWrapper {
+  height: 420px;
+  width: 100%;
+  border-radius: var(--border-radius-main);
+  overflow: hidden;
+
+  @media (max-width: 500px) {
+    height: 320px;
+  }
+}
