@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import type { WarehouseModel } from "@/app/checkout/action";
 import { CONFIG_APP } from "@/shared/config/config";
 import { PageHeader } from "@/shared/ui/page-header/PageHeader";
@@ -7,6 +8,12 @@ import { UpdateToken } from "@/views/UpdateToken/UpdateToken";
 import { fetchContactsWarehouses } from "./action";
 import { ContactsMap } from "./ContactsMap";
 import styles from "./Page.module.css";
+
+export const metadata: Metadata = {
+  title: "Контакты магазина «Радуга»",
+  description:
+    "Адрес, телефон и режим работы магазина «Радуга» в Донецке. Как до нас добраться и где нас найти.",
+};
 
 export default async function ContactsPage() {
   const warehousesData = await fetchContactsWarehouses();

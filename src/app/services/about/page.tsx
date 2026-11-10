@@ -1,6 +1,19 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { type AssortmentIconName, AssortmentSvg } from "@/shared/svg/AssortmentSvg";
+import { fetchContactsWarehouses } from "@/app/services/contacts/action";
+import type { WarehouseModel } from "@/app/checkout/action";
+import { PageHeader } from "@/shared/ui/page-header/PageHeader";
+import { Button } from "@/shared/ui/button-main/Button";
+import { ErrorList } from "@/views/error-list/ErrorList";
+import { UpdateToken } from "@/views/UpdateToken/UpdateToken";
 import styles from "./Page.module.css";
+
+export const metadata: Metadata = {
+  title: "О нас — интернет-магазин «Радуга»",
+  description:
+    "О магазине «Радуга» в Донецке: 25 лет работы, ассортимент товаров для дома, сада, праздника и быта. Контакты и условия покупки.",
+};
 
 const assortment: { icon: AssortmentIconName; label: string }[] = [
   { icon: "toys", label: "Игрушки" },
@@ -50,11 +63,24 @@ const steps = [
   },
 ];
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const warehousesData = await fetchContactsWarehouses();
+  const warehouses: WarehouseModel[] =
+    warehousesData.status === "success" && warehousesData.data ? warehousesData.data : [];
+
+  const defaultWarehouse = warehouses.find((w) => w.address && w.is_active && w.default_warehouse);
+  const firstActiveWarehouse = warehouses.find((w) => w.address && w.is_active);
+  const targetWarehouse = defaultWarehouse ? defaultWarehouse : firstActiveWarehouse ?? null;
+  const targetAddress = targetWarehouse?.address ?? null;
+
   return (
     <section className="page-wrapper">
+      {warehousesData.tokens && <UpdateToken tokens={warehousesData.tokens} />}
+      <ErrorList errorsList={[warehousesData]} />
+      <PageHeader title="О нас" />
+
       <div className={styles.card}>
-        <h2>О нас</h2>
+        <h2 className={styles.sectionTitle}>О нас</h2>
         <p className={styles.text}>
           «Радуга» — магазин в Донецке, который работает для людей уже более 25 лет. За это время
           ассортимент расширился: сегодня он охватывает основные категории повседневного спроса — от
@@ -73,32 +99,17 @@ export default function AboutPage() {
           дорожим долгосрочным доверием: чтобы в магазин возвращались, а условия оставались
           прозрачными и предсказуемыми.
         </p>
-        <p className={styles.text}>
-          Магазин находится по адресу:{" "}
-          <Link className={styles.addressLink} href="/services/contacts">
-            Донецк, Петровский район, ул. Культурная, 2
-          </Link>
-        </p>
-      </div>
 
-      <section className={styles.card}>
-        <h3>Ассортимент</h3>
-        <p className={styles.text}>
-          Ассортимент менялся вместе с запросами покупателей. Сегодня в «Радуге» можно закрыть
-          большинство повседневных задач — от подготовки к празднику до обустройства дома и дачи.
-        </p>
-        <ul className={styles.assortment}>
+        <h3 className={styles.sectionTitle}>Ассортимент</h3>
+        <ul className={styles.list}>
           {assortment.map((item) => (
             <li key={item.label}>
-              <AssortmentSvg name={item.icon} />
-              <span>{item.label}</span>
+              <span className={styles.itemTitle}>{item.label}</span>
             </li>
           ))}
         </ul>
-      </section>
 
-      <section className={styles.card}>
-        <h3>На что мы обращаем внимание</h3>
+        <h3 className={styles.sectionTitle}>На что мы обращаем внимание</h3>
         <ul className={styles.list}>
           {attention.map((item) => (
             <li key={item.title}>
@@ -107,28 +118,30 @@ export default function AboutPage() {
             </li>
           ))}
         </ul>
-      </section>
 
-      <section className={styles.card}>
-        <h3>Как сделать заказ</h3>
-        <ol className={styles.steps}>
+        <h3 className={styles.sectionTitle}>Как сделать заказ</h3>
+        <ul className={styles.list}>
           {steps.map((step) => (
             <li key={step.title}>
-              <div className={styles.stepContent}>
-                <span className={styles.itemTitle}>{step.title}</span>
-                <span className={styles.itemText}>{step.text}</span>
-              </div>
+              <span className={styles.itemTitle}>{step.title}</span>
+              <span className={styles.itemText}>{step.text}</span>
             </li>
           ))}
-        </ol>
+        </ul>
+
         <p className={styles.text}>
           Если хотите всё увидеть своими глазами — приходите к нам в магазин. Мы с радостью поможем
           с выбором.
         </p>
-        <Link className={styles.link} href="/">
-          Перейти в каталог
+      </div>
+
+      <footer className={styles.footer}>
+        <Link href="/" className={styles.buttonLinkWrapper}>
+          <Button fullWidth customClass={styles.buttonLink} variant="solid" variantColor="violet">
+            <p className={styles.btnText}>Перейти в каталог</p>
+          </Button>
         </Link>
-      </section>
+      </footer>
     </section>
   );
 }

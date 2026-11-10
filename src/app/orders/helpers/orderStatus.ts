@@ -1,4 +1,5 @@
-import type { OrderModel, OrderStatus } from "../types";
+import type { OrderModel } from "@/app/checkout/action";
+import type { OrderStatus } from "../types";
 
 export const orderStatusLabels: Record<OrderStatus, string> = {
   new: "Новый",

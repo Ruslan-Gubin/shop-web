@@ -11,6 +11,10 @@ export const ErrorList = (props: Props) => {
     (el) => el.status === "error" && typeof el.message === "string" && el.message.length > 0,
   );
 
+  if (filterFindErrors.length === 0) {
+    return null;
+  }
+
   return (
     <ul className={styles.root}>
       {filterFindErrors.map((item, index) => (
