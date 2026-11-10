@@ -125,7 +125,7 @@ export default function AboutPage() {
           Если хотите всё увидеть своими глазами — приходите к нам в магазин. Мы с радостью поможем
           с выбором.
         </p>
-        <Link className={styles.link} href="/catalog">
+        <Link className={styles.link} href="/">
           Перейти в каталог
         </Link>
       </section>

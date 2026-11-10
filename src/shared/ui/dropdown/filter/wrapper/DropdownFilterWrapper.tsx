@@ -81,9 +81,7 @@ export const DropdownFilterWrapper = (props: Props) => {
           </button>
         )}
         <div className={styles.bridge}></div>
-        <div
-          className={`${styles.menuContainer} ${props.isOpenMenu ? styles.menuOpenMobile : ""} ${offset ? styles.menuContainerRightSide : ""}`}
-        >
+        <div className={`${styles.menuContainer} ${offset ? styles.menuContainerRightSide : ""}`}>
           {props.menuChildren}
         </div>
       </div>

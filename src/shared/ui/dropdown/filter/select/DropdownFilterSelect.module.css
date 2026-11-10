@@ -1,6 +1,16 @@
 .menu {
   display: flex;
   flex-direction: column;
+  max-height: calc(100vh - 308px);
+  overflow-y: scroll;
+
+  @media (max-width: 880px) {
+    max-height: calc(100vh - 300px);
+  }
+
+  @media (max-width: 500px) {
+    max-height: calc(100vh - 278px);
+  }
 }
 
 .menuItem {
