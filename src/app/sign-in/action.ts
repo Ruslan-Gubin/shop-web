@@ -21,6 +21,12 @@ export const sendPhoneAction = async (phone: string) => {
     });
 };
 
+export const canSendSmsAction = async () => {
+  return await fetchService.get<boolean | null>({
+    url: "sms/can-send-sms",
+  });
+};
+
 export const sendCodeAction = async (phone: string, code: string) => {
   const cookieStore = await cookies();
 

@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { type AssortmentIconName, AssortmentSvg } from "@/shared/svg/AssortmentSvg";
-import { fetchContactsWarehouses } from "@/app/services/contacts/action";
 import type { WarehouseModel } from "@/app/checkout/action";
-import { PageHeader } from "@/shared/ui/page-header/PageHeader";
+import { fetchContactsWarehouses } from "@/app/services/contacts/action";
 import { Button } from "@/shared/ui/button-main/Button";
+import { PageHeader } from "@/shared/ui/page-header/PageHeader";
 import { ErrorList } from "@/views/error-list/ErrorList";
 import { UpdateToken } from "@/views/UpdateToken/UpdateToken";
 import styles from "./Page.module.css";
@@ -15,14 +14,14 @@ export const metadata: Metadata = {
     "О магазине «Радуга» в Донецке: 25 лет работы, ассортимент товаров для дома, сада, праздника и быта. Контакты и условия покупки.",
 };
 
-const assortment: { icon: AssortmentIconName; label: string }[] = [
-  { icon: "toys", label: "Игрушки" },
-  { icon: "stationery", label: "Канцтовары" },
-  { icon: "household", label: "Хозтовары и бытовая химия" },
-  { icon: "dishes", label: "Посуда" },
-  { icon: "electronics", label: "Электротовары" },
-  { icon: "garden", label: "Товары для сада и огорода" },
-  { icon: "holiday", label: "Всё для праздника" },
+const assortment = [
+  "Игрушки",
+  "Канцтовары",
+  "Хозтовары и бытовая химия",
+  "Посуда",
+  "Электротовары",
+  "Товары для сада и огорода",
+  "Всё для праздника",
 ];
 
 const attention = [
@@ -70,7 +69,7 @@ export default async function AboutPage() {
 
   const defaultWarehouse = warehouses.find((w) => w.address && w.is_active && w.default_warehouse);
   const firstActiveWarehouse = warehouses.find((w) => w.address && w.is_active);
-  const targetWarehouse = defaultWarehouse ? defaultWarehouse : firstActiveWarehouse ?? null;
+  const targetWarehouse = defaultWarehouse ? defaultWarehouse : (firstActiveWarehouse ?? null);
   const targetAddress = targetWarehouse?.address ?? null;
 
   return (
@@ -102,9 +101,9 @@ export default async function AboutPage() {
 
         <h3 className={styles.sectionTitle}>Ассортимент</h3>
         <ul className={styles.list}>
-          {assortment.map((item) => (
-            <li key={item.label}>
-              <span className={styles.itemTitle}>{item.label}</span>
+          {assortment.map((label) => (
+            <li key={label}>
+              <span className={styles.itemTitle}>{label}</span>
             </li>
           ))}
         </ul>
@@ -133,6 +132,15 @@ export default async function AboutPage() {
           Если хотите всё увидеть своими глазами — приходите к нам в магазин. Мы с радостью поможем
           с выбором.
         </p>
+
+        {targetAddress && (
+          <p className={styles.text}>
+            Магазин находится по адресу:{" "}
+            <Link href="/services/contacts" className={styles.addressLink}>
+              {`${targetAddress.place || ""}, ${targetAddress.name}`}
+            </Link>
+          </p>
+        )}
       </div>
 
       <footer className={styles.footer}>

@@ -73,6 +73,21 @@
   max-width: 200px;
 }
 
+.addressLink {
+  color: var(--color-violet);
+  font-weight: 500;
+
+  &:hover {
+    color: var(--color-violet-hover);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-violet);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
 .footer {
   display: flex;
   max-width: 100%;
