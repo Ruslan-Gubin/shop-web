@@ -1,0 +1,19 @@
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  @media (max-width: 500px) {
+    flex-direction: column;
+
+    button {
+      width: 100%;
+      min-width: 100%;
+    }
+    button p {
+      overflow: hidden;
+      max-width: 100%;
+      text-overflow: ellipsis;
+    }
+  }
+}

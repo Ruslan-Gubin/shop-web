@@ -17,6 +17,11 @@ type Props = {
     phone: string,
     code: string,
   ) => Promise<ResponseData<{ token: string; refresh: string }>>;
+  loginByPasswordAction: (
+    phone: string,
+    password: string,
+  ) => Promise<ResponseData<{ token: string; refresh: string }>>;
+  canSendSms: boolean;
   codeLength: number;
   resendSecond: number;
 };
@@ -25,15 +30,18 @@ const initCode = ["", "", "", "", "", ""];
 
 export const SigninForm = (props: Props) => {
   const router = useRouter();
-  const [step, setStep] = useState<number>(1);
-  const [phone, setPhone] = useState("7 949 386 57 86"); //7 949 386 57 86
+  const [step, setStep] = useState<1 | 2 | 3>(1);
+  const [phone, setPhone] = useState("");
   const [validPhone, setValidPhone] = useState<boolean>(false);
   const [code, setCode] = useState<string[]>(initCode);
   const [validCode, setValidCode] = useState<boolean>(false);
+  const [password, setPassword] = useState("");
   const [isLoading, transition] = useTransition();
   const [error, setError] = useState("");
   const [resendSeconds, setResendSeconds] = useState(0);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const canSendSms = props.canSendSms === true;
 
   useEffect(() => {
     return () => {
@@ -43,6 +51,13 @@ export const SigninForm = (props: Props) => {
     };
   }, []);
 
+  const clearTimer = () => {
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
+  };
+
   const handleChangePhone = (value: string) => {
     const validation = phoneSchema.safeParse(value);
 
@@ -51,6 +66,14 @@ export const SigninForm = (props: Props) => {
     }
 
     setPhone(value);
+    setPassword("");
+    setCode(initCode);
+    setValidCode(false);
+    setResendSeconds(0);
+    clearTimer();
+    if (step !== 1) {
+      setStep(1);
+    }
 
     if (error) {
       setError("");
@@ -73,15 +96,11 @@ export const SigninForm = (props: Props) => {
 
   const startResendTimer = () => {
     setResendSeconds(props.resendSecond);
-    if (timerRef.current) {
-      clearInterval(timerRef.current);
-    }
+    clearTimer();
     timerRef.current = setInterval(() => {
       setResendSeconds((seconds) => {
         if (seconds <= 1) {
-          if (timerRef.current) {
-            clearInterval(timerRef.current);
-          }
+          clearTimer();
           return 0;
         }
         return seconds - 1;
@@ -89,24 +108,35 @@ export const SigninForm = (props: Props) => {
     }, 1000);
   };
 
-  const fetchSendPhone = (phone: string) => {
+  const getValidatedPhone = () => {
+    const validationPhone = phoneSchema.safeParse(phone);
+    if (!validationPhone.success) {
+      const errorMessage =
+        Array.isArray(validationPhone.error.issues) &&
+        typeof validationPhone.error.issues[0]?.message === "string"
+          ? validationPhone.error.issues[0]?.message
+          : "Некорректный номер";
+      setError(errorMessage);
+      setValidPhone(false);
+      return null;
+    }
+    return validationPhone.data;
+  };
+
+  const fetchSendPhone = (validatedPhone: string) => {
     transition(() => {
       return props
-        .sendPhoneAction(phone)
+        .sendPhoneAction(validatedPhone)
         .then((response) => {
           if (response.status === "success" && response.data) {
             if (response.data?.device_id) {
               setDeviceId(response.data.device_id);
             }
 
-            if (error) {
-              setError("");
-            }
-
-            if (step !== 2) {
-              setStep(2);
-            }
-
+            setError("");
+            setCode(initCode);
+            setValidCode(false);
+            setStep(2);
             startResendTimer();
           } else {
             throw response.message;
@@ -119,54 +149,86 @@ export const SigninForm = (props: Props) => {
     });
   };
 
-  const fetchSendCode = (phone: string, code: string) => {
+  const fetchSendCode = (validatedPhone: string, smsCode: string) => {
     transition(() => {
       return props
-        .sendCodeAction(phone, code)
+        .sendCodeAction(validatedPhone, smsCode)
         .then((response) => {
-          if (response.status === "success") {
+          if (response.status === "success" && response.data?.token && response.data?.refresh) {
+            setStep(1);
             setCode(initCode);
-            setPhone("");
-
-            if (timerRef.current) {
-              clearInterval(timerRef.current);
-            }
-
+            setPassword("");
+            setValidCode(false);
+            setResendSeconds(0);
+            clearTimer();
             setError("");
             router.back();
           } else {
-            throw response.message;
+            throw response.message || "Не удалось войти";
           }
         })
-        .catch((err) => {
-          const errorMessage = getMessageError(err, "Не удалось войти");
+        .catch((error) => {
+          const errorMessage = getMessageError(error, "Не удалось войти");
           setError(errorMessage);
         });
     });
   };
 
+  const fetchLoginByPassword = (validatedPhone: string) => {
+    if (!password) {
+      setError("Введите пароль");
+      return;
+    }
+
+    transition(() => {
+      return props
+        .loginByPasswordAction(validatedPhone, password)
+        .then((response) => {
+          if (response.status === "success" && response.data?.token && response.data?.refresh) {
+            setStep(1);
+            setCode(initCode);
+            setPassword("");
+            setValidCode(false);
+            setResendSeconds(0);
+            clearTimer();
+            setError("");
+            router.back();
+          } else {
+            setError(response.message || "Не удалось войти");
+          }
+        })
+        .catch((error) => {
+          const errorMessage = getMessageError(error, "Не удалось войти");
+          setError(errorMessage);
+        });
+    });
+  };
+
+  const handleGetCode = () => {
+    const validatedPhone = getValidatedPhone();
+    if (!validatedPhone || !canSendSms) return;
+    fetchSendPhone(validatedPhone);
+  };
+
+  const handleGoToPassword = () => {
+    const validatedPhone = getValidatedPhone();
+    if (!validatedPhone) return;
+    setError("");
+    setPassword("");
+    setStep(3);
+  };
+
   const handleSignIn: SubmitEventHandler = async (e) => {
     e.preventDefault();
-    const validationPhone = phoneSchema.safeParse(phone);
+    const validatedPhone = getValidatedPhone();
+    if (!validatedPhone) return;
 
-    if (step === 1) {
-      if (validationPhone.success) {
-        fetchSendPhone(validationPhone.data);
-      } else {
-        const errorMessage =
-          Array.isArray(validationPhone.error.issues) &&
-          typeof validationPhone.error.issues[0]?.message === "string"
-            ? validationPhone.error.issues[0]?.message
-            : "Некорректный номер";
-        setError(errorMessage);
-        setValidPhone(false);
-      }
-    } else {
+    if (step === 2) {
       const validationCode = loginCodeSchema.safeParse(code.join("").replace(/\D/g, ""));
 
-      if (validationCode.success && validationPhone.success) {
-        fetchSendCode(validationPhone.data, validationCode.data);
-      } else if (!validationCode.success) {
+      if (validationCode.success) {
+        fetchSendCode(validatedPhone, validationCode.data);
+      } else {
         const errorMessage =
           Array.isArray(validationCode.error.issues) &&
           typeof validationCode.error.issues[0]?.message === "string"
@@ -175,6 +237,11 @@ export const SigninForm = (props: Props) => {
         setError(errorMessage);
         setValidCode(false);
       }
+      return;
+    }
+
+    if (step === 3) {
+      fetchLoginByPassword(validatedPhone);
     }
   };
 
@@ -182,61 +249,64 @@ export const SigninForm = (props: Props) => {
     setStep(1);
     setError("");
     setCode(initCode);
+    setPassword("");
+    setValidCode(false);
+    setResendSeconds(0);
+    clearTimer();
   };
 
   const handleResendCode = () => {
-    const validation = phoneSchema.safeParse(phone);
+    const validatedPhone = getValidatedPhone();
+    if (!validatedPhone || !canSendSms) return;
 
-    if (validation.success) {
-      fetchSendPhone(validation.data);
-      setValidCode(false);
-      setCode(initCode);
-      setError("");
-
-      if (timerRef.current) {
-        clearInterval(timerRef.current);
-      }
-
-      startResendTimer();
-    }
+    setValidCode(false);
+    setCode(initCode);
+    setError("");
+    setResendSeconds(0);
+    clearTimer();
+    fetchSendPhone(validatedPhone);
   };
 
-  const disabled =
-    isLoading || (step === 1 && (!validPhone || resendSeconds > 0)) || (step === 2 && !validCode);
-  const submitText = step === 2 ? "Войти" : "Получить код";
+  const submitDisabled =
+    isLoading || (step === 2 && !validCode) || (step === 3 && password.length < 6);
+
+  const title = step === 3 ? "Вход по паролю" : "Вход по номеру телефона";
+  const subtitle =
+    step === 1
+      ? canSendSms
+        ? "Введите номер телефона, чтобы получить код или войти по паролю"
+        : "Сервис SMS временно недоступен. Вход по коду сейчас невозможен"
+      : step === 2
+        ? phone
+          ? `Код отправлен на ${getPhoneDisplay(phone)}`
+          : ""
+        : phone
+          ? `Номер: ${getPhoneDisplay(phone)}`
+          : "";
 
   return (
     <form className={styles.loginForm} onSubmit={handleSignIn}>
       <header className={styles.headerContainer}>
-        <h2>Вход по номеру телефона</h2>
-        <h4>
-          {step === 1
-            ? "На него придёт SMS с кодом подтверждения"
-            : phone
-              ? `Код отправлен на ${getPhoneDisplay(phone)}`
-              : ""}
-        </h4>
+        <h2>{title}</h2>
+        <h4>{subtitle}</h4>
       </header>
 
       {step === 1 && (
         <div className={styles.inputWrapper}>
-          <div className={`${styles.inputContainer} ${error ? styles.inputContainerError : ""}`}>
-            <Input
-              disabled={isLoading}
-              error={""}
-              onChange={(e) => handleChangePhone(e.target.value)}
-              placeholder="7 949 123 45 67"
-              variantSize="md"
-              variant="outlined"
-              autoFocus
-              autoComplete="off"
-              maxLength={20}
-              inputMode="tel"
-              value={phone}
-              name="user-phone"
-              type="tel"
-            />
-          </div>
+          <Input
+            disabled={isLoading}
+            onChange={(e) => handleChangePhone(e.target.value)}
+            placeholder="7 949 123 45 67"
+            variantSize="md"
+            variant="outlined"
+            autoFocus
+            autoComplete="tel"
+            maxLength={20}
+            inputMode="tel"
+            value={phone}
+            name="user-phone"
+            type="tel"
+          />
         </div>
       )}
 
@@ -252,36 +322,126 @@ export const SigninForm = (props: Props) => {
         </div>
       )}
 
+      {step === 3 && (
+        <div className={styles.inputWrapper}>
+          <Input
+            disabled={isLoading}
+            onChange={(e) => {
+              setPassword(e.target.value);
+              if (error) setError("");
+            }}
+            placeholder="Пароль"
+            label="Пароль"
+            variantSize="md"
+            variant="outlined"
+            autoFocus
+            autoComplete="current-password"
+            value={password}
+            name="user-password"
+            type="password"
+          />
+        </div>
+      )}
+
       {error && <span className={styles.errorText}>{error}</span>}
 
       <footer className={styles.footer}>
-        {step === 2 && resendSeconds <= 0 && (
-          <Button
-            fullWidth
-            type="button"
-            onClick={handleBackToPhone}
-            disabled={isLoading}
-            variantColor="gray"
-          >
-            Сменить номер
-          </Button>
+        {step === 1 && (
+          <>
+            <Button
+              variant="solid"
+              variantColor="violet"
+              fullWidth
+              type="button"
+              disabled={isLoading || !validPhone}
+              onClick={handleGoToPassword}
+            >
+              Войти по паролю
+            </Button>
+            <Button
+              variant="outline"
+              variantColor="violet"
+              fullWidth
+              type="button"
+              disabled={isLoading || !validPhone || !canSendSms}
+              onClick={handleGetCode}
+            >
+              Получить код
+            </Button>
+          </>
         )}
-        {step === 2 && validPhone && (
-          <Button
-            disabled={resendSeconds > 0}
-            fullWidth
-            type="button"
-            onClick={handleResendCode}
-            variantColor="gray"
-          >
-            {resendSeconds > 0
-              ? `Отправить код повторно через: ${String(resendSeconds).padStart(2, "0")}`
-              : "Отправить код ещё раз"}
-          </Button>
+
+        {step === 2 && (
+          <>
+            {resendSeconds <= 0 && (
+              <Button
+                fullWidth
+                type="button"
+                onClick={handleBackToPhone}
+                disabled={isLoading}
+                variantColor="gray"
+              >
+                Сменить номер
+              </Button>
+            )}
+            {validPhone && (
+              <Button
+                disabled={resendSeconds > 0 || !canSendSms}
+                fullWidth
+                type="button"
+                onClick={handleResendCode}
+                variantColor="gray"
+              >
+                {resendSeconds > 0
+                  ? `Отправить код повторно через: ${String(resendSeconds).padStart(2, "0")}`
+                  : "Отправить код ещё раз"}
+              </Button>
+            )}
+            <Button
+              variant="solid"
+              variantColor="violet"
+              fullWidth
+              type="submit"
+              disabled={submitDisabled}
+            >
+              Войти
+            </Button>
+          </>
         )}
-        <Button variant="solid" variantColor="violet" fullWidth type="submit" disabled={disabled}>
-          {submitText}
-        </Button>
+
+        {step === 3 && (
+          <>
+            <Button
+              fullWidth
+              type="button"
+              onClick={handleBackToPhone}
+              disabled={isLoading}
+              variantColor="gray"
+            >
+              Сменить номер
+            </Button>
+            {canSendSms && (
+              <Button
+                fullWidth
+                type="button"
+                onClick={handleGetCode}
+                disabled={isLoading || !validPhone}
+                variantColor="gray"
+              >
+                Получить код
+              </Button>
+            )}
+            <Button
+              variant="solid"
+              variantColor="violet"
+              fullWidth
+              type="submit"
+              disabled={submitDisabled}
+            >
+              Войти
+            </Button>
+          </>
+        )}
       </footer>
     </form>
   );

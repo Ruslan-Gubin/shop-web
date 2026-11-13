@@ -7,7 +7,9 @@ import { ErrorList } from "@/views/error-list/ErrorList";
 import { UpdateToken } from "@/views/UpdateToken/UpdateToken";
 import { CarouselProducts } from "@/widgets/carousel-products/CarouselProducts";
 import { fetchProfileData } from "./action";
+import { LogoutButton } from "./components/LogoutButton/LogoutButton";
 import { ProfileContent } from "./components/ProfileContent/ProfileContent";
+import styles from "./Profile.module.css";
 
 export default async function ProfilePage() {
   const cookieStore = await cookies();
@@ -36,7 +38,6 @@ export default async function ProfilePage() {
     favoriteIds,
     basketIds,
   );
-  console.log(userData.data);
 
   const recent = recentData.data || [];
   const recommended = recommendedData.data || [];
@@ -99,7 +100,10 @@ export default async function ProfilePage() {
             navigateList={navigateList}
             title={`Телефон: ${getPhoneDisplay(phone)}`}
           />
-          <LinkButton href={"/profile/settings"} text="Настройки профиля" />
+          <div className={styles.actions}>
+            <LinkButton href={"/profile/settings"} text="Настройки профиля" />
+            <LogoutButton className={styles.logoutButton} />
+          </div>
         </>
       ) : (
         <NotContent

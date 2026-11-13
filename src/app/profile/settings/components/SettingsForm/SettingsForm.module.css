@@ -2,10 +2,21 @@
   display: flex;
   flex-direction: column;
   row-gap: var(--gap-info-block);
+  padding: var(--padding-content-block);
+  border-radius: var(--border-radius-block);
+  background-color: #fff;
 }
 
 .fields {
   display: flex;
   flex-direction: column;
   row-gap: var(--gap-info-block);
+}
+
+.submitButton {
+  max-width: 100%;
+  p {
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
 }

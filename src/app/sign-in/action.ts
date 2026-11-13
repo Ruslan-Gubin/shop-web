@@ -48,3 +48,26 @@ export const sendCodeAction = async (phone: string, code: string) => {
       return response;
     });
 };
+
+export const loginByPasswordAction = async (phone: string, password: string) => {
+  const cookieStore = await cookies();
+
+  return fetchService
+    .post<{ token: string; refresh: string }>({
+      url: "auth/sign-in-phone",
+      payload: { phone, password },
+    })
+    .then((response) => {
+      if (
+        response.status === "success" &&
+        response.data &&
+        response.data.refresh &&
+        response.data.token
+      ) {
+        cookieStore.set(CONFIG_APP.ACCESS_TOKEN_COOKIE, response.data.token);
+        cookieStore.set(CONFIG_APP.REFRESH_TOKEN_COOKIE, response.data.refresh);
+      }
+
+      return response;
+    });
+};

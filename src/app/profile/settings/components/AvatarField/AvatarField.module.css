@@ -1,25 +1,44 @@
 .root {
   display: flex;
-  align-items: center;
-  column-gap: var(--gap-info-block);
+  flex-direction: column;
+  row-gap: var(--gap-info-block);
+  padding: var(--padding-content-block);
+  border-radius: var(--border-radius-block);
+  background-color: #fff;
+}
+
+.title {
+  font-weight: 500;
+}
+
+.content {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.avatarWrapper {
+  position: relative;
+  flex-shrink: 0;
 }
 
 .avatar {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
-  width: 96px;
-  height: 96px;
+  width: 112px;
+  height: 112px;
   overflow: hidden;
   border-radius: 50%;
   background-color: var(--color-light-gray);
   color: var(--text-color-placeholder);
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 1px var(--color-light-gray);
+}
 
-  svg {
-    width: 40px;
-    height: 40px;
-  }
+.avatar svg {
+  width: 44px;
+  height: 44px;
 }
 
 .image {
@@ -29,20 +48,75 @@
   object-fit: cover;
 }
 
+.badge {
+  position: absolute;
+  left: 50%;
+  bottom: -8px;
+  transform: translateX(-50%);
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--color-violet, #6c5ce7);
+  color: #fff;
+  font-size: 12px;
+  line-height: 16px;
+  white-space: nowrap;
+}
+
+.info {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+
+.description {
+  color: var(--text-color-secondary, #545454);
+  font-size: 14px;
+  line-height: 20px;
+}
+
 .actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 10px;
 }
 
 .file {
   display: none;
 }
 
-@media (max-width: 500px) {
-  .root {
+.fileName {
+  font-size: 14px;
+  color: var(--text-color-secondary, #545454);
+  word-break: break-word;
+}
+
+.fileName span {
+  color: var(--text-color-main, #111);
+}
+
+.error {
+  font-size: 14px;
+  color: #e0245e;
+}
+
+.hint {
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--text-color-placeholder, #8a8a8a);
+}
+
+@media (max-width: 600px) {
+  .content {
     flex-direction: column;
-    align-items: flex-start;
-    row-gap: 16px;
+  }
+
+  .avatarWrapper {
+    align-self: center;
+  }
+
+  .actions {
+    width: 100%;
   }
 }

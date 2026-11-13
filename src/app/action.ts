@@ -10,7 +10,7 @@ import type { QuestionModel } from "./catalog/detail/[id]/action";
 
 const userSchema = z.object({
   id: z.number().int().positive().min(1),
-  email: z.string().email().optional(),
+  email: z.string().email().nullable(),
   name: z.string().min(2).max(50).optional(),
   phone: z.string().min(11).max(11),
   role: z.string(),

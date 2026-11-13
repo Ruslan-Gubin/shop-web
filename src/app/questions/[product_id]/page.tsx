@@ -24,7 +24,6 @@ export default async function QuestionsPage(req: {
     limit,
     searchParams.page,
   );
-  console.log(userData);
 
   const product = productData.data;
   const questions = questionData.data?.questions || [];
