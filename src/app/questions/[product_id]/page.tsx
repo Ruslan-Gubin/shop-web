@@ -19,11 +19,12 @@ export default async function QuestionsPage(req: {
   const question_id = searchParams.question_id;
   const patch = `/questions/${product_id}`;
 
-  const [stocksData, pricesData, productData, questionData] = await fetchQuestionsData(
+  const [stocksData, pricesData, productData, questionData, userData] = await fetchQuestionsData(
     product_id,
     limit,
     searchParams.page,
   );
+  console.log(userData);
 
   const product = productData.data;
   const questions = questionData.data?.questions || [];
@@ -41,7 +42,7 @@ export default async function QuestionsPage(req: {
 
   return (
     <section className="page-wrapper">
-      {questionData?.tokens && <UpdateToken tokens={questionData.tokens} />}
+      {userData?.tokens && <UpdateToken tokens={userData.tokens} />}
       <ErrorList errorsList={[stocksData, pricesData, productData, questionData]} />
 
       {product && pricesData && stocksData && (
@@ -55,11 +56,13 @@ export default async function QuestionsPage(req: {
           description={product?.description}
         />
       )}
-      <QuestionsForm
-        createQuestionAction={createQuestionAction}
-        totalCount={totalCount}
-        product_id={product_id}
-      />
+      {userData.data !== null && (
+        <QuestionsForm
+          createQuestionAction={createQuestionAction}
+          totalCount={totalCount}
+          product_id={product_id}
+        />
+      )}
       <QuestionsList
         question_id={question_id || ""}
         questions={questions}

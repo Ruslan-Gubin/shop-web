@@ -36,8 +36,6 @@ export const ActivityQuestions = (props: Props) => {
     subtitle: "",
   });
   const { ref, activeArrows, leftActive, rightActive, handleScroll } = useHorizontalScroll();
-  console.log(props.questions);
-  console.log("hello");
 
   const submitQuestions = () => {
     if (question.length < 10 || question.length >= 1000) {

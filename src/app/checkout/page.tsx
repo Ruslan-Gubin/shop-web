@@ -90,7 +90,6 @@ export default async function CheckoutPage() {
           recentData,
           recommendedData,
           sectorsData,
-          userData,
         ]}
       />
       <CheckoutWrapper

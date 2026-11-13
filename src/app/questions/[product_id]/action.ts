@@ -1,4 +1,4 @@
-import type { ProductModel } from "@/app/action";
+import type { ProductModel, UserModel } from "@/app/action";
 import { fetchService } from "@/shared/fetch-api";
 import type { QuestionModel } from "../../catalog/detail/[id]/action";
 
@@ -9,6 +9,7 @@ export const fetchQuestionsData = async (product_id: string, limit: number, page
       { price: number; minQuantity: number }[],
       ProductModel,
       { questions: QuestionModel[]; totalCount: number; paginationPage: number },
+      UserModel,
     ]
   >([
     {
@@ -27,6 +28,10 @@ export const fetchQuestionsData = async (product_id: string, limit: number, page
       url: `product-question/product/${product_id}`,
       params: { page: page || "1", limit: String(limit) },
       tags: [`Questions_${product_id}`],
+    },
+    {
+      url: "users/me",
+      tags: ["ProfileData"],
     },
   ]);
 };

@@ -41,9 +41,7 @@ export const ProductPrices = (props: Props) => {
       {currentPrice > 0 && (
         <>
           <CartSvg />
-          <span className={styles.productPriceTotal}>
-            {formatterRub.format(currentPrice * count)}
-          </span>
+          <span className={styles.productPriceTotal}>{formatterRub.format(currentPrice)}</span>
         </>
       )}
       {largePrice > 0 && currentPrice > 0 && currentPrice < largePrice && (
