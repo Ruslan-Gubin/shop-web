@@ -64,8 +64,8 @@ export default async function DetailPage(req: Props) {
     pricesData,
     specificationsData,
     stocks,
+    userData,
   ] = await fetchProductDetail(params.id, recentIds, allRecentIds, favoriteIds, basketIds);
-  console.log(product.data);
 
   const headersList = await headers();
 
@@ -105,7 +105,7 @@ export default async function DetailPage(req: Props) {
 
   return (
     <section className="page-wrapper">
-      {stocks?.tokens && <UpdateToken tokens={stocks.tokens} />}
+      {userData?.tokens && <UpdateToken tokens={userData.tokens} />}
       <ErrorList
         errorsList={[
           canReviewData,
@@ -141,6 +141,7 @@ export default async function DetailPage(req: Props) {
       <div className="additional-content">
         {params.id && (
           <UserActivity
+            isRegister={userData.data !== null}
             canReview={canReview}
             myReview={myReview}
             reviewsOptions={reviewsOptions}

@@ -59,7 +59,10 @@ export const Filter = (props: Props) => {
   };
 
   const handleChangeProductType = (value: string) => {
-    const updateUrl = updateQueryString({ product_types: value });
+    const updateValue =
+      props.searchParams?.product_types && props.searchParams?.product_types === value ? "" : value;
+
+    const updateUrl = updateQueryString({ product_types: updateValue });
 
     router.push(updateUrl, { scroll: false });
   };

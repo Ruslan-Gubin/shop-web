@@ -77,7 +77,7 @@ export default async function ProfilePage() {
   return (
     <section className="page-wrapper">
       {userData?.tokens && <UpdateToken tokens={userData.tokens} />}
-      <ErrorList errorsList={[recentData, recommendedData, countsData, userData]} />
+      <ErrorList errorsList={[recentData, recommendedData]} />
 
       {phone.length > 0 ? (
         <ProfileContent navigateList={navigateList} title={`Телефон: ${getPhoneDisplay(phone)}`} />

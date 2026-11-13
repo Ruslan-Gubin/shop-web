@@ -45,7 +45,6 @@ export default async function BasketPage() {
           recentData,
           buyTogetherData,
           recommendedData,
-          userData,
         ]}
       />
       <BasketWrapper

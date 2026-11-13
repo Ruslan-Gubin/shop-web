@@ -7,6 +7,7 @@ import {
   fetchProduct,
   type ProductModel,
   type ProductSpecificationModel,
+  UserModel,
 } from "@/app/action";
 import type { CustomMetadata } from "@/app/core/getMetadata";
 import { fetchService } from "@/shared/fetch-api";
@@ -60,6 +61,7 @@ export const fetchProductDetail = async (
       { price: number; minQuantity: number }[],
       ProductSpecificationModel[],
       { available: number; accounting: boolean },
+      UserModel,
     ]
   >([
     {
@@ -120,6 +122,10 @@ export const fetchProductDetail = async (
     {
       url: `product-stock/product-available/${product_id}`,
       tags: [`ProductStocks_${product_id}`],
+    },
+    {
+      url: "users/me",
+      tags: ["ProfileData"],
     },
   ]);
 };

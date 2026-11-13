@@ -5,8 +5,8 @@ import { fetchContactsWarehouses } from "@/app/services/contacts/action";
 import { Button } from "@/shared/ui/button-main/Button";
 import { PageHeader } from "@/shared/ui/page-header/PageHeader";
 import { ErrorList } from "@/views/error-list/ErrorList";
-import { UpdateToken } from "@/views/UpdateToken/UpdateToken";
 import styles from "./Page.module.css";
+import { UpdateToken } from "@/views/UpdateToken/UpdateToken";
 
 export const metadata: Metadata = {
   title: "О нас — интернет-магазин «Радуга»",

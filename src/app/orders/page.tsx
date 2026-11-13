@@ -55,7 +55,7 @@ export default async function OrdersPage(req: { searchParams: Promise<OrdersSear
           />
 
           <OrdersTabs viewFlag={viewFlag} counts={counts} />
-          <ErrorList errorsList={[ordersData, countsData, userData]} />
+          <ErrorList errorsList={[ordersData, countsData]} />
 
           {orders.length > 0 ? (
             <OrdersList

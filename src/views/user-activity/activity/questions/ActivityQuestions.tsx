@@ -16,6 +16,7 @@ import { TextAreaResize } from "@/shared/ui/text-area-resize/TextAreaResize";
 import styles from "./ActivityQuestions.module.css";
 
 type Props = {
+  isRegister: boolean;
   questions: QuestionModel[];
   totalCount: number;
   product_id: string;
@@ -35,6 +36,8 @@ export const ActivityQuestions = (props: Props) => {
     subtitle: "",
   });
   const { ref, activeArrows, leftActive, rightActive, handleScroll } = useHorizontalScroll();
+  console.log(props.questions);
+  console.log("hello");
 
   const submitQuestions = () => {
     if (question.length < 10 || question.length >= 1000) {
@@ -99,17 +102,19 @@ export const ActivityQuestions = (props: Props) => {
       </Modal>
 
       <div className={styles.root}>
-        <TextAreaResize
-          maxHeight={active ? 99 : 0}
-          minHeight={active ? 99 : 0}
-          onClickArea={() => setActive(true)}
-          value={question}
-          disabled={false}
-          name="question"
-          label="Задайте вопрос о товаре"
-          onChange={handleChangeQuestion}
-          error={questionError}
-        />
+        {props.isRegister && (
+          <TextAreaResize
+            maxHeight={active ? 99 : 0}
+            minHeight={active ? 99 : 0}
+            onClickArea={() => setActive(true)}
+            value={question}
+            disabled={false}
+            name="question"
+            label="Задайте вопрос о товаре"
+            onChange={handleChangeQuestion}
+            error={questionError}
+          />
+        )}
 
         {active && (
           <footer className={styles.footerActions}>

@@ -14,6 +14,7 @@ import { ActivityReviews } from "./activity/reviews/ActivityReviews";
 import styles from "./UserActivity.module.css";
 
 type Props = {
+  isRegister: boolean;
   questionData: { questions: QuestionModel[]; totalCount: number; paginationPage: number } | null;
   reviewsData: { reviews: ReviewModel[]; totalCount: number; paginationPage: number } | null;
   reviewsOptions: { rating: number; count: number } | null;
@@ -98,13 +99,20 @@ export const UserActivity = (props: Props) => {
         <div>Пока товар не оценили</div>
       )}
 
-      {select === "question" && (
-        <ActivityQuestions
-          product_id={props.product_id}
-          createQuestionAction={props.createQuestionAction}
-          questions={props.questionData?.questions || []}
-          totalCount={props.questionData?.totalCount || 0}
-        />
+      {select === "question" &&
+        props.questionData &&
+        (props.questionData.totalCount > 0 || props.isRegister) && (
+          <ActivityQuestions
+            isRegister={props.isRegister}
+            product_id={props.product_id}
+            createQuestionAction={props.createQuestionAction}
+            questions={props.questionData?.questions || []}
+            totalCount={props.questionData?.totalCount || 0}
+          />
+        )}
+
+      {select === "question" && props.questionData && props.questionData?.totalCount === 0 && (
+        <div>Нет вопросов к товару</div>
       )}
 
       {select === "review" && props.reviewsData && props.reviewsData.totalCount > 0 && (
