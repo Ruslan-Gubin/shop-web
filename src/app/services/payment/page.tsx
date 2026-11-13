@@ -6,7 +6,7 @@ import { UpdateToken } from "@/views/UpdateToken/UpdateToken";
 import { ErrorList } from "@/views/error-list/ErrorList";
 import styles from "./Page.module.css";
 import { PageHeader } from "@/shared/ui/page-header/PageHeader";
-import { Button } from "@/shared/ui/button-main/Button";
+import { LinkButton } from "@/shared/ui/link-button/LinkButton";
 
 export const metadata: Metadata = {
   title: "Способы оплаты — наличными и картой",
@@ -142,11 +142,7 @@ export default async function PaymentPage() {
       </div>
 
       <footer className={styles.footer}>
-        <Link href="/" className={styles.buttonLinkWrapper}>
-          <Button fullWidth customClass={styles.buttonLink} variant="solid" variantColor="violet">
-            <p className={styles.btnText}>Перейти в каталог</p>
-          </Button>
-        </Link>
+        <LinkButton href="/" text="Перейти в каталог" />
       </footer>
     </section>
   );

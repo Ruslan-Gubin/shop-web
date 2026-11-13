@@ -25,7 +25,6 @@ export default async function OrdersPage(req: { searchParams: Promise<OrdersSear
   };
 
   const [ordersData, countsData, userData] = await fetchOrdersData(viewFlag, page, limit);
-  console.log(ordersData);
 
   const orders = ordersData.data?.orders || [];
   const total = ordersData.data?.totalCount || 0;

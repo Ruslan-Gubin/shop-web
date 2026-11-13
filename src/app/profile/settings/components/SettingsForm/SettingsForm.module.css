@@ -1,0 +1,11 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--gap-info-block);
+}
+
+.fields {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--gap-info-block);
+}

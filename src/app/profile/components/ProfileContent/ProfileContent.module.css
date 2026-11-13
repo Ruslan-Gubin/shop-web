@@ -59,3 +59,17 @@
   align-items: center;
   justify-content: center;
 }
+
+.profileNotice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-radius: var(--border-radius-main);
+  padding-block: 16px 8px;
+}
+
+.profileNoticeText {
+  color: var(--color-violet);
+  font-size: 14px;
+}

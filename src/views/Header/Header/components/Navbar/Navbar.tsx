@@ -1,5 +1,7 @@
 "use client";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import { fetchMyUser, type UserModel } from "@/app/action";
 import { CartSvg } from "@/shared/svg/CartSvg";
 import { HomeSvg } from "@/shared/svg/HomeSvg";
 import { MenuSvg } from "@/shared/svg/MenuSvg";
@@ -18,8 +20,8 @@ export const Navbar = () => {
   const pathname = usePathname();
   const totalCount = basketStore((state) => state.totalCount);
   const favorites = favoritesStore((state) => state.items);
+  const [user, setUser] = useState<UserModel | null>(null);
 
-  const checkUserName = true;
   const favoritesCount = Object.keys(favorites).reduce((acc) => acc + 1, 0);
   const ordersCount = 0;
 
@@ -28,6 +30,18 @@ export const Navbar = () => {
       menuAdapter.toggleMenu(true);
     }
   };
+
+  useEffect(() => {
+    fetchMyUser().then((response) => {
+      let user = null;
+
+      if (response.status === "success" && response.data !== null) {
+        user = response.data;
+      }
+
+      setUser(user);
+    });
+  }, [pathname]);
 
   return (
     <ul className={styles.root}>
@@ -64,9 +78,10 @@ export const Navbar = () => {
         svg={<NavigateHeart />}
       />
       <NavbarItem
-        active={(!isActiveMenu && pathname === "/profile") || pathname === "/login"}
-        href={checkUserName ? "/profile" : "/login"}
-        label={checkUserName ? "Профиль" : "Войти"}
+        alert={!user || (user && (!user.name || !user.has_password))}
+        active={(!isActiveMenu && pathname === "/profile") || pathname === "/sign-in"}
+        href={"/profile"}
+        label={"Профиль"}
         svg={<UserSvg />}
       />
       <NavbarItem

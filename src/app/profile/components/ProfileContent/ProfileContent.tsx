@@ -10,6 +10,7 @@ type Props = {
     params?: { view: string };
   }[];
   title: string;
+  profileNotice: string;
 };
 
 export const ProfileContent = (props: Props) => {
@@ -28,6 +29,13 @@ export const ProfileContent = (props: Props) => {
           </div>
         </Link>
       ))}
+      {props.profileNotice && (
+        <li className={styles.profileNotice}>
+          <Link href={"/profile/settings"}>
+            ⚠️ <span className={styles.profileNoticeText}>{props.profileNotice}</span>
+          </Link>
+        </li>
+      )}
     </ul>
   );
 };

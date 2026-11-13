@@ -11,6 +11,7 @@ type Props = {
   showOnlyDesktops?: boolean;
   onClick?: () => void;
   disabled?: boolean;
+  alert?: boolean;
 };
 
 export const NavbarItem = (props: Props) => {
@@ -37,7 +38,11 @@ export const NavbarItem = (props: Props) => {
           }
         >
           {props.svg}
-
+          {props.alert && (
+            <div className={styles.navbarCount}>
+              <span>!</span>
+            </div>
+          )}
           {typeof props.count === "number" && props.count > 0 && (
             <div className={styles.navbarCount}>
               <span>{props.count}</span>

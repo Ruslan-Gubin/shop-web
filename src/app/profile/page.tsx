@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import { declOfNum } from "@/shared/helpers/declOfNum";
 import { getPhoneDisplay } from "@/shared/helpers/getFormattedPhone";
+import { LinkButton } from "@/shared/ui/link-button/LinkButton";
 import { NotContent } from "@/shared/ui/not-content/NotContent";
 import { ErrorList } from "@/views/error-list/ErrorList";
 import { UpdateToken } from "@/views/UpdateToken/UpdateToken";
@@ -35,6 +36,7 @@ export default async function ProfilePage() {
     favoriteIds,
     basketIds,
   );
+  console.log(userData.data);
 
   const recent = recentData.data || [];
   const recommended = recommendedData.data || [];
@@ -74,13 +76,31 @@ export default async function ProfilePage() {
     },
   ];
 
+  const hasName = userData.data?.name?.length > 0;
+  const hasPassword = userData.data?.has_password;
+  const profileNotice =
+    !hasName && !hasPassword
+      ? "Заполните профиль, укажите имя и установите пароль, чтобы входить без SMS."
+      : !hasName && hasPassword
+        ? "Укажите имя, так мы будем знать, как к вам обращаться."
+        : !hasPassword && hasName
+          ? "Установите пароль, пароль позволит входить в аккаунт без ожидания SMS."
+          : "";
+
   return (
     <section className="page-wrapper">
       {userData?.tokens && <UpdateToken tokens={userData.tokens} />}
       <ErrorList errorsList={[recentData, recommendedData]} />
 
       {phone.length > 0 ? (
-        <ProfileContent navigateList={navigateList} title={`Телефон: ${getPhoneDisplay(phone)}`} />
+        <>
+          <ProfileContent
+            profileNotice={profileNotice}
+            navigateList={navigateList}
+            title={`Телефон: ${getPhoneDisplay(phone)}`}
+          />
+          <LinkButton href={"/profile/settings"} text="Настройки профиля" />
+        </>
       ) : (
         <NotContent
           title="Войдите, чтобы продолжить"

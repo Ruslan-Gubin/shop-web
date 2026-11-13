@@ -5,7 +5,7 @@ import { fetchContactsWarehouses } from "@/app/services/contacts/action";
 import { PageHeader } from "@/shared/ui/page-header/PageHeader";
 import { ErrorList } from "@/views/error-list/ErrorList";
 import { UpdateToken } from "@/views/UpdateToken/UpdateToken";
-import { Button } from "@/shared/ui/button-main/Button";
+import { LinkButton } from "@/shared/ui/link-button/LinkButton";
 import styles from "./Page.module.css";
 
 export const metadata: Metadata = {
@@ -168,11 +168,7 @@ export default async function ReturnPage() {
       </div>
 
       <footer className={styles.footer}>
-        <Link href="/" className={styles.buttonLinkWrapper}>
-          <Button fullWidth customClass={styles.buttonLink} variant="solid" variantColor="violet">
-            <p className={styles.btnText}>Перейти в каталог</p>
-          </Button>
-        </Link>
+        <LinkButton href="/" text="Перейти в каталог" />
       </footer>
     </section>
   );

@@ -1,0 +1,18 @@
+.buttonLinkWrapper {
+  width: max-content;
+
+  @media (max-width: 500px) {
+    width: 100%;
+  }
+}
+
+.btnText {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
+  max-width: 100%;
+}
+
+.buttonLink {
+  max-width: 200px;
+}

@@ -1,0 +1,13 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--padding-content-block);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: var(--padding-content-block);
+  border-radius: var(--border-radius-block);
+  background-color: #fff;
+}

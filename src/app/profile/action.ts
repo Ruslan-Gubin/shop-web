@@ -43,3 +43,10 @@ export const fetchProfileData = async (
     },
   ]);
 };
+
+export const fetchUserSettings = async () => {
+  return await fetchService.get<UserModel>({
+    url: "users/me",
+    tags: ["ProfileData"],
+  });
+};

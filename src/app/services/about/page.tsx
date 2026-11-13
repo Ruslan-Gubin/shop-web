@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import type { WarehouseModel } from "@/app/checkout/action";
 import { fetchContactsWarehouses } from "@/app/services/contacts/action";
-import { Button } from "@/shared/ui/button-main/Button";
+import { LinkButton } from "@/shared/ui/link-button/LinkButton";
 import { PageHeader } from "@/shared/ui/page-header/PageHeader";
 import { ErrorList } from "@/views/error-list/ErrorList";
 import styles from "./Page.module.css";
@@ -144,11 +144,7 @@ export default async function AboutPage() {
       </div>
 
       <footer className={styles.footer}>
-        <Link href="/" className={styles.buttonLinkWrapper}>
-          <Button fullWidth customClass={styles.buttonLink} variant="solid" variantColor="violet">
-            <p className={styles.btnText}>Перейти в каталог</p>
-          </Button>
-        </Link>
+        <LinkButton href="/" text="Перейти в каталог" />
       </footer>
     </section>
   );

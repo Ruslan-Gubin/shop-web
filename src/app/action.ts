@@ -8,12 +8,31 @@ import { createResponseSchema } from "@/shared/types/response";
 import type { SearchModel } from "./catalog/action";
 import type { QuestionModel } from "./catalog/detail/[id]/action";
 
-export type UserModel = {
-  email: string;
-  id: number;
-  name: string;
-  phone: string;
-  role: string;
+const userSchema = z.object({
+  id: z.number().int().positive().min(1),
+  email: z.string().email().optional(),
+  name: z.string().min(2).max(50).optional(),
+  phone: z.string().min(11).max(11),
+  role: z.string(),
+  has_password: z.boolean(),
+});
+
+export type UserModel = z.infer<typeof userSchema>;
+
+export const fetchMyUser = async () => {
+  const cookieStore = await cookies();
+
+  return await fetchService
+    .get<UserModel>({
+      url: "users/me",
+      tags: ["ProfileData"],
+    })
+    .then((response) => {
+      if (response.tokens) {
+        updateTokensInAction(cookieStore, response.tokens);
+      }
+      return response;
+    });
 };
 
 interface Category {
