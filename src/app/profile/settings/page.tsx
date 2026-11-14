@@ -3,7 +3,13 @@ import { NotContent } from "@/shared/ui/not-content/NotContent";
 import { ErrorList } from "@/views/error-list/ErrorList";
 import { UpdateToken } from "@/views/UpdateToken/UpdateToken";
 import { fetchUserSettings } from "../action";
-import { changeUserAvatarAction, changeUserDataAction, changeUserPasswordAction } from "./action";
+import { CONFIG_APP } from "@/shared/config/config";
+import {
+  changeUserDataAction,
+  changeUserPasswordAction,
+  deleteAvatarAction,
+  uploadAvatarAction,
+} from "./action";
 import { AvatarField } from "./components/AvatarField/AvatarField";
 import { PasswordForm } from "./components/PasswordForm/PasswordForm";
 import { SettingsForm } from "./components/SettingsForm/SettingsForm";
@@ -28,7 +34,12 @@ export default async function ProfileSettingsPage() {
 
       {user ? (
         <>
-          <AvatarField avatarUrl="" changeUserAvatarAction={changeUserAvatarAction} />
+          <AvatarField
+            photoUrl={(user as { photo?: { url?: string } }).photo?.url ?? null}
+            backendUrl={CONFIG_APP.BACKEND_URL}
+            uploadAvatarAction={uploadAvatarAction}
+            deleteAvatarAction={deleteAvatarAction}
+          />
           <SettingsForm
             name={user.name ?? ""}
             email={user.email ?? ""}

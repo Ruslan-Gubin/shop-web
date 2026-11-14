@@ -1,4 +1,5 @@
 "use server";
+import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import { fetchService } from "@/shared/fetch-api";
 import { updateTokensInAction } from "@/shared/helpers/updateCookieAction";
@@ -88,4 +89,45 @@ export const changeUserPasswordAction = async (
   return { status: "error", errors, data: null, message: "" };
 };
 
-export const changeUserAvatarAction = async () => {};
+export const uploadAvatarAction = async (formData: FormData) => {
+  const cookieStore = await cookies();
+
+  return fetchService
+    .patch<null>({
+      url: "users/avatar",
+      payload: formData as unknown as Record<string, unknown>,
+    })
+    .then((response) => {
+      if (response.tokens) {
+        updateTokensInAction(cookieStore, response.tokens);
+      }
+
+      if (response.status === "success") {
+        revalidatePath("/profile/settings");
+        revalidatePath("/profile");
+      }
+
+      return response;
+    });
+};
+
+export const deleteAvatarAction = async () => {
+  const cookieStore = await cookies();
+
+  return fetchService
+    .delete<null>({
+      url: "users/avatar",
+    })
+    .then((response) => {
+      if (response.tokens) {
+        updateTokensInAction(cookieStore, response.tokens);
+      }
+
+      if (response.status === "success") {
+        revalidatePath("/profile/settings");
+        revalidatePath("/profile");
+      }
+
+      return response;
+    });
+};
