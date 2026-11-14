@@ -13,6 +13,7 @@ interface BaseFetchArgs {
   tags?: string[];
   revalidate?: false | 0 | number;
   updateToken?: { token: string; refresh: string } | null;
+  skipAuth?: boolean;
 }
 
 export const baseFetch = async (args: BaseFetchArgs) => {
@@ -27,7 +28,7 @@ export const baseFetch = async (args: BaseFetchArgs) => {
     updateToken?.refresh || cookieStore.get(CONFIG_APP.REFRESH_TOKEN_COOKIE)?.value || "";
 
   const signal = new AbortController();
-  const _config = fetchConfig(method, isLogout ? refresh : token, payload);
+  const _config = fetchConfig(method, isLogout ? refresh : args.skipAuth ? "" : token, payload);
   _config.signal = signal.signal;
   const _url = fetchUrl(url, params);
 

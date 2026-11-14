@@ -19,22 +19,6 @@ const userSchema = z.object({
 
 export type UserModel = z.infer<typeof userSchema>;
 
-export const fetchMyUser = async () => {
-  const cookieStore = await cookies();
-
-  return await fetchService
-    .get<UserModel>({
-      url: "users/me",
-      tags: ["ProfileData"],
-    })
-    .then((response) => {
-      if (response.tokens) {
-        updateTokensInAction(cookieStore, response.tokens);
-      }
-      return response;
-    });
-};
-
 interface Category {
   id: number;
   parent_id: number | null;
@@ -75,6 +59,7 @@ export const fetchCategories = async () => {
   return await fetchService
     .get<CategoryModel[]>({
       url: "category/categories",
+      skipAuth: true,
     })
     .then(async (response) => {
       return createResponseSchema(z.array(categorySchema))
@@ -272,6 +257,7 @@ export const fetchPopularSearchAction = async (): Promise<SearchModel[] | null> 
     .get<SearchModel[]>({
       url: "search/popular",
       params: { limit: "7" },
+      skipAuth: true,
     })
     .then((response) => {
       if (response.tokens) {

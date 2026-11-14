@@ -16,10 +16,12 @@ export function fetchConfig(
 
   const config: ConfigFetchInit = {
     method: method,
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+    headers: {},
   };
+
+  if (token.length > 0) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
 
   if (!payloadIsFormData) {
     config.headers["Content-Type"] = "application/json";

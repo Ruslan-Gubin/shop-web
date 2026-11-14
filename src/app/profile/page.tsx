@@ -77,7 +77,7 @@ export default async function ProfilePage() {
     },
   ];
 
-  const hasName = userData.data?.name?.length > 0;
+  const hasName = userData.data?.name && userData.data?.name?.length > 0;
   const hasPassword = userData.data?.has_password;
   const profileNotice =
     !hasName && !hasPassword

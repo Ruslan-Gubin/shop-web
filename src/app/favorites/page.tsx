@@ -36,7 +36,7 @@ export default async function FavoritesPage() {
 
   return (
     <section className="page-wrapper">
-      {recentData?.tokens && <UpdateToken tokens={recentData.tokens} />}
+      {recommendedData?.tokens && <UpdateToken tokens={recommendedData.tokens} />}
       <ErrorList errorsList={[favoritesData, recentData, recommendedData]} />
 
       {favorites.length > 0 ? (
