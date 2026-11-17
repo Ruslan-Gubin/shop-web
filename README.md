@@ -2,9 +2,9 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-## Правки
+## будущие правки
 
-страницы services/... требует регистрации, хотя эти страницы должны быть доступны всем
+--
 
 First, run the development server:
 

@@ -12,7 +12,7 @@ type Props = {
 
 export const ActionBasket = (props: Props) => {
   return (
-    <div className={styles.basketContainer}>
+    <div className={styles.basketContainer} data-fixed-bottom-panel>
       {props.inStock ? (
         <>
           <ProductPrice

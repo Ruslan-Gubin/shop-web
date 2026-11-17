@@ -47,3 +47,11 @@
     padding-bottom: calc(var(--padding-main-content) + var(--navigate-bottom-height));
   }
 }
+
+@media (max-width: 880px) {
+  body:has([data-fixed-bottom-panel]) .layoutFooter {
+    padding-bottom: calc(
+      var(--padding-main-content) + var(--navigate-bottom-height) + var(--basket-panel-height, 94px)
+    );
+  }
+}
