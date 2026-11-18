@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
+import { CONFIG_APP } from "@/shared/config/config";
 import { NotContent } from "@/shared/ui/not-content/NotContent";
 import { ErrorList } from "@/views/error-list/ErrorList";
 import { UpdateToken } from "@/views/UpdateToken/UpdateToken";
 import { fetchUserSettings } from "../action";
-import { CONFIG_APP } from "@/shared/config/config";
 import {
   changeUserDataAction,
   changeUserPasswordAction,
@@ -35,8 +35,8 @@ export default async function ProfileSettingsPage() {
       {user ? (
         <>
           <AvatarField
-            photoUrl={(user as { photo?: { url?: string } }).photo?.url ?? null}
-            backendUrl={CONFIG_APP.BACKEND_URL}
+            photo_url={(user as { photo?: { url?: string } }).photo?.url ?? null}
+            backend_url={CONFIG_APP.BACKEND_URL}
             uploadAvatarAction={uploadAvatarAction}
             deleteAvatarAction={deleteAvatarAction}
           />

@@ -43,6 +43,13 @@ export const PasswordForm = (props: Props) => {
     setErrors((prev) => ({ ...prev, [key]: "" }));
   };
 
+  const disabled =
+    values.password.length !== values.repeatPassword.length ||
+    values.password.length < 6 ||
+    values.password.length > 50 ||
+    values.repeatPassword.length < 6 ||
+    values.repeatPassword.length > 50;
+
   return (
     <form onSubmit={submitForm} className={styles.root}>
       <h2>Пароль для входа без SMS</h2>
@@ -73,10 +80,17 @@ export const PasswordForm = (props: Props) => {
       </div>
 
       <p className={styles.hint}>
-        Пароль нужен только для входа без SMS. Телефон остаётся основным идентификатором.
+        Пароль нужен только для входа без SMS. Телефон остаётся основным идентификатором. Минимум 6,
+        максимум 50 символов.
       </p>
 
-      <Button customClass={styles.submitButton} type="submit" variant="solid" variantColor="violet">
+      <Button
+        disabled={disabled}
+        customClass={styles.submitButton}
+        type="submit"
+        variant="solid"
+        variantColor="violet"
+      >
         <p>{props.hasPassword ? "Изменить пароль" : "Назначить пароль"}</p>
       </Button>
     </form>

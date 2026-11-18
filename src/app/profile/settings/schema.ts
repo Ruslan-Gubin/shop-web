@@ -18,14 +18,14 @@ export const changePasswordSchema = z
       .string({
         message: "Введите пароль",
       })
-      .nonempty()
+      .nonempty({ message: "Введите новый пароль" })
       .min(6, { message: "Пароль должен быть не менее 6 символов" })
       .max(50, { message: "Пароль не должен превышать 50 символов" }),
     repeatPassword: z
       .string({
         message: "Введите пароль еще раз",
       })
-      .nonempty()
+      .nonempty({ message: "Повторите пароль" })
       .min(6, { message: "Пароль должен быть не менее 6 символов" })
       .max(30, { message: "Пароль не должен превышать 30 символов" }),
   })

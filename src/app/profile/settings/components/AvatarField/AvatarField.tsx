@@ -1,6 +1,5 @@
 "use client";
-import { type ChangeEvent, useRef, useState } from "react";
-import type { PhotoModel } from "@/app/action";
+import { type ChangeEvent, useRef, useState, useTransition } from "react";
 import { CONFIG_APP } from "@/shared/config/config";
 import { DeleteSvg } from "@/shared/svg/DeleteSvg";
 import { UserSvg } from "@/shared/svg/UserSvg";
@@ -10,9 +9,9 @@ import { ModalDelete } from "@/widgets/modals/modal-delete/ModalDelete";
 import styles from "./AvatarField.module.css";
 
 type Props = {
-  photoUrl?: string | null;
-  backendUrl?: string;
-  uploadAvatarAction: (formData: FormData) => Promise<ResponseData<PhotoModel>>;
+  photo_url?: string | null;
+  backend_url?: string;
+  uploadAvatarAction: (formData: FormData) => Promise<ResponseData<null>>;
   deleteAvatarAction: () => Promise<ResponseData<null>>;
 };
 
@@ -20,22 +19,17 @@ const MAX_FILE_SIZE = 5 * 1024 * 1024;
 const ACCEPTED_TYPES = ["image/jpeg", "image/png", "image/webp"];
 const ACCEPTED_EXTENSIONS = [".jpg", ".jpeg", ".png", ".webp"];
 
-export const AvatarField = ({
-  photoUrl,
-  backendUrl = "",
-  uploadAvatarAction,
-  deleteAvatarAction,
-}: Props) => {
+export const AvatarField = (props: Props) => {
   const fileRef = useRef<HTMLInputElement | null>(null);
   const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, transition] = useTransition();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-  const baseUrl = (backendUrl || CONFIG_APP.BACKEND_URL).replace(/\/$/, "");
-  const avatarSrc = photoUrl
-    ? photoUrl.startsWith("http")
-      ? photoUrl
-      : `${baseUrl}${photoUrl.startsWith("/") ? photoUrl : `/${photoUrl}`}`
+  const baseUrl = (props.backend_url || CONFIG_APP.BACKEND_URL).replace(/\/$/, "");
+  const avatarSrc = props.photo_url
+    ? props.photo_url.startsWith("http")
+      ? props.photo_url
+      : `${baseUrl}${props.photo_url.startsWith("/") ? props.photo_url : `/${props.photo_url}`}`
     : null;
 
   const validateFile = (file: File) => {
@@ -69,6 +63,7 @@ export const AvatarField = ({
     if (!file) return;
 
     const validationError = validateFile(file);
+
     if (validationError) {
       setError(validationError);
       resetInput();
@@ -76,34 +71,32 @@ export const AvatarField = ({
     }
 
     setError("");
-    setIsLoading(true);
-    const formData = new FormData();
-    formData.append("file", file);
+    transition(() => {
+      const formData = new FormData();
+      formData.append("file", file);
 
-    uploadAvatarAction(formData)
-      .then((response) => {
-        notificationAdapter.add(response.message, response.status);
-      })
-      .finally(() => {
-        setIsLoading(false);
-        resetInput();
-      });
+      props
+        .uploadAvatarAction(formData)
+        .then((response) => {
+          notificationAdapter.add(response.message, response.status);
+        })
+        .finally(() => {
+          resetInput();
+        });
+    });
   };
 
   const handleDeleteAvatar = () => {
-    setIsLoading(true);
     setError("");
 
-    deleteAvatarAction()
-      .then((response) => {
+    transition(() => {
+      props.deleteAvatarAction().then((response) => {
         notificationAdapter.add(response.message, response.status);
         if (response.status === "success") {
           setIsDeleteModalOpen(false);
         }
-      })
-      .finally(() => {
-        setIsLoading(false);
       });
+    });
   };
 
   return (
@@ -116,7 +109,7 @@ export const AvatarField = ({
             type="button"
             className={styles.avatarButton}
             onClick={handlePickFile}
-            aria-label={photoUrl ? "Изменить аватар" : "Загрузить аватар"}
+            aria-label={props.photo_url ? "Изменить аватар" : "Загрузить аватар"}
             disabled={isLoading}
           >
             {avatarSrc ? (
@@ -130,7 +123,7 @@ export const AvatarField = ({
             )}
           </button>
 
-          {photoUrl && (
+          {props.photo_url && (
             <button
               type="button"
               className={styles.deleteButton}

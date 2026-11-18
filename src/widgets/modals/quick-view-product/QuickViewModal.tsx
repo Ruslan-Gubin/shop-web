@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import {
@@ -100,7 +99,9 @@ export const QuickViewModal = () => {
 
   const inStock = stocks ? stocks.available > 0 || !stocks.accounting : false;
   const available = stocks?.accounting ? stocks?.available : null;
+  const photosCount = product && Array.isArray(product.photos) ? product.photos.length : 0;
 
+  console.log(photosCount);
   return (
     <>
       {product && (
@@ -110,13 +111,15 @@ export const QuickViewModal = () => {
           handleCloseAction={onCloseModal}
         >
           <section className={styles.imageSide}>
-            <button
-              className={`${styles.arrowRightButton} ${styles.arrowLeftButton}`}
-              type="button"
-              onClick={() => handleChangePhoto("prev")}
-            >
-              <ArrowRightSvg />
-            </button>
+            {photosCount > 1 && (
+              <button
+                className={`${styles.arrowRightButton} ${styles.arrowLeftButton}`}
+                type="button"
+                onClick={() => handleChangePhoto("prev")}
+              >
+                <ArrowRightSvg />
+              </button>
+            )}
             {product.photos[selectImage]?.url ? (
               <picture className={styles.imagePicture}>
                 <img
@@ -132,13 +135,16 @@ export const QuickViewModal = () => {
                 <img className={styles.image} src={EMPTY_IMG_SVG} alt="Product" />
               </picture>
             )}
-            <button
-              className={styles.arrowRightButton}
-              type="button"
-              onClick={() => handleChangePhoto("next")}
-            >
-              <ArrowRightSvg />
-            </button>
+
+            {photosCount > 1 && (
+              <button
+                className={styles.arrowRightButton}
+                type="button"
+                onClick={() => handleChangePhoto("next")}
+              >
+                <ArrowRightSvg />
+              </button>
+            )}
           </section>
           <section className={styles.infoSide}>
             <header className={styles.infoHeaderLine}>
