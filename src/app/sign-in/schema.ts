@@ -9,7 +9,6 @@ export const loginCodeSchema = z
 export const phoneSchema = z
   .string()
   .min(11, { message: "Введите номер телефона" })
-  //.max(11, { message: "Максимум 11 символов" })
   .transform((val) => normalizePhone(val))
   .refine((val) => val !== null, {
     message: "Некорректный формат номера телефона",

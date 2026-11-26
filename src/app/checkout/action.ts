@@ -257,57 +257,6 @@ export type AddressModel = {
   warehouse_id: number | null;
 };
 
-// export type CreateAddressPayload = AddressItem & { order_id: number };
-
-// export type CreateAddressResponse = {
-//   status: "error" | "success";
-//   errors: Record<keyof CreateAddressPayload, string>;
-//   data: AddressModel | null;
-// };
-
-// export type CreateOrderProductPayload = {
-//   product_id: number;
-//   quantity: number;
-//   order_id: number;
-// };
-
-// export type CreateOrderProductResponse = {
-//   status: "error" | "success";
-//   message: string;
-//   errors: Record<keyof CreateOrderProductPayload, string>;
-//   data: AddressModel | null;
-// };
-
-//TODO REMOVE
-// export const createOrderProductAction = async (
-//   payload: CreateOrderProductPayload,
-// ): Promise<CreateOrderProductResponse> => {
-//   const { isValid, errors } = getValidatePayload(payload, createOrderProductSchema);
-//
-//   if (isValid) {
-//     const cookieStore = await cookies();
-//
-//     return await fetchService
-//       .post<AddressModel>({
-//         url: "order-product/create",
-//         payload: payload,
-//       })
-//       .then((response) => {
-//         if (response.tokens) {
-//           updateTokensInAction(cookieStore, response.tokens);
-//         }
-//
-//         if (response.status === "error" && response.errors) {
-//           setErrorFromServer(response.errors, errors);
-//         }
-//
-//         return { status: response.status, errors, data: response.data, message: response.message };
-//       });
-//   } else {
-//     return { status: "error", errors, data: null, message: "" };
-//   }
-// };
-
 export const fetchForwardAction = async (
   address: string,
 ): Promise<{
