@@ -75,7 +75,10 @@ export const ShortageModal = (props: Props) => {
   return (
     <Modal active={props.active} handleCloseAction={props.onClose}>
       <ModalContent>
-        <ModalHeader title="Недостаточно товара на складе" onClose={props.onClose} />
+        <ModalHeader
+          title="Недостаточно товара на складе"
+          onClose={props.onClose}
+        />
 
         <ModalBody className={styles.body}>
           <p className={styles.description}>
@@ -94,8 +97,16 @@ export const ShortageModal = (props: Props) => {
 
               return (
                 <li key={product.id} className={styles.itemCard}>
-                  {product.name.length > 0 && <span className={styles.itemName}>{product.name}</span>}
-                  <span className={left === 0 ? `${styles.stockInfo} ${styles.stockInfoDanger}` : styles.stockInfo}>
+                  {product.name.length > 0 && (
+                    <span className={styles.itemName}>{product.name}</span>
+                  )}
+                  <span
+                    className={
+                      left === 0
+                        ? `${styles.stockInfo} ${styles.stockInfoDanger}`
+                        : styles.stockInfo
+                    }
+                  >
                     {`Необходимо: ${product.quantity} шт. - ${
                       left > 0 ? `Доступно: ${left} шт.` : "Нет в наличии"
                     }`}
@@ -123,7 +134,7 @@ export const ShortageModal = (props: Props) => {
                   action: handleApply,
                   text: "Применить",
                   variant: "solid",
-                  variantColor: "violet",
+                  variantColor: "accent",
                   disabled: loading,
                 }
           }

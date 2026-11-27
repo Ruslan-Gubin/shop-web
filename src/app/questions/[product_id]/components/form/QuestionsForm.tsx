@@ -27,7 +27,10 @@ export const QuestionsForm = (props: Props) => {
   const [question, setQuestion] = useState<string>("");
   const [questionError, setQuestionError] = useState<string>("");
   const [activeModal, setActiveModal] = useState<boolean>(false);
-  const [modalContent, setModalContent] = useState<{ title: string; subtitle: string }>({
+  const [modalContent, setModalContent] = useState<{
+    title: string;
+    subtitle: string;
+  }>({
     title: "",
     subtitle: "",
   });
@@ -102,7 +105,9 @@ export const QuestionsForm = (props: Props) => {
       <div className={styles.root}>
         <div className={styles.selectItem}>
           <h3>Вопросы</h3>
-          {props.totalCount > 0 && <span className={styles.selectCount}>{props.totalCount}</span>}
+          {props.totalCount > 0 && (
+            <span className={styles.selectCount}>{props.totalCount}</span>
+          )}
         </div>
 
         <TextAreaResize
@@ -119,7 +124,7 @@ export const QuestionsForm = (props: Props) => {
 
         {active && (
           <footer className={styles.footerActions}>
-            <Button onClick={submitQuestions} size="sm" variantColor="violet">
+            <Button onClick={submitQuestions} size="sm" variantColor="accent">
               Задать вопрос
             </Button>
 

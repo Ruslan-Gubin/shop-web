@@ -20,12 +20,8 @@
   z-index: 3;
   display: flex;
   justify-content: center;
-  background-image: linear-gradient(to left, #3a1367, #cf16b9);
-  background-color: green;
-
-  & .headerWrapper {
-    background-color: orange;
-  }
+  background-image: var(--header-gradient);
+  background-color: #222b33;
 }
 
 .layoutContent {
@@ -44,14 +40,17 @@
   padding-block: var(--padding-main-content);
 
   @media (max-width: 880px) {
-    padding-bottom: calc(var(--padding-main-content) + var(--navigate-bottom-height));
+    padding-bottom: calc(
+      var(--padding-main-content) + var(--navigate-bottom-height)
+    );
   }
 }
 
 @media (max-width: 880px) {
   body:has([data-fixed-bottom-panel]) .layoutFooter {
     padding-bottom: calc(
-      var(--padding-main-content) + var(--navigate-bottom-height) + var(--basket-panel-height, 94px)
+      var(--padding-main-content) + var(--navigate-bottom-height) +
+        var(--basket-panel-height, 94px)
     );
   }
 }

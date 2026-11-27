@@ -5,15 +5,15 @@
   padding-inline: var(--padding-content-block);
   height: 50px;
   border-radius: 20px;
-  background-color: var(--color-violet);
+  background-color: var(--color-accent);
   color: white;
 
   &:hover {
-    background-color: var(--color-violet-hover);
+    background-color: var(--color-accent-hover);
   }
 
   &:hover:disabled {
-    background-color: var(--color-violet);
+    background-color: var(--color-accent);
   }
 
   @media (max-width: 880px) {
@@ -57,7 +57,7 @@
   height: 50px;
 
   & svg {
-    color: var(--color-violet);
+    color: var(--color-accent);
   }
 
   @media (max-width: 880px) {

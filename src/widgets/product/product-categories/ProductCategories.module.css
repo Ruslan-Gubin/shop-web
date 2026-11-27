@@ -48,17 +48,21 @@
 
   &:hover {
     & .categoryValue {
-      color: var(--color-violet);
+      color: var(--color-accent);
     }
 
     & .categoryLabel {
-      color: var(--color-violet);
+      color: var(--color-accent);
     }
   }
 }
 
 .rightSide {
-  background-image: linear-gradient(90deg, transparent 0%, var(--background-content-color) 100%);
+  background-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--background-content-color) 100%
+  );
   position: absolute;
   top: 0;
   right: 0;

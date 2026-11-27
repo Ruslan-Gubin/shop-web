@@ -7,7 +7,7 @@ type ButtonActionType = {
   text?: string;
   disabled?: boolean;
   type?: "submit";
-  variantColor?: "teal" | "error" | "green" | "pink" | "blue" | "violet";
+  variantColor?: "teal" | "error" | "green" | "pink" | "blue" | "accent";
   variant?: "solid" | "outline" | "ghost" | "link";
   size?: "xs" | "sm" | "md" | "lg";
   fullWidth?: boolean;
@@ -29,7 +29,7 @@ export const ModalFooter = (props: Props) => {
           variant={props.addAction.variant || "solid"}
           onClick={props.addAction.action}
           type={props.addAction.type || "button"}
-          variantColor={props.addAction.variantColor || "violet"}
+          variantColor={props.addAction.variantColor || "accent"}
           fullWidth={props.addAction.fullWidth}
         >
           <AddSvg />
@@ -43,7 +43,7 @@ export const ModalFooter = (props: Props) => {
           variant={props.cancelAction.variant || "solid"}
           onClick={props.cancelAction.action}
           type={props.cancelAction.type || "button"}
-          variantColor={props.cancelAction.variantColor || "violet"}
+          variantColor={props.cancelAction.variantColor || "accent"}
           fullWidth={props.cancelAction.fullWidth}
         >
           {props.cancelAction.text || "Отменить"}
@@ -53,7 +53,7 @@ export const ModalFooter = (props: Props) => {
         <Button
           size={props.submitAction.size || "sm"}
           variant={props.submitAction.variant || "solid"}
-          variantColor={props.submitAction.variantColor || "violet"}
+          variantColor={props.submitAction.variantColor || "accent"}
           disabled={props.submitAction.disabled}
           type={props.submitAction.type || "submit"}
           onClick={props.submitAction.action}

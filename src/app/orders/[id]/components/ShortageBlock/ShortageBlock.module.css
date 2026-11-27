@@ -42,13 +42,13 @@
   height: 36px;
   padding-inline: 16px;
   border-radius: 12px;
-  background-color: var(--color-violet);
+  background-color: var(--color-accent);
   color: #fff;
   font-size: 14px;
   font-weight: 600;
   transition: background-color 0.2s linear;
 
   &:hover {
-    background-color: var(--color-violet-hover);
+    background-color: var(--color-accent-hover);
   }
 }

@@ -17,7 +17,7 @@
 
   &:hover {
     & span {
-      color: var(--color-violet);
+      color: var(--color-accent);
     }
   }
 }

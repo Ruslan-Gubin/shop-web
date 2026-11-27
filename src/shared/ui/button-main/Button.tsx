@@ -3,7 +3,15 @@ import styles from "./Button.module.css";
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
-  variantColor?: "teal" | "error" | "green" | "pink" | "blue" | "violet" | "light-gray" | "gray";
+  variantColor?:
+    | "teal"
+    | "error"
+    | "green"
+    | "pink"
+    | "blue"
+    | "accent"
+    | "light-gray"
+    | "gray";
   fullWidth?: boolean;
   variant?: "solid" | "outline" | "ghost" | "link";
   size?: "xs" | "sm" | "md" | "lg" | "xs2";

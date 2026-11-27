@@ -1,6 +1,12 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { type SubmitEventHandler, useEffect, useRef, useState, useTransition } from "react";
+import {
+  type SubmitEventHandler,
+  useEffect,
+  useRef,
+  useState,
+  useTransition,
+} from "react";
 import { getPhoneDisplay } from "@/shared/helpers/getFormattedPhone";
 import { getMessageError } from "@/shared/helpers/getMessageError";
 import { setDeviceId } from "@/shared/storage/device_id";
@@ -12,7 +18,9 @@ import { loginCodeSchema, phoneSchema } from "../schema";
 import styles from "./SigninForm.module.css";
 
 type Props = {
-  sendPhoneAction: (phone: string) => Promise<ResponseData<{ device_id: string; phone: string }>>;
+  sendPhoneAction: (
+    phone: string,
+  ) => Promise<ResponseData<{ device_id: string; phone: string }>>;
   sendCodeAction: (
     phone: string,
     code: string,
@@ -82,7 +90,9 @@ export const SigninForm = (props: Props) => {
 
   const handleChangeCode = (id: number, value: string) => {
     const updateCode = code.map((item, index) => (index === id ? value : item));
-    const validation = loginCodeSchema.safeParse(updateCode.join("").replace(/\D/g, ""));
+    const validation = loginCodeSchema.safeParse(
+      updateCode.join("").replace(/\D/g, ""),
+    );
 
     if (validation.success && !validCode) {
       setValidCode(true);
@@ -143,7 +153,10 @@ export const SigninForm = (props: Props) => {
           }
         })
         .catch((error) => {
-          const errorMessage = getMessageError(error, "Не удалось выслать код на этот номер");
+          const errorMessage = getMessageError(
+            error,
+            "Не удалось выслать код на этот номер",
+          );
           setError(errorMessage);
         });
     });
@@ -154,7 +167,11 @@ export const SigninForm = (props: Props) => {
       return props
         .sendCodeAction(validatedPhone, smsCode)
         .then((response) => {
-          if (response.status === "success" && response.data?.token && response.data?.refresh) {
+          if (
+            response.status === "success" &&
+            response.data?.token &&
+            response.data?.refresh
+          ) {
             setStep(1);
             setCode(initCode);
             setPassword("");
@@ -184,7 +201,11 @@ export const SigninForm = (props: Props) => {
       return props
         .loginByPasswordAction(validatedPhone, password)
         .then((response) => {
-          if (response.status === "success" && response.data?.token && response.data?.refresh) {
+          if (
+            response.status === "success" &&
+            response.data?.token &&
+            response.data?.refresh
+          ) {
             setStep(1);
             setCode(initCode);
             setPassword("");
@@ -224,7 +245,9 @@ export const SigninForm = (props: Props) => {
     if (!validatedPhone) return;
 
     if (step === 2) {
-      const validationCode = loginCodeSchema.safeParse(code.join("").replace(/\D/g, ""));
+      const validationCode = loginCodeSchema.safeParse(
+        code.join("").replace(/\D/g, ""),
+      );
 
       if (validationCode.success) {
         fetchSendCode(validatedPhone, validationCode.data);
@@ -268,7 +291,9 @@ export const SigninForm = (props: Props) => {
   };
 
   const submitDisabled =
-    isLoading || (step === 2 && !validCode) || (step === 3 && password.length < 6);
+    isLoading ||
+    (step === 2 && !validCode) ||
+    (step === 3 && password.length < 6);
 
   const title = step === 3 ? "Вход по паролю" : "Вход по номеру телефона";
   const subtitle =
@@ -350,7 +375,7 @@ export const SigninForm = (props: Props) => {
           <>
             <Button
               variant="solid"
-              variantColor="violet"
+              variantColor="accent"
               fullWidth
               type="button"
               disabled={isLoading || !validPhone}
@@ -360,7 +385,7 @@ export const SigninForm = (props: Props) => {
             </Button>
             <Button
               variant="outline"
-              variantColor="violet"
+              variantColor="accent"
               fullWidth
               type="button"
               disabled={isLoading || !validPhone || !canSendSms}
@@ -399,7 +424,7 @@ export const SigninForm = (props: Props) => {
             )}
             <Button
               variant="solid"
-              variantColor="violet"
+              variantColor="accent"
               fullWidth
               type="submit"
               disabled={submitDisabled}
@@ -433,7 +458,7 @@ export const SigninForm = (props: Props) => {
             )}
             <Button
               variant="solid"
-              variantColor="violet"
+              variantColor="accent"
               fullWidth
               type="submit"
               disabled={submitDisabled}

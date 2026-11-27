@@ -36,7 +36,7 @@
   transition: background-color 0.2s linear;
 
   &:focus-visible {
-    outline: 2px solid var(--color-violet);
+    outline: 2px solid var(--color-accent);
     outline-offset: 2px;
     border-radius: var(--border-radius-main);
   }

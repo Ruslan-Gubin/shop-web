@@ -19,11 +19,17 @@ export const SuccessOrderModal = (props: Props) => {
   const total = props.orderData?.total || 0;
 
   const paymentLabel =
-    props.orderData?.payment_method === "card" ? "Банковской картой" : "Наличными";
-  const receiptLabel = props.orderData?.method_receipt === "courier" ? "Курьер" : "Самовывоз";
+    props.orderData?.payment_method === "card"
+      ? "Банковской картой"
+      : "Наличными";
+  const receiptLabel =
+    props.orderData?.method_receipt === "courier" ? "Курьер" : "Самовывоз";
 
   return (
-    <Modal active={props.active} handleCloseAction={() => props.onNavigate(props.orderData?.id)}>
+    <Modal
+      active={props.active}
+      handleCloseAction={() => props.onNavigate(props.orderData?.id)}
+    >
       <ModalContent>
         <ModalHeader
           svg={<SuccessfulOperationSvg />}
@@ -53,7 +59,7 @@ export const SuccessOrderModal = (props: Props) => {
             action: () => props.onNavigate(props.orderData?.id),
             text: "Перейти к заказу",
             variant: "link",
-            variantColor: "violet",
+            variantColor: "accent",
             size: "sm",
           }}
         />

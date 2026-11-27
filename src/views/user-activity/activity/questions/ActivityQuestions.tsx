@@ -31,11 +31,15 @@ export const ActivityQuestions = (props: Props) => {
   const [question, setQuestion] = useState<string>("");
   const [questionError, setQuestionError] = useState<string>("");
   const [activeModal, setActiveModal] = useState<boolean>(false);
-  const [modalContent, setModalContent] = useState<{ title: string; subtitle: string }>({
+  const [modalContent, setModalContent] = useState<{
+    title: string;
+    subtitle: string;
+  }>({
     title: "",
     subtitle: "",
   });
-  const { ref, activeArrows, leftActive, rightActive, handleScroll } = useHorizontalScroll();
+  const { ref, activeArrows, leftActive, rightActive, handleScroll } =
+    useHorizontalScroll();
 
   const submitQuestions = () => {
     if (question.length < 10 || question.length >= 1000) {
@@ -116,7 +120,7 @@ export const ActivityQuestions = (props: Props) => {
 
         {active && (
           <footer className={styles.footerActions}>
-            <Button onClick={submitQuestions} size="sm" variantColor="violet">
+            <Button onClick={submitQuestions} size="sm" variantColor="accent">
               Задать вопрос
             </Button>
 
@@ -134,12 +138,16 @@ export const ActivityQuestions = (props: Props) => {
                   <header className={styles.questionsHeader}>
                     <h4>Пользователь</h4>
                     <span className={styles.questionDate}>
-                      {questionItem.created_at ? formatDateLong(questionItem.created_at) : ""}
+                      {questionItem.created_at
+                        ? formatDateLong(questionItem.created_at)
+                        : ""}
                     </span>
                   </header>
 
                   <p className={styles.questionText}>
-                    <Link href={`/questions/${props.product_id}/?question_id=${questionItem.id}`}>
+                    <Link
+                      href={`/questions/${props.product_id}/?question_id=${questionItem.id}`}
+                    >
                       {questionItem.question}
                     </Link>
                   </p>
@@ -149,7 +157,9 @@ export const ActivityQuestions = (props: Props) => {
                       className={styles.answerTextContainer}
                     >
                       {questionItem.answer.length > 0 && (
-                        <p className={styles.answerText}>{questionItem.answer}</p>
+                        <p className={styles.answerText}>
+                          {questionItem.answer}
+                        </p>
                       )}
                     </Link>
                   </div>
@@ -164,7 +174,10 @@ export const ActivityQuestions = (props: Props) => {
                   onClick={() => handleScroll("left")}
                   className={styles.buttonNavigate}
                 >
-                  <ArrowRightSvg title="Назад" size={{ height: 16, width: 18 }} />
+                  <ArrowRightSvg
+                    title="Назад"
+                    size={{ height: 16, width: 18 }}
+                  />
                 </button>
 
                 <button
@@ -173,7 +186,10 @@ export const ActivityQuestions = (props: Props) => {
                   onClick={() => handleScroll("right")}
                   className={`${styles.buttonNavigate} ${styles.buttonNavigateNext}`}
                 >
-                  <ArrowRightSvg title="Дальше" size={{ height: 16, width: 18 }} />
+                  <ArrowRightSvg
+                    title="Дальше"
+                    size={{ height: 16, width: 18 }}
+                  />
                 </button>
               </>
             )}

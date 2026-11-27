@@ -15,8 +15,16 @@ import styles from "./UserActivity.module.css";
 
 type Props = {
   isRegister: boolean;
-  questionData: { questions: QuestionModel[]; totalCount: number; paginationPage: number } | null;
-  reviewsData: { reviews: ReviewModel[]; totalCount: number; paginationPage: number } | null;
+  questionData: {
+    questions: QuestionModel[];
+    totalCount: number;
+    paginationPage: number;
+  } | null;
+  reviewsData: {
+    reviews: ReviewModel[];
+    totalCount: number;
+    paginationPage: number;
+  } | null;
   reviewsOptions: { rating: number; count: number } | null;
   myReview: ReviewModel | null;
   canReview: boolean;
@@ -60,7 +68,9 @@ export const UserActivity = (props: Props) => {
         >
           <h3>Оценки</h3>
           {props.reviewsData && props.reviewsData.totalCount > 0 && (
-            <span className={styles.selectCount}>{props.reviewsData.totalCount}</span>
+            <span className={styles.selectCount}>
+              {props.reviewsData.totalCount}
+            </span>
           )}
         </button>
         <button
@@ -74,7 +84,9 @@ export const UserActivity = (props: Props) => {
         >
           <h3>Вопросы</h3>
           {props.questionData && props.questionData.totalCount > 0 && (
-            <span className={styles.selectCount}>{props.questionData.totalCount}</span>
+            <span className={styles.selectCount}>
+              {props.questionData.totalCount}
+            </span>
           )}
         </button>
       </ul>
@@ -95,9 +107,9 @@ export const UserActivity = (props: Props) => {
           />
         )}
 
-      {select === "review" && props.reviewsData && props.reviewsData?.totalCount === 0 && (
-        <div>Пока товар не оценили</div>
-      )}
+      {select === "review" &&
+        props.reviewsData &&
+        props.reviewsData?.totalCount === 0 && <div>Пока товар не оценили</div>}
 
       {select === "question" &&
         props.questionData &&
@@ -111,25 +123,31 @@ export const UserActivity = (props: Props) => {
           />
         )}
 
-      {select === "question" && props.questionData && props.questionData?.totalCount === 0 && (
-        <div>Нет вопросов к товару</div>
-      )}
+      {select === "question" &&
+        props.questionData &&
+        props.questionData?.totalCount === 0 && (
+          <div>Нет вопросов к товару</div>
+        )}
 
-      {select === "review" && props.reviewsData && props.reviewsData.totalCount > 0 && (
-        <Link href={`/reviews/${props.product_id}`}>
-          <Button size="md" variant="solid" variantColor="violet">
-            Смотреть все отзывы
-          </Button>
-        </Link>
-      )}
+      {select === "review" &&
+        props.reviewsData &&
+        props.reviewsData.totalCount > 0 && (
+          <Link href={`/reviews/${props.product_id}`}>
+            <Button size="md" variant="solid" variantColor="accent">
+              Смотреть все отзывы
+            </Button>
+          </Link>
+        )}
 
-      {select === "question" && props.questionData && props.questionData.totalCount > 0 && (
-        <Link href={`/questions/${props.product_id}`}>
-          <Button size="md" variant="solid" variantColor="violet">
-            Смотреть все вопросы
-          </Button>
-        </Link>
-      )}
+      {select === "question" &&
+        props.questionData &&
+        props.questionData.totalCount > 0 && (
+          <Link href={`/questions/${props.product_id}`}>
+            <Button size="md" variant="solid" variantColor="accent">
+              Смотреть все вопросы
+            </Button>
+          </Link>
+        )}
     </section>
   );
 };

@@ -60,6 +60,6 @@
 }
 
 .presetChipActive {
-  border-color: var(--color-violet);
+  border-color: var(--color-accent);
   background-color: white;
 }

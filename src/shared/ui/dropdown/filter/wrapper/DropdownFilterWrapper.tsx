@@ -81,24 +81,36 @@ export const DropdownFilterWrapper = (props: Props) => {
           </button>
         )}
         <div className={styles.bridge}></div>
-        <div className={`${styles.menuContainer} ${offset ? styles.menuContainerRightSide : ""}`}>
+        <div
+          className={`${styles.menuContainer} ${offset ? styles.menuContainerRightSide : ""}`}
+        >
           {props.menuChildren}
         </div>
       </div>
 
       <div
         onClick={props.onClose}
-        className={props.isOpenMenu ? `${styles.overlay} ${styles.overlayActive}` : styles.overlay}
+        className={
+          props.isOpenMenu
+            ? `${styles.overlay} ${styles.overlayActive}`
+            : styles.overlay
+        }
       ></div>
 
       <div
         className={
-          props.isOpenMenu ? `${styles.menuMobile} ${styles.menuMobileActive}` : styles.menuMobile
+          props.isOpenMenu
+            ? `${styles.menuMobile} ${styles.menuMobileActive}`
+            : styles.menuMobile
         }
       >
         <header className={styles.headerMenu}>
           <h3>{props.mobileTitle || ""}</h3>
-          <button onClick={props.onClose} type="button" className={styles.buttonSvg}>
+          <button
+            onClick={props.onClose}
+            type="button"
+            className={styles.buttonSvg}
+          >
             <CancelSvg />
           </button>
         </header>
@@ -108,7 +120,7 @@ export const DropdownFilterWrapper = (props: Props) => {
           <Button
             customClass={styles.footerSubmitButton}
             fullWidth
-            variantColor="violet"
+            variantColor="accent"
             variant="solid"
             size="md"
             onClick={props.onSubmitFooter}

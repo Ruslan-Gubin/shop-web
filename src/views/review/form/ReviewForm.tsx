@@ -55,7 +55,10 @@ export const ReviewForm = (props: Props) => {
   const [activeModal, setActiveModal] = useState<boolean>(false);
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
 
-  const [modalContent, setModalContent] = useState<{ title: string; subtitle: string }>({
+  const [modalContent, setModalContent] = useState<{
+    title: string;
+    subtitle: string;
+  }>({
     title: "",
     subtitle: "",
   });
@@ -200,7 +203,10 @@ export const ReviewForm = (props: Props) => {
               setDeleteModal(false);
               setActive(false);
               handleReset();
-              notificationAdapter.add("Ваш отзыв успешно удален", response.status);
+              notificationAdapter.add(
+                "Ваш отзыв успешно удален",
+                response.status,
+              );
             }
 
             if (response.status === "error" && response.message) {
@@ -208,7 +214,10 @@ export const ReviewForm = (props: Props) => {
             }
           })
           .catch((error) => {
-            notificationAdapter.add(error.message || "Не удалось удалить отзыв", "error");
+            notificationAdapter.add(
+              error.message || "Не удалось удалить отзыв",
+              "error",
+            );
           });
       }
     });
@@ -257,7 +266,9 @@ export const ReviewForm = (props: Props) => {
             </button>
           ))}
         </div>
-        {errors.rating && <span className={styles.ratingError}>{errors.rating}</span>}
+        {errors.rating && (
+          <span className={styles.ratingError}>{errors.rating}</span>
+        )}
       </div>
 
       {active && (
@@ -299,7 +310,12 @@ export const ReviewForm = (props: Props) => {
 
       {active && props.myReview === null && values.rating > 0 && (
         <div className={styles.footerActions}>
-          <Button disabled={disabled} onClick={submitReview} size="sm" variantColor="violet">
+          <Button
+            disabled={disabled}
+            onClick={submitReview}
+            size="sm"
+            variantColor="accent"
+          >
             Оставить отзыв
           </Button>
 
@@ -317,7 +333,7 @@ export const ReviewForm = (props: Props) => {
             disabled={disabled}
             onClick={() => (active ? submitEditReview() : setActive(true))}
             size="sm"
-            variantColor="violet"
+            variantColor="accent"
           >
             Изменить отзыв
           </Button>

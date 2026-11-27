@@ -20,7 +20,7 @@
 
 .headerLink {
   font-weight: 500;
-  color: #a73afd;
+  color: var(--color-accent);
 
   &:hover {
     text-decoration: underline;

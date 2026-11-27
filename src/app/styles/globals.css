@@ -11,6 +11,13 @@
   --gap-info-block: 20px;
   --padding-main: 32px;
   --header-size-height: 116px;
+  --header-gradient: linear-gradient(
+    90deg,
+    #166534 26%,
+    #0f766e 46%,
+    #1e3a8a 64%,
+    #6b21a8 84%
+  );
   --content-size-width: 1504px;
   --font-size-h1: 58px;
   --font-size-h2: 24px;
@@ -23,8 +30,9 @@
   --color-red: #f32d2d;
   --color-red-light: #ff4b6e;
   --color-red-dark: #cd5c5c;
-  --color-violet: #a73afd;
-  --color-violet-hover: #a73afde6;
+  --color-accent: #2f6b8a;
+  --color-accent-hover: #22536e;
+  --color-accent-soft: #e7f0f5;
   --color-green-light: #10c44c;
   --padding-main-content: 32px;
   --padding-content-block: 24px;

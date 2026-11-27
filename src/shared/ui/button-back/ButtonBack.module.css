@@ -11,10 +11,10 @@
   }
 
   &:hover {
-    color: var(--color-violet);
+    color: var(--color-accent);
 
     & svg {
-      color: var(--color-violet);
+      color: var(--color-accent);
     }
   }
 }

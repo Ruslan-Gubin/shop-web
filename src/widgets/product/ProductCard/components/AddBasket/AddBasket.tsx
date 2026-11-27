@@ -45,7 +45,11 @@ export const AddBasket = (props: Props) => {
             onClick={() => handleIncrement(props.id)}
             type="submit"
             className={styles.changeCountButton}
-            disabled={typeof props.available === "number" ? count >= props.available : false}
+            disabled={
+              typeof props.available === "number"
+                ? count >= props.available
+                : false
+            }
           >
             <AddSvg size={18} />
           </button>
@@ -55,7 +59,7 @@ export const AddBasket = (props: Props) => {
           onClick={() => handleAddBasket(props.id)}
           fullWidth
           size="xs2"
-          variantColor="violet"
+          variantColor="accent"
         >
           Добавить
         </Button>

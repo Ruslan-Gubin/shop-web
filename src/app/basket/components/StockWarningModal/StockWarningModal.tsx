@@ -62,11 +62,15 @@ export const StockWarningModal = (props: Props) => {
   return (
     <Modal active={props.active} handleCloseAction={props.onClose}>
       <ModalContent>
-        <ModalHeader title="Недостаточно товара на складе" onClose={props.onClose} />
+        <ModalHeader
+          title="Недостаточно товара на складе"
+          onClose={props.onClose}
+        />
 
         <ModalBody className={styles.body}>
           <p className={styles.description}>
-            Для некоторых товаров не хватает остатков на складе. Выберите действие для каждого:
+            Для некоторых товаров не хватает остатков на складе. Выберите
+            действие для каждого:
           </p>
 
           <ul className={styles.itemList}>
@@ -79,12 +83,16 @@ export const StockWarningModal = (props: Props) => {
                     item.available !== props.basket[item.product_id] && (
                       <span className={styles.stockInfo}>
                         Необходимо: {props.basket[item.product_id]} шт.{" - "}
-                        {item.available > 0 ? `Доступно: ${item.available} шт.` : "Нет в наличии"}
+                        {item.available > 0
+                          ? `Доступно: ${item.available} шт.`
+                          : "Нет в наличии"}
                       </span>
                     )}
 
                   {item.available === props.basket[item.product_id] && (
-                    <span className={`${styles.stockInfo} ${styles.stockInfoSuccess}`}>
+                    <span
+                      className={`${styles.stockInfo} ${styles.stockInfoSuccess}`}
+                    >
                       {`Изменено количество на ${props.basket[item.product_id]} шт.`}
                     </span>
                   )}
@@ -102,9 +110,14 @@ export const StockWarningModal = (props: Props) => {
                       {item.available > 0 && (
                         <Button
                           className={styles.buttonLink}
-                          onClick={() => handleChangeQuantity(item.product_id, item.available)}
+                          onClick={() =>
+                            handleChangeQuantity(
+                              item.product_id,
+                              item.available,
+                            )
+                          }
                           size="xs"
-                          variantColor="violet"
+                          variantColor="accent"
                           variant="ghost"
                         >
                           Взять {item.available || 5} шт.
@@ -139,7 +152,7 @@ export const StockWarningModal = (props: Props) => {
             disabled: props.disabled || hasWarning,
             text: "Продолжить",
             variant: "solid",
-            variantColor: "violet",
+            variantColor: "accent",
             size: "sm",
           }}
         />

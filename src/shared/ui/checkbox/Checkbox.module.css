@@ -21,8 +21,8 @@
 }
 
 .checkbox:checked {
-  border: 1px solid var(--color-violet);
-  background-color: var(--color-violet);
+  border: 1px solid var(--color-accent);
+  background-color: var(--color-accent);
   position: relative;
   z-index: 0;
 }

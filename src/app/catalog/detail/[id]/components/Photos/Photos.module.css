@@ -20,7 +20,9 @@
   gap: 8px;
 
   @media (max-width: 1450px) {
-    grid-template-columns: calc(69px + (83 - 69) * ((100vw - 1200px) / (1450 - 1200))) 1fr;
+    grid-template-columns:
+      calc(69px + (83 - 69) * ((100vw - 1200px) / (1450 - 1200)))
+      1fr;
   }
 
   @media (max-width: 1200px) {
@@ -81,7 +83,7 @@
   left: calc(50% - 18px);
 
   &:hover {
-    color: var(--color-violet);
+    color: var(--color-accent);
   }
 
   &:disabled {
@@ -146,7 +148,7 @@
 }
 
 .photosItemActive {
-  border: 2px solid var(--color-violet);
+  border: 2px solid var(--color-accent);
 
   @media (max-width: 880px) {
     border: none;

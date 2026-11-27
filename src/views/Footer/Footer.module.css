@@ -23,6 +23,6 @@
   color: #868695;
 
   & a:hover {
-    color: var(--color-violet);
+    color: var(--color-accent);
   }
 }

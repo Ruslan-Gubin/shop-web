@@ -41,6 +41,6 @@
   color: var(--text-color-placeholder);
 
   &:hover {
-    color: var(--color-violet);
+    color: var(--color-accent);
   }
 }

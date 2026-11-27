@@ -3,7 +3,10 @@ import { type SubmitEventHandler, useState } from "react";
 import { Button } from "@/shared/ui/button-main/Button";
 import { Input } from "@/shared/ui/input-main/Input";
 import { notificationAdapter } from "@/stores/notification/adapter";
-import type { ChangeUserPasswordPayload, ChangeUserPasswordResponse } from "../../action";
+import type {
+  ChangeUserPasswordPayload,
+  ChangeUserPasswordResponse,
+} from "../../action";
 import styles from "./PasswordForm.module.css";
 
 type Props = {
@@ -38,7 +41,10 @@ export const PasswordForm = (props: Props) => {
     });
   };
 
-  const handleChangeValues = (value: string, key: keyof ChangeUserPasswordPayload) => {
+  const handleChangeValues = (
+    value: string,
+    key: keyof ChangeUserPasswordPayload,
+  ) => {
     setValues((prev) => ({ ...prev, [key]: value }));
     setErrors((prev) => ({ ...prev, [key]: "" }));
   };
@@ -80,8 +86,8 @@ export const PasswordForm = (props: Props) => {
       </div>
 
       <p className={styles.hint}>
-        Пароль нужен только для входа без SMS. Телефон остаётся основным идентификатором. Минимум 6,
-        максимум 50 символов.
+        Пароль нужен только для входа без SMS. Телефон остаётся основным
+        идентификатором. Минимум 6, максимум 50 символов.
       </p>
 
       <Button
@@ -89,7 +95,7 @@ export const PasswordForm = (props: Props) => {
         customClass={styles.submitButton}
         type="submit"
         variant="solid"
-        variantColor="violet"
+        variantColor="accent"
       >
         <p>{props.hasPassword ? "Изменить пароль" : "Назначить пароль"}</p>
       </Button>

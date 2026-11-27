@@ -10,7 +10,12 @@ type Props = {
 export const LinkButton = (props: Props) => {
   return (
     <Link href={props.href} className={styles.buttonLinkWrapper}>
-      <Button fullWidth customClass={styles.buttonLink} variant="solid" variantColor="violet">
+      <Button
+        fullWidth
+        customClass={styles.buttonLink}
+        variant="solid"
+        variantColor="accent"
+      >
         <p className={styles.btnText}>{props.text}</p>
       </Button>
     </Link>

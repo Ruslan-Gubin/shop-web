@@ -49,7 +49,8 @@ export const CheckoutAddress = (props: Props) => {
   const activeCourier = checkoutStore((store) => store.activeCourier);
   const courierAddress = checkoutStore((store) => store.courierAddress);
 
-  const filterAddress = props.method_receipt === "pickup" ? props.pickupAddress : courierAddress;
+  const filterAddress =
+    props.method_receipt === "pickup" ? props.pickupAddress : courierAddress;
 
   const handleClickMarker = (lng: number, lat: number) => {
     checkoutAdapter.setActiveAddress(lng, lat);
@@ -57,7 +58,10 @@ export const CheckoutAddress = (props: Props) => {
 
   const selectAddress = props.address
     ? (filterAddress.find(
-        (el) => props.address && el.lng === props.address.lng && el.lat === props.address.lat,
+        (el) =>
+          props.address &&
+          el.lng === props.address.lng &&
+          el.lat === props.address.lat,
       ) ?? null)
     : null;
 
@@ -106,14 +110,17 @@ export const CheckoutAddress = (props: Props) => {
               </div>
               <div className={styles.activeMarkerInfo}>
                 <p className={styles.leftSideTitle}>
-                  {selectAddress.type === "courier" ? "Курьером по адресу:" : "Адрес самовывоза:"}
+                  {selectAddress.type === "courier"
+                    ? "Курьером по адресу:"
+                    : "Адрес самовывоза:"}
                 </p>
                 <span className={styles.activeMarkerAddressText}>
                   {getFullAddressItem(selectAddress)}
                 </span>
                 {props.minOrderSum > 0 && (
                   <span className={styles.activeMarkerAddressText}>
-                    Минимальная сумма заказа {formatterRub.format(props.minOrderSum)}.
+                    Минимальная сумма заказа{" "}
+                    {formatterRub.format(props.minOrderSum)}.
                   </span>
                 )}
                 <span className={styles.activeMarkerAddressText}>
@@ -123,7 +130,11 @@ export const CheckoutAddress = (props: Props) => {
             </div>
           )}
           <div className={styles.leftSideFooter}>
-            <Button variantColor="violet" size="xs" onClick={() => setSelectModal(true)}>
+            <Button
+              variantColor="accent"
+              size="xs"
+              onClick={() => setSelectModal(true)}
+            >
               {(props.method_receipt === "courier" && activeCourier) ||
               (props.method_receipt === "pickup" && activePickup)
                 ? "Изменить адрес"

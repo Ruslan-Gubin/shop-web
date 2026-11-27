@@ -11,7 +11,7 @@
   padding-inline: 20px 52px;
   font-size: 18px;
   color: #242424;
-  caret-color: var(--color-violet);
+  caret-color: var(--color-accent);
   border-radius: 16px;
 
   &::placeholder {

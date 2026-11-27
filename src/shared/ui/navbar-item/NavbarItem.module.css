@@ -60,7 +60,7 @@
 
 .svgContainerActive {
   @media (max-width: 880px) {
-    color: var(--color-violet);
+    color: var(--color-accent);
   }
 }
 

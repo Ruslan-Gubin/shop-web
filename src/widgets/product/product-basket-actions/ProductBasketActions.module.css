@@ -7,24 +7,26 @@
 }
 
 .actionButton {
-  width: calc(100% - var(--padding-content-block) - var(--padding-content-block));
+  width: calc(
+    100% - var(--padding-content-block) - var(--padding-content-block)
+  );
   font-size: 17px;
   font-weight: 500;
   padding-inline: var(--padding-content-block);
   height: 50px;
   border-radius: 20px;
-  background-color: var(--color-violet);
+  background-color: var(--color-accent);
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
 
   &:hover {
-    background-color: var(--color-violet-hover);
+    background-color: var(--color-accent-hover);
   }
 
   &:hover:disabled {
-    background-color: var(--color-violet);
+    background-color: var(--color-accent);
   }
 
   @media (max-width: 880px) {
@@ -44,7 +46,7 @@
 
 .actionButtonLight {
   background-color: #f8e7ff;
-  color: var(--color-violet);
+  color: var(--color-accent);
 
   &:hover {
     background-color: #e5c9ff;

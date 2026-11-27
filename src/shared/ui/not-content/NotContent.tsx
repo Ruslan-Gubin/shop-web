@@ -19,7 +19,7 @@ export const NotContent = (props: Props) => {
         <p className={styles.subTitle}>{props.subTitle}</p>
       </div>
       <Link href={props.href}>
-        <Button variant="solid" variantColor="violet" size="md">
+        <Button variant="solid" variantColor="accent" size="md">
           {props.buttonText}
         </Button>
       </Link>

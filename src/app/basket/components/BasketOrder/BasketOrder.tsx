@@ -2,7 +2,11 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
-import type { CartDiscountModel, ProductModel, PromotionModel } from "@/app/action";
+import type {
+  CartDiscountModel,
+  ProductModel,
+  PromotionModel,
+} from "@/app/action";
 import type {
   CheckingBalancePayload,
   CheckingBalanceResponse,
@@ -38,8 +42,12 @@ type Props = {
   basketProducts: ProductModel[];
   type: "checkout" | "basket";
   pickupAddress?: AddressItem[];
-  checkingBalanceAction: (payload: CheckingBalancePayload) => Promise<CheckingBalanceResponse>;
-  createOrderAction?: (payload: CreateOrderPayload) => Promise<CreateOrderResponse>;
+  checkingBalanceAction: (
+    payload: CheckingBalancePayload,
+  ) => Promise<CheckingBalanceResponse>;
+  createOrderAction?: (
+    payload: CreateOrderPayload,
+  ) => Promise<CreateOrderResponse>;
   isRegister: boolean;
   minOrderSum: number;
   address: AddressItem | null;
@@ -78,11 +86,27 @@ export const BasketOrder = (props: Props) => {
 
   const orderInfo = useMemo(
     () =>
-      calcBasketInfo(selected, basket, props.basketProducts, props.cartDiscounts, props.promotions),
-    [selected, basket, props.basketProducts, props.cartDiscounts, props.promotions],
+      calcBasketInfo(
+        selected,
+        basket,
+        props.basketProducts,
+        props.cartDiscounts,
+        props.promotions,
+      ),
+    [
+      selected,
+      basket,
+      props.basketProducts,
+      props.cartDiscounts,
+      props.promotions,
+    ],
   );
 
-  const decString = declOfNum(orderInfo.productCount, ["товар", "товара", "товаров"]);
+  const decString = declOfNum(orderInfo.productCount, [
+    "товар",
+    "товара",
+    "товаров",
+  ]);
 
   useEffect(() => {
     if (!refSubmitBtn.current || typeof window === "undefined") return;
@@ -110,7 +134,12 @@ export const BasketOrder = (props: Props) => {
   }, [isShowStickySubmit]);
 
   const selectDeliveryDate = getSelectDeliveryDate(delivery_date);
-  const deliveryTimeDisplay = getDeliveryTimeDisplay(delivery_date, delivery_time, 10, 19);
+  const deliveryTimeDisplay = getDeliveryTimeDisplay(
+    delivery_date,
+    delivery_time,
+    10,
+    19,
+  );
 
   const dateFormatter = new Intl.DateTimeFormat("ru", {
     weekday: "short",
@@ -118,8 +147,15 @@ export const BasketOrder = (props: Props) => {
     month: "long",
   });
 
-  const createOrder = (selectedProducts: { product_id: number; quantity: number }[]) => {
-    const selectDate = getDateFromAndDateTo(delivery_date, delivery_time, 10, 19);
+  const createOrder = (
+    selectedProducts: { product_id: number; quantity: number }[],
+  ) => {
+    const selectDate = getDateFromAndDateTo(
+      delivery_date,
+      delivery_time,
+      10,
+      19,
+    );
 
     const payload: CreateOrderPayload = {
       payment_method,
@@ -136,7 +172,10 @@ export const BasketOrder = (props: Props) => {
 
     if (typeof props.createOrderAction === "function") {
       props.createOrderAction(payload).then((response) => {
-        let notification: { status: "error" | "success"; message: string } | null = null;
+        let notification: {
+          status: "error" | "success";
+          message: string;
+        } | null = null;
 
         if (response.status === "success" && response.data) {
           for (let i = 0; i < selectedProducts.length; i++) {
@@ -164,20 +203,33 @@ export const BasketOrder = (props: Props) => {
               }
 
               if (key === "phone") {
-                checkoutAdapter.activeErrorAdditionalInfoInputs(error, "phone_error");
+                checkoutAdapter.activeErrorAdditionalInfoInputs(
+                  error,
+                  "phone_error",
+                );
               }
 
               if (key === "comment") {
-                checkoutAdapter.activeErrorAdditionalInfoInputs(error, "comment_error");
+                checkoutAdapter.activeErrorAdditionalInfoInputs(
+                  error,
+                  "comment_error",
+                );
               }
 
               if (key === "recipient_name") {
-                checkoutAdapter.activeErrorAdditionalInfoInputs(error, "recipient_name_error");
+                checkoutAdapter.activeErrorAdditionalInfoInputs(
+                  error,
+                  "recipient_name_error",
+                );
               }
             }
           });
 
-          if (response.status === "error" && response.message && notification === null) {
+          if (
+            response.status === "error" &&
+            response.message &&
+            notification === null
+          ) {
             notification = {
               status: "error",
               message: response.message,
@@ -204,7 +256,10 @@ export const BasketOrder = (props: Props) => {
 
       for (const key in basket) {
         if (selected.includes(Number(key)) && basket[key] > 0) {
-          selectedProducts.push({ product_id: Number(key), quantity: basket[key] });
+          selectedProducts.push({
+            product_id: Number(key),
+            quantity: basket[key],
+          });
         }
       }
 
@@ -244,10 +299,17 @@ export const BasketOrder = (props: Props) => {
   };
 
   const isDisabledMinOrderSum =
-    orderInfo.total > 0 && props.minOrderSum > 0 && orderInfo.total < props.minOrderSum;
+    orderInfo.total > 0 &&
+    props.minOrderSum > 0 &&
+    orderInfo.total < props.minOrderSum;
 
   const isDisabledDeliveryAddress = useMemo(
-    () => getIsDisabledDeliveryAddress(method_receipt, props.address, props.sectors.features),
+    () =>
+      getIsDisabledDeliveryAddress(
+        method_receipt,
+        props.address,
+        props.sectors.features,
+      ),
     [props.address, method_receipt, props.sectors.features],
   );
 
@@ -258,7 +320,11 @@ export const BasketOrder = (props: Props) => {
     (isCheckout && isDisabledMinOrderSum) ||
     (isCheckout && isDisabledDeliveryAddress);
 
-  const submitText = !props.isRegister ? "Войти" : isCheckout ? "Оформить" : "Перейти к оформлению";
+  const submitText = !props.isRegister
+    ? "Войти"
+    : isCheckout
+      ? "Оформить"
+      : "Перейти к оформлению";
   const total = orderInfo.total + props.delivery_price;
 
   return (
@@ -289,7 +355,9 @@ export const BasketOrder = (props: Props) => {
 
         <ul className={styles.infoContainer}>
           <li className={styles.line}>
-            <span className={styles.textInfo}>Товары, {orderInfo.productCount} шт.</span>
+            <span className={styles.textInfo}>
+              Товары, {orderInfo.productCount} шт.
+            </span>
             <span className={styles.textInfo}>
               {orderInfo.total > 0
                 ? formatterRub.format(orderInfo.total + orderInfo.totalDiscount)
@@ -320,7 +388,9 @@ export const BasketOrder = (props: Props) => {
           {orderInfo.promotionDiscount > 0 && (
             <li className={styles.line}>
               <span className={styles.textInfo}>
-                {orderInfo.promotionName ? `Акция «${orderInfo.promotionName}»` : "Акция"}
+                {orderInfo.promotionName
+                  ? `Акция «${orderInfo.promotionName}»`
+                  : "Акция"}
               </span>
               <span className={styles.textInfo}>
                 - {formatterRub.format(orderInfo.promotionDiscount)}
@@ -331,7 +401,9 @@ export const BasketOrder = (props: Props) => {
           {isCheckout && (
             <li className={styles.line}>
               <span className={styles.textInfo}>Стоимость доставки</span>
-              <span className={styles.textInfo}>{formatterRub.format(props.delivery_price)}</span>
+              <span className={styles.textInfo}>
+                {formatterRub.format(props.delivery_price)}
+              </span>
             </li>
           )}
           {isBasket && (
@@ -369,7 +441,9 @@ export const BasketOrder = (props: Props) => {
           {isCheckout && (
             <li className={styles.line}>
               <span className={styles.textInfo}>
-                {method_receipt === "courier" ? "Привезет курьер" : "Выдача заказа"}
+                {method_receipt === "courier"
+                  ? "Привезет курьер"
+                  : "Выдача заказа"}
               </span>
               <span className={styles.textInfo}>
                 {dateFormatter.format(new Date(selectDeliveryDate))}
@@ -390,7 +464,7 @@ export const BasketOrder = (props: Props) => {
         </div>
         <div ref={refSubmitBtn}>
           <Button
-            variantColor="violet"
+            variantColor="accent"
             size="lg"
             fullWidth
             variant="solid"
@@ -404,7 +478,7 @@ export const BasketOrder = (props: Props) => {
         {isShowStickySubmit && (
           <div className={styles.orderButtonStickyContainer}>
             <Button
-              variantColor="violet"
+              variantColor="accent"
               size="lg"
               fullWidth
               variant="solid"
@@ -419,7 +493,8 @@ export const BasketOrder = (props: Props) => {
           <div className={styles.access}>
             <Checkbox checked readOnly />
             <span>
-              Соглашаюсь с <Link href={"/"}>правилами пользования торговой площадкой</Link> и{" "}
+              Соглашаюсь с{" "}
+              <Link href={"/"}>правилами пользования торговой площадкой</Link> и{" "}
               <Link href={"/"}>возврата.</Link>
             </span>
           </div>

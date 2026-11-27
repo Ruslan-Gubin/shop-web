@@ -18,9 +18,13 @@ export const DropdownFilterPrice = (props: Props) => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [selectPrice, setSelectPrice] = useState<{ from: string; to: string }>({
     from:
-      typeof props.priceSettings.minPrice === "number" ? String(props.priceSettings.minPrice) : "",
+      typeof props.priceSettings.minPrice === "number"
+        ? String(props.priceSettings.minPrice)
+        : "",
     to:
-      typeof props.priceSettings.maxPrice === "number" ? String(props.priceSettings.maxPrice) : "",
+      typeof props.priceSettings.maxPrice === "number"
+        ? String(props.priceSettings.maxPrice)
+        : "",
   });
 
   const handleChangeInputs = (value: string, field: "from" | "to") => {
@@ -142,7 +146,7 @@ export const DropdownFilterPrice = (props: Props) => {
             )}
             <Button
               fullWidth
-              variantColor="violet"
+              variantColor="accent"
               onClick={handleSubmit}
               variant="solid"
               size="xs"

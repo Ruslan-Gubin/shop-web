@@ -51,7 +51,12 @@ const profileNotice =
 
 ```tsx
 type Props = {
-  navigateList: { label: string; value: string; href: string; params?: { view: string } }[];
+  navigateList: {
+    label: string;
+    value: string;
+    href: string;
+    params?: { view: string };
+  }[];
   title: string;
   profileNotice: string;
 };
@@ -63,7 +68,10 @@ export const ProfileContent = (props: Props) => {
       {props.profileNotice && (
         <li className={styles.profileNotice}>
           <Link href={"/profile/settings"}>
-            ⚠️ <span className={styles.profileNoticeText}>{props.profileNotice}</span>
+            ⚠️{" "}
+            <span className={styles.profileNoticeText}>
+              {props.profileNotice}
+            </span>
           </Link>
         </li>
       )}
@@ -75,7 +83,7 @@ export const ProfileContent = (props: Props) => {
 ## 3. Стили
 
 - Только CSS Modules и вложенность. Без inline-стилей.
-- Цвета и размеры — из переменных `src/app/styles/globals.css` (`--color-violet`, `--padding-content-block`, `--border-radius-main` и т.д.).
+- Цвета и размеры — из переменных `src/app/styles/globals.css` (`--color-accent`, `--color-accent-hover`, `--header-gradient`, `--padding-content-block`, `--border-radius-main` и т.д.).
 - Не добавлять фоны, рамки, тени и новые цвета, если об этом не просили. Минимализм важнее декора.
 - Интерактивные элементы: `:hover`, `:focus-visible`, тач-зоны не меньше 44px там, где это уместно.
 - Адаптив — через media queries проекта; проверять 320/768/1024/1440.
@@ -101,7 +109,7 @@ export const ProfileContent = (props: Props) => {
 }
 
 .profileNoticeText {
-  color: var(--color-violet);
+  color: var(--color-accent);
   font-size: 14px;
 }
 ```
@@ -146,7 +154,7 @@ export const ProfileContent = (props: Props) => {
 ### `ProfileContent.module.css`
 
 - `.profileNotice` — flex, `gap: 12px`, `padding-block: 16px 8px`, `border-radius: var(--border-radius-main)`.
-- `.profileNoticeText` — `color: var(--color-violet)`, `font-size: 14px`.
+- `.profileNoticeText` — `color: var(--color-accent)`, `font-size: 14px`.
 
 ### `page.tsx`
 
@@ -157,7 +165,7 @@ export const ProfileContent = (props: Props) => {
 
 ### `src/shared/ui/link-button/LinkButton.tsx` + `LinkButton.module.css` (новый)
 
-- Кнопка-ссылка: `<Link className={styles.buttonLinkWrapper}><Button fullWidth customClass={styles.buttonLink} variant="solid" variantColor="violet"><p className={styles.btnText}>{props.text}</p></Button></Link>`.
+- Кнопка-ссылка: `<Link className={styles.buttonLinkWrapper}><Button fullWidth customClass={styles.buttonLink} variant="solid" variantColor="accent"><p className={styles.btnText}>{props.text}</p></Button></Link>`.
 - Пропсы: `href: string`, `text: string`.
 - Стили скопированы из кнопки страницы «Оплата» (`buttonLinkWrapper`, `btnText`, `buttonLink`).
 - Используется: `src/app/profile/page.tsx` (вне `ul`), `src/app/services/{payment,faq,return,about,requisites}/page.tsx`.

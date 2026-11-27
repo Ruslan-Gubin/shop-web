@@ -46,10 +46,10 @@
 }
 
 .phone {
-  color: var(--color-violet);
+  color: var(--color-accent);
   transition: color 0.2s linear;
 
   &:hover {
-    color: var(--color-violet-hover);
+    color: var(--color-accent-hover);
   }
 }

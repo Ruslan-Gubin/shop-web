@@ -84,7 +84,7 @@
   text-wrap: nowrap;
 
   &:hover {
-    color: var(--color-violet);
+    color: var(--color-accent);
   }
 }
 

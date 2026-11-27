@@ -419,46 +419,46 @@
   }
 }
 
-.violet {
-  background-color: var(--color-violet);
+.accent {
+  background-color: var(--color-accent);
   color: white;
 
   &:hover {
-    background-color: var(--color-violet-hover);
+    background-color: var(--color-accent-hover);
   }
 
   &:hover:disabled {
-    background-color: var(--color-violet);
+    background-color: var(--color-accent);
   }
 
   &.outline {
     background-color: transparent;
-    border: 1px solid var(--color-violet);
-    color: var(--color-violet);
+    border: 1px solid var(--color-accent);
+    color: var(--color-accent);
 
     &:hover {
-      border: 1px solid var(--color-violet-hover);
-      color: var(--color-violet-hover);
+      border: 1px solid var(--color-accent-hover);
+      color: var(--color-accent-hover);
     }
   }
 
   &.ghost {
     background-color: transparent;
-    color: var(--color-violet);
+    color: var(--color-accent);
 
     &:hover {
-      color: var(--color-violet-hover);
+      color: var(--color-accent-hover);
       background-color: #69696910;
     }
   }
 
   &.link {
     background-color: transparent;
-    color: var(--color-violet);
+    color: var(--color-accent);
 
     &:hover {
       text-decoration: underline;
-      color: var(--color-violet-hover);
+      color: var(--color-accent-hover);
     }
   }
 }

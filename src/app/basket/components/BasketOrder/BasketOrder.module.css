@@ -57,7 +57,7 @@
   a {
     color: #242424;
     &:hover {
-      color: var(--color-violet);
+      color: var(--color-accent);
     }
   }
 }
@@ -73,7 +73,9 @@
     left: 0;
     width: 100%;
     padding-block: 16px;
-    padding-inline: calc(var(--padding-content-block) + var(--padding-content-block));
+    padding-inline: calc(
+      var(--padding-content-block) + var(--padding-content-block)
+    );
     z-index: 1;
   }
 }

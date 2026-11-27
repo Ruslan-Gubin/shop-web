@@ -12,7 +12,7 @@
 }
 
 .heartIcon:hover .heart {
-  stroke: var(--color-violet-hover);
+  stroke: var(--color-accent-hover);
 }
 
 .heartIcon[data-active="true"] .heart {

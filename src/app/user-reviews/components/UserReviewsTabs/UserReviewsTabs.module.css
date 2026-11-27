@@ -32,7 +32,7 @@
 
 .tabActive {
   background-color: #fff;
-  color: var(--color-violet);
+  color: var(--color-accent);
   cursor: default;
 
   &:hover {

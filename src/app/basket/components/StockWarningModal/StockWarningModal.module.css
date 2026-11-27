@@ -53,10 +53,10 @@
 
 .buttonLink {
   font-size: 14px;
-  color: var(--color-violet);
+  color: var(--color-accent);
 
   &:hover {
-    color: var(--color-violet-hover);
+    color: var(--color-accent-hover);
   }
 }
 

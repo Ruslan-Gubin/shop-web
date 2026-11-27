@@ -49,13 +49,13 @@
 
 .action {
   font-weight: 500;
-  color: var(--color-violet);
+  color: var(--color-accent);
   background-color: transparent;
   padding: 0;
   text-align: left;
   transition: color 0.2s linear;
 
   &:hover {
-    color: var(--color-violet-hover);
+    color: var(--color-accent-hover);
   }
 }

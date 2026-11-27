@@ -19,7 +19,11 @@ type Props = {
 
 const playSuccessSound = () => {
   try {
-    const audioCtx = new (window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext)();
+    const audioCtx = new (
+      window.AudioContext ||
+      (window as unknown as { webkitAudioContext: typeof AudioContext })
+        .webkitAudioContext
+    )();
     const oscillator = audioCtx.createOscillator();
     const gainNode = audioCtx.createGain();
 
@@ -33,7 +37,10 @@ const playSuccessSound = () => {
     oscillator.frequency.setValueAtTime(1046.5, audioCtx.currentTime + 0.3);
 
     gainNode.gain.setValueAtTime(0.15, audioCtx.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.6);
+    gainNode.gain.exponentialRampToValueAtTime(
+      0.01,
+      audioCtx.currentTime + 0.6,
+    );
 
     oscillator.start(audioCtx.currentTime);
     oscillator.stop(audioCtx.currentTime + 0.6);
@@ -57,9 +64,12 @@ export const OrderSuccessModal = (props: Props) => {
     }
   }, [props.active]);
 
-  const orderNumber = props.orderData?.order_number ?? `#${props.orderData?.id ?? "—"}`;
+  const orderNumber =
+    props.orderData?.order_number ?? `#${props.orderData?.id ?? "—"}`;
   const paymentLabel =
-    props.orderData?.payment_method === "card" ? "Банковской картой" : "Наличными";
+    props.orderData?.payment_method === "card"
+      ? "Банковской картой"
+      : "Наличными";
   const receiptLabel =
     props.orderData?.method_receipt === "courier" ? "Курьер" : "Самовывоз";
 
@@ -128,15 +138,29 @@ export const OrderSuccessModal = (props: Props) => {
             </div>
             <div className={`${styles.row} ${styles.totalRow}`}>
               <span className={styles.label}>Итого</span>
-              <span className={styles.value}>{formatterRub.format(props.total)}</span>
+              <span className={styles.value}>
+                {formatterRub.format(props.total)}
+              </span>
             </div>
           </div>
 
           <div className={styles.actions}>
-            <Button variantColor="violet" variant="outline" size="lg" fullWidth onClick={handleGoHome}>
+            <Button
+              variantColor="accent"
+              variant="outline"
+              size="lg"
+              fullWidth
+              onClick={handleGoHome}
+            >
               На главную
             </Button>
-            <Button variantColor="violet" variant="solid" size="lg" fullWidth onClick={handleGoToOrder}>
+            <Button
+              variantColor="accent"
+              variant="solid"
+              size="lg"
+              fullWidth
+              onClick={handleGoToOrder}
+            >
               Перейти к заказу
             </Button>
           </div>

@@ -7,6 +7,6 @@
   justify-content: center;
 
   &:hover {
-    color: var(--color-violet);
+    color: var(--color-accent);
   }
 }

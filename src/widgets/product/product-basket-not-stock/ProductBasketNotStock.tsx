@@ -15,7 +15,7 @@ export const ProductBasketNotStock = (props: Props) => {
 
   return (
     <Button
-      variantColor="violet"
+      variantColor="accent"
       variant="solid"
       size="lg"
       onClick={() => handleToggleFavorite(props.product_id)}

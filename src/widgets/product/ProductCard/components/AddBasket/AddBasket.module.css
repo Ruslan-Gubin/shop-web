@@ -1,6 +1,6 @@
 .changeCountBasket {
-  color: var(--color-violet);
-  background-color: #f4e7ff;
+  color: var(--color-accent);
+  background-color: var(--color-accent-soft);
   display: flex;
   justify-content: space-between;
   align-items: center;

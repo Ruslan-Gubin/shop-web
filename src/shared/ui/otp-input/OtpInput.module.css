@@ -28,7 +28,7 @@
   user-select: none;
 
   &:focus-visible {
-    border-color: #a73afd;
+    border-color: var(--color-accent);
     position: relative;
     will-change: transform;
     transform: translateY(-1px);

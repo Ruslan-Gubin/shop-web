@@ -26,9 +26,17 @@ type Props = {
 };
 
 export const ModalSelectAddress = (props: Props) => {
-  const [methodReceipt, setMethodReceipt] = useState<"pickup" | "courier">("pickup");
-  const [selectPickup, setSelectPickup] = useState<{ lng: number; lat: number } | null>(null);
-  const [selectCourier, setSelectCourier] = useState<{ lng: number; lat: number } | null>(null);
+  const [methodReceipt, setMethodReceipt] = useState<"pickup" | "courier">(
+    "pickup",
+  );
+  const [selectPickup, setSelectPickup] = useState<{
+    lng: number;
+    lat: number;
+  } | null>(null);
+  const [selectCourier, setSelectCourier] = useState<{
+    lng: number;
+    lat: number;
+  } | null>(null);
 
   const handleChangeMethod = (value: "pickup" | "courier") => {
     setMethodReceipt(value);
@@ -51,8 +59,14 @@ export const ModalSelectAddress = (props: Props) => {
       if (selectCourier?.lng === lng && selectCourier?.lat === lat) {
         if (props.activeCourier) {
           setSelectCourier(props.activeCourier);
-        } else if (Array.isArray(props.courierAddress) && props.courierAddress[0]) {
-          setSelectCourier({ lng: props.courierAddress[0].lng, lat: props.courierAddress[0].lat });
+        } else if (
+          Array.isArray(props.courierAddress) &&
+          props.courierAddress[0]
+        ) {
+          setSelectCourier({
+            lng: props.courierAddress[0].lng,
+            lat: props.courierAddress[0].lat,
+          });
         }
       }
     }
@@ -81,7 +95,13 @@ export const ModalSelectAddress = (props: Props) => {
       setSelectPickup(null);
       setSelectCourier(null);
     }
-  }, [props.active, selectPickup, selectCourier, props.activeCourier, props.activePickup]);
+  }, [
+    props.active,
+    selectPickup,
+    selectCourier,
+    props.activeCourier,
+    props.activePickup,
+  ]);
 
   useEffect(() => {
     if (props.active && methodReceipt !== props.method_receipt) {
@@ -118,7 +138,8 @@ export const ModalSelectAddress = (props: Props) => {
     return isActive;
   };
 
-  const filterAddress = methodReceipt === "pickup" ? props.pickupAddress : props.courierAddress;
+  const filterAddress =
+    methodReceipt === "pickup" ? props.pickupAddress : props.courierAddress;
 
   return (
     <Modal active={props.active} handleCloseAction={props.onClose}>
@@ -151,7 +172,13 @@ export const ModalSelectAddress = (props: Props) => {
                       props.activeCourier.lng === address.lng &&
                       props.activeCourier.lat === address.lat
                     }
-                    onClick={() => handleDeleteAddress(address.lng, address.lat, address.name)}
+                    onClick={() =>
+                      handleDeleteAddress(
+                        address.lng,
+                        address.lat,
+                        address.name,
+                      )
+                    }
                     className={styles.deleteButton}
                     type="button"
                   >
@@ -169,7 +196,7 @@ export const ModalSelectAddress = (props: Props) => {
                   disabled: false,
                   action: props.onAddAddress,
                   variant: "solid",
-                  variantColor: "violet",
+                  variantColor: "accent",
                   text: "Добавить",
                   size: "sm",
                 }
@@ -181,8 +208,9 @@ export const ModalSelectAddress = (props: Props) => {
               (methodReceipt === "pickup" && !selectPickup) ||
               (methodReceipt === "courier" && !selectCourier),
             variant: "solid",
-            variantColor: "violet",
-            text: methodReceipt === "courier" ? "Доставить сюда" : "Заберу отсюда",
+            variantColor: "accent",
+            text:
+              methodReceipt === "courier" ? "Доставить сюда" : "Заберу отсюда",
             size: "sm",
           }}
         />
